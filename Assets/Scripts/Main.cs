@@ -3,18 +3,15 @@ using UnityEngine;
 
 public class Main : MonoBehaviour, IMain
 {
-    public Interaction Interact { get; set; }
-
-    public void Start()
-    {
-        StartGame();
-    }
+    public Interaction Interact = new Interaction();
+    
+    
 
     public void StartGame()
     {
         Interact.Init();
-
-        Debug.Log("StartGame");
+        CMS.Init();
+        
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
 
@@ -28,12 +25,35 @@ public class Main : MonoBehaviour, IMain
             Element.Start();
         }
     }
+    
+    
+    public class Test : BaseInteraction, IEnterInStart
+    {
+        public void Start()
+        {
+          
+        }
+    }
 
     public void UpdateGame(float TimeDelta)
-    {
-    }
+    { }
 
     public void PhysicUpdateGame(float TimeDelta)
+    { }
+
+    public void Update()
     {
+        UpdateGame(Time.deltaTime);
     }
+    
+    public void FixedUpdate()
+    {
+        PhysicUpdateGame(Time.deltaTime);
+    }
+    
+    public void Start()
+    {
+        StartGame();
+    }
+
 }
