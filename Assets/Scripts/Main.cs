@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Main : MonoBehaviour, IMain
 {
-    public Interaction Interact = new Interaction();
+    private Interaction Interact = new Interaction();
+    public StoreIngredients Store;
     
-    
-
     public void StartGame()
     {
         Interact.Init();
         CMS.Init();
+        GameData<Main>.Boot = this;
         
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
@@ -24,19 +24,27 @@ public class Main : MonoBehaviour, IMain
         {
             Element.Start();
         }
-    }
-    
-    
-    public class Test : BaseInteraction, IEnterInStart
-    {
-        public void Start()
-        {
-          
-        }
+        
+        GameData<Main>.IsStartGame = true;
+        NextStep();
     }
 
+
+    public void NextStep()
+    {
+        var LicoriceRoot =  CMS.Get<LicoriceRoot>();
+        GameData<Main>.Boot.Store.Add(LicoriceRoot);
+    }
+
+
     public void UpdateGame(float TimeDelta)
-    { }
+    {
+        var Update = Interact.FindAll<IEnterInUpdate>();
+        foreach (var Element in Update)
+        {
+            Element.Update(TimeDelta);
+        }
+    }
 
     public void PhysicUpdateGame(float TimeDelta)
     { }
@@ -56,4 +64,20 @@ public class Main : MonoBehaviour, IMain
         StartGame();
     }
 
+}
+
+
+class Debug : BaseInteraction, IEnterInUpdate
+{
+    void IEnterInUpdate.Update(float TimeDelta)
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+           var LicoriceRoot =  CMS.Get<LicoriceRoot>();
+           GameData<Main>.Boot.Store.Add(LicoriceRoot);
+            
+           
+        }
+    }
 }
