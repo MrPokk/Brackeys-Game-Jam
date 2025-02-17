@@ -66,7 +66,6 @@ public class Main : MonoBehaviour, IMain
 
 }
 
-
 class Debug : BaseInteraction, IEnterInUpdate
 {
     void IEnterInUpdate.Update(float TimeDelta)

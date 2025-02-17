@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1581441487}
   - component: {fileID: 1581441486}
   m_Layer: 0
-  m_Name: 9-Sliced
+  m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
