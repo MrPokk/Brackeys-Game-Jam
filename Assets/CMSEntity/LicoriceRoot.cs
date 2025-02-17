@@ -1,18 +1,18 @@
+using Engin.Utility;
+using UnityEditor;
+using UnityEditor.VersionControl;
+using UnityEngine;
 
-    using Engin.Utility;
-    using UnityEngine;
-
-    public class LicoriceRoot : Ingredient
+public class LicoriceRoot : Ingredient
+{
+    public LicoriceRoot()
     {
-       public LicoriceRoot()
-        {
-            Define<DataIngredient>(out var component).Prefab = Resources.Load<GameObject>("Assets/Prefab/LicoriceRoot.prefab");
-            RegisterComponents(component);
-        }
-
-        public override void RegisterComponents(params IComponent[] components)
-        {
-            Components.AddRange(components);
-        }
+        Define<DataIngredient>(out var component).Prefab = PrefabUtility.LoadPrefabContents("Assets/Prefab/LicoriceRoot.prefab");
+        RegisterComponents(component);
     }
-    
+
+    public override void RegisterComponents(params IComponent[] components)
+    {
+        Components.AddRange(components);
+    }
+}

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public partial class StoreIngredients : MonoBehaviour
 {
-    private List<Ingredient> TilesList = new();
-    private float Spacing;
+    [SerializeField] private List<GameObject> TilesList = new();
+    public float Spacing;
 
     private void Update()
     {
@@ -16,20 +16,8 @@ public partial class StoreIngredients : MonoBehaviour
     public void Add(Ingredient Ingredient)
     {
         Ingredient.Get<DataIngredient>(out var Component);
-        Instantiate(Component.Prefab);
-        TilesList.Add(Ingredient);
+        TilesList.Add(Instantiate(Component.Prefab));
     }
-
-    public void RemoveTile(Ingredient Ingredient)
-    {
-        TilesList.Remove(Ingredient);
-    }
-
-    public void DeleteTile(Ingredient Ingredient)
-    {
-        TilesList.Remove(Ingredient);
-    }
-
 
     private void SetPoseTile()
     {
@@ -37,7 +25,7 @@ public partial class StoreIngredients : MonoBehaviour
         {
             var Offset = i * Spacing - TilesList.Count * Spacing;
 
-            TilesList[i].Data.Prefab.transform.localPosition = new Vector2(0, i * Spacing) + Vector2.down * Offset;
+            TilesList[i].transform.localPosition = Vector2.down * Offset * i;
             // var Tween = TilesList[i].CreateTween();
             //Tween.SetSpeedScale(GameData<Main>.Boot.ANIMATION_SPEED);
             // Tween.TweenProperty(TilesList[i], "position", new Vector2(0, i * Spacing) + Vector2.Down * Offset, 1).SetTrans(Tween.TransitionType.Linear);

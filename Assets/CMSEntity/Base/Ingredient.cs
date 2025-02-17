@@ -1,15 +1,19 @@
+using System;
+using Engin.Utility;
+using UnityEngine;
+[Serializable]
+public class Ingredient : CMSEntity
+{
+    public DataIngredient Data;
 
-    using System;
-    using Engin.Utility;
-    using UnityEngine;
-
-    public abstract class Ingredient : CMSEntity
+    public override void RegisterComponents(params IComponent[] components)
     {
-        public DataIngredient Data;
+        throw new NotImplementedException();
     }
+}
 
-
-    public struct DataIngredient : IComponent
-    {
-        public GameObject Prefab;
-    }
+[Serializable]
+public struct DataIngredient : IComponent
+{
+    public GameObject Prefab;
+}

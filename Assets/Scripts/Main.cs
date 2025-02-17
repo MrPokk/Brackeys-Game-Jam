@@ -32,7 +32,7 @@ public class Main : MonoBehaviour, IMain
 
     public void NextStep()
     {
-        var LicoriceRoot =  CMS.Get<LicoriceRoot>();
+        var LicoriceRoot = CMS.Get<LicoriceRoot>();
         GameData<Main>.Boot.Store.Add(LicoriceRoot);
     }
 
