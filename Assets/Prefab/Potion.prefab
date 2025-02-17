@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7085484710536445234}
   - component: {fileID: 6265807515243881561}
-  - component: {fileID: 2104394980019407653}
+  - component: {fileID: -1446940390495003798}
   - component: {fileID: -6004431116956914163}
   m_Layer: 0
-  m_Name: Nettles
+  m_Name: Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,9 +74,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2104394980019407653
+--- !u!114 &-1446940390495003798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,16 +95,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338450181906888421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0042da380856c534a88b54c6fd463a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\u041A\u0440\u0430\u043F\u0438\u0432\u0430"
-  Description: 
-  Effects:
-  - Type: 0
-    Power: 3
-  - Type: 2
-    Power: 1
+  effects: []
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +135,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 0.8828125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

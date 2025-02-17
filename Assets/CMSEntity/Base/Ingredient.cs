@@ -5,7 +5,7 @@ using Engin.Utility;
 using UnityEditor;
 using UnityEngine;
 [Serializable]
-public class Ingredient : MonoBehaviour
+public class Ingredient : MonoBehaviour, IRaise
 {
     public String Name;
     public String Description;
@@ -34,6 +34,7 @@ public class DataIngredients : CMSEntity, IComponent
         }
     }
 }
+[Serializable]
 public class ObjectIngredient
 {
     public GameObject Prefab;

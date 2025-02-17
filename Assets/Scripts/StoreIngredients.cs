@@ -9,27 +9,31 @@ public partial class StoreIngredients : MonoBehaviour
 
     private void Update()
     {
-        SetPoseTile();
+        //SetPoseTile();
     }
 
     public void Add(ObjectIngredient Ingredient)
     {
         if (Ingredient.Prefab == null) return;
         TilesList.Add(Instantiate(Ingredient.Prefab));
+        SetPoseTile();
     }
     public void Move(GameObject Ingredient)
     {
         if (Ingredient == null) return;
         TilesList.Add(Ingredient);
+        SetPoseTile();
     }
     public void Remove(GameObject Ingredient)
     {
         TilesList.Remove(Ingredient);
+        SetPoseTile();
     }
     public void Delete(GameObject Ingredient)
     {
         TilesList.Remove(Ingredient);
         Destroy(Ingredient);
+        SetPoseTile();
     }
 
     private void SetPoseTile()

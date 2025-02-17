@@ -6,6 +6,7 @@ public class Main : MonoBehaviour, IMain
 {
     private Interaction Interact = new Interaction();
     public StoreIngredients Store;
+    public Cauldron Cauldron;
 
     private Camera myCam;
     private ObjectIngredient InTheHand;
@@ -55,20 +56,31 @@ public class Main : MonoBehaviour, IMain
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null) {
             RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null) {
-                Ingredient ingredient = hit.collider.gameObject.GetComponent<Ingredient>();
-                if (ingredient != null) {
-                    InTheHand = new(hit.collider.gameObject, ingredient);
+                IRaise raise = hit.collider.gameObject.GetComponent<IRaise>();
+                if (raise != null) {
+                    InTheHand = new(hit.collider.gameObject);
                     Store.Remove(InTheHand.Prefab);
                 }
             }
         }
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null) {
-            Store.Move(InTheHand.Prefab);
+            if (InTheHand.Ingredient != null) {
+                if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
+                    Cauldron.Add(InTheHand);
+                }
+                else {
+                    Store.Move(InTheHand.Prefab);
+                }
+            }
             InTheHand = null;
         }
 
         if (InTheHand != null) {
             InTheHand.Prefab.transform.position = (Vector2) myCam.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C)) {
+            Cauldron.Cook();
         }
     }
 
@@ -98,7 +110,6 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-
            var LicoriceRoot = CMS.Get<DataIngredients>().prefabs[0];
            GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }

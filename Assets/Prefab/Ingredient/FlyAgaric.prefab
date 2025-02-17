@@ -100,6 +100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: "\u041C\u0443\u0445\u043E\u043C\u043E\u0440"
   Description: 
+  Effects:
+  - Type: 0
+    Power: -10
+  - Type: 1
+    Power: 15
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0
