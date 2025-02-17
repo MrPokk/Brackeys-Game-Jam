@@ -26,4 +26,15 @@ public static class CMS
         }
         throw new Exception("CMSEntity not found");
     }
+    public static List<T> GetAll<T>() where T : CMSEntity
+    {
+        List<T> list = new List<T>();
+        foreach (var Element in CMSEntities) {
+            if (Element is T ElementData)
+                list.Add(ElementData);
+        }
+        if (list.Count == 0)
+            throw new Exception("CMSEntity not found");
+        return list;
+    }
 }
