@@ -1,46 +1,42 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 
 public partial class StoreIngredients : MonoBehaviour
 {
-    private List<Ingredient> TilesList = new();
-    private float Spacing;
+    [SerializeField] private List<GameObject> TilesList = new();
+    public float Spacing;
 
     private void Update()
     {
         SetPoseTile();
     }
 
-    public void Add(Ingredient Ingredient)
+    public void Add(ObjectIngredient Ingredient)
     {
-        Ingredient.Get<DataIngredient>(out var Component);
-        Instantiate(Component.Prefab);
+        if (Ingredient.Prefab == null) return;
+        TilesList.Add(Instantiate(Ingredient.Prefab));
+    }
+    public void Move(GameObject Ingredient)
+    {
+        if (Ingredient == null) return;
         TilesList.Add(Ingredient);
     }
-
-    public void RemoveTile(Ingredient Ingredient)
+    public void Remove(GameObject Ingredient)
     {
         TilesList.Remove(Ingredient);
     }
-
-    public void DeleteTile(Ingredient Ingredient)
+    public void Delete(GameObject Ingredient)
     {
         TilesList.Remove(Ingredient);
+        Destroy(Ingredient);
     }
-
 
     private void SetPoseTile()
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            var Offset = i * Spacing - TilesList.Count * Spacing;
-
-            TilesList[i].Data.Prefab.transform.localPosition = new Vector2(0, i * Spacing) + Vector2.down * Offset;
-            // var Tween = TilesList[i].CreateTween();
-            //Tween.SetSpeedScale(GameData<Main>.Boot.ANIMATION_SPEED);
-            // Tween.TweenProperty(TilesList[i], "position", new Vector2(0, i * Spacing) + Vector2.Down * Offset, 1).SetTrans(Tween.TransitionType.Linear);
+            TilesList[i].transform.localPosition = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
         }
     }
 }

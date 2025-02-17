@@ -5,7 +5,10 @@ public class Main : MonoBehaviour, IMain
 {
     private Interaction Interact = new Interaction();
     public StoreIngredients Store;
-    
+
+    private Camera myCam;
+    private ObjectIngredient InTheHand;
+
     public void StartGame()
     {
         Interact.Init();
@@ -32,8 +35,11 @@ public class Main : MonoBehaviour, IMain
 
     public void NextStep()
     {
-        var LicoriceRoot =  CMS.Get<LicoriceRoot>();
-        GameData<Main>.Boot.Store.Add(LicoriceRoot);
+        var Ingredients = CMS.Get<DataIngredients>();
+        foreach (var Element in Ingredients.prefabs) {
+            GameData<Main>.Boot.Store.Add(Element);
+        }    
+        myCam = Camera.main;
     }
 
 
@@ -43,6 +49,25 @@ public class Main : MonoBehaviour, IMain
         foreach (var Element in Update)
         {
             Element.Update(TimeDelta);
+        }
+
+        if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null) {
+            RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null) {
+                Ingredient ingredient = hit.collider.gameObject.GetComponent<Ingredient>();
+                if (ingredient != null) {
+                    InTheHand = new(hit.collider.gameObject, ingredient);
+                    Store.Remove(InTheHand.Prefab);
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null) {
+            Store.Move(InTheHand.Prefab);
+            InTheHand = null;
+        }
+
+        if (InTheHand != null) {
+            InTheHand.Prefab.transform.position = (Vector2) myCam.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 
@@ -66,7 +91,7 @@ public class Main : MonoBehaviour, IMain
 
 }
 
-class Debug : BaseInteraction, IEnterInUpdate
+class MyDebug : BaseInteraction, IEnterInUpdate
 {
     void IEnterInUpdate.Update(float TimeDelta)
     {

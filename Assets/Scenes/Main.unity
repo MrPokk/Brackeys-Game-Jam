@@ -258,6 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8debc2def5e491742a6eaf0ae218eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TilesList: []
+  Spacing: 0.1
 --- !u!1 &1581441485
 GameObject:
   m_ObjectHideFlags: 0
