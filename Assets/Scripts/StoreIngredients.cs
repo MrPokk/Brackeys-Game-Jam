@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -36,7 +37,10 @@ public partial class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            TilesList[i].transform.localPosition = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
+            
+            var Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
+            TilesList[i].transform.DOMove((Pose),0.5f);
+
         }
     }
 }

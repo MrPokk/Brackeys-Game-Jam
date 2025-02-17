@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Engin.Utility;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 [Serializable]
@@ -43,11 +44,21 @@ public class ObjectIngredient
     {
         Prefab = prefab;
         Ingredient = prefab.GetComponent<Ingredient>();
+        SetTextPrefab(Ingredient);
     }
-
-    public ObjectIngredient(GameObject prefab, Ingredient ingredient)
+    private void SetTextPrefab(Ingredient ingredient)
     {
-        Prefab = prefab;
-        Ingredient = ingredient;
+        foreach(var Element in Ingredient.GetComponentsInChildren<TMP_Text>())
+        {
+            if(Element.name == "Name")
+            {
+                Element.text = ingredient.Name;
+            }
+            else if (Element.name == "Description")
+            {
+                Element.text = ingredient.Description;
+            }
+         
+        }
     }
 }

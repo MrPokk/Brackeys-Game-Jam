@@ -1,5 +1,7 @@
+using DG.Tweening;
 using Engin.Utility;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Main : MonoBehaviour, IMain
 {
@@ -56,7 +58,7 @@ public class Main : MonoBehaviour, IMain
             if (hit.collider != null) {
                 Ingredient ingredient = hit.collider.gameObject.GetComponent<Ingredient>();
                 if (ingredient != null) {
-                    InTheHand = new(hit.collider.gameObject, ingredient);
+                    InTheHand = new(hit.collider.gameObject);
                     Store.Remove(InTheHand.Prefab);
                 }
             }
@@ -66,8 +68,9 @@ public class Main : MonoBehaviour, IMain
             InTheHand = null;
         }
 
-        if (InTheHand != null) {
-            InTheHand.Prefab.transform.position = (Vector2) myCam.ScreenToWorldPoint(Input.mousePosition);
+        if (InTheHand != null)
+        {
+            InTheHand.Prefab.transform.DOMove( new (myCam.ScreenToWorldPoint(Input.mousePosition).x,myCam.ScreenToWorldPoint(Input.mousePosition).y,0) , 0.3f).SetEase(Ease.Flash);
         }
     }
 
@@ -97,11 +100,8 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-
-           var LicoriceRoot =  CMS.Get<LicoriceRoot>();
+           var LicoriceRoot =  CMS.Get<DataIngredients>().prefabs[0];
            GameData<Main>.Boot.Store.Add(LicoriceRoot);
-            
-           
         }
     }
 }
