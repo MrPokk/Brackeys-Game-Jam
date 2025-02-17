@@ -144,15 +144,15 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: Content_0
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 8
       width: 64
-      height: 58
+      height: 59
     spriteID: add0f18038fd6764f99215ffeadb350f
     spriteBone: []
     spriteOutline: []
@@ -164,13 +164,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Content_1
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 104
-      y: 14
+      y: 19
       width: 24
       height: 35
     spriteID: b0ad7d0a18731a34a998d02d70b46258
@@ -184,13 +184,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Content_2
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 134
-      y: 17
+      y: 22
       width: 18
       height: 27
     spriteID: e08fd5188ee39064a8e1ad6a6622153a
@@ -204,16 +204,36 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Content_3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 160
-      y: 15
+      y: 20
       width: 25
       height: 30
     spriteID: bf99699aceee0044a80a258af91da82c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Content_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 228
+      y: 4
+      width: 163
+      height: 74
+    spriteID: b9337d3eb96b52e4db456692987aa3a6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -235,9 +255,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 45
-        y: 373
-        width: 181
-        height: 58
+        y: 368
+        width: 387
+        height: 74
       spriteId: 4008b79e267f35c458e4bdaf70bfc0a4
     linkedCells: []
     parentIndex: -1

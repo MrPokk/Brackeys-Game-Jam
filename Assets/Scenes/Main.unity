@@ -354,8 +354,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1581441487}
   - component: {fileID: 1581441486}
+  - component: {fileID: 1581441488}
   m_Layer: 0
-  m_Name: Pot
+  m_Name: "\u0421auldron"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,6 +429,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581441488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581441485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9015403e35b5e044e855ccf90042044c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredients: []
+  effectsMaster:
+    Effects: []
+  Potion: {fileID: 4338450181906888421, guid: 261d0b1a12502074ea6e5b96dc86519b, type: 3}
 --- !u!1 &1582853818
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Store: {fileID: 652289595}
+  Cauldron: {fileID: 1581441488}
 --- !u!4 &1582853820
 Transform:
   m_ObjectHideFlags: 0
