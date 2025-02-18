@@ -4,13 +4,11 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using Engin.Utility;
+using System;
 
-public class SamplePotion : MonoBehaviour
+public class SamplePotion : Potion, IComparable<SamplePotion>
 {
-    public int ID;
     public int Priority;
-    public string Name;
-    public int Price;
     public List<EffectData> EffectsMin = new();
     public List<EffectData> EffectsMax = new();
 
@@ -19,6 +17,9 @@ public class SamplePotion : MonoBehaviour
     {
         ID = GetHashCode();
     }
+    public int CompareTo(SamplePotion comparePart) {  
+        return Priority.CompareTo(comparePart.Priority);
+    }
 }
 public class AllPotion : CMSEntity
 {
@@ -26,14 +27,15 @@ public class AllPotion : CMSEntity
     public AllPotion()
     {
         LoadAll();
+        potions.Sort();
     }
     public void LoadAll()
     {
         potions = new();
-        string[] fillis = Directory.GetFiles("Assets/Prefab/Potion");
+        string[] fillis = Directory.GetFiles("Assets/Resources/Potion");
         foreach (string Element in fillis) {
             if (Path.GetExtension(Element) != ".prefab") continue;
-            potions.Add(PrefabUtility.LoadPrefabContents(Element).GetComponent<SamplePotion>());
+            potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
         }
     }
     public SamplePotion GetByID(int ID)
@@ -41,9 +43,28 @@ public class AllPotion : CMSEntity
         return potions.FirstOrDefault(x => x.ID == ID);
     }
     //Не реализован поск зелья по эффектам
-    public SamplePotion GetAtEffects(List<EffectData> effects)
+    public SamplePotion GetAtEffects(List<EffectData> atEffects)
     {
+        foreach (SamplePotion potion in potions)
+        {
+            if (TestPotions(potion, atEffects)) {
+                return potion;
+            }
+        }
         return null;
+    }
+    private bool TestPotions(SamplePotion potion, List<EffectData> atEffects)
+    {
+        foreach (EffectData min in potion.EffectsMin) {
+            EffectData effect = atEffects.FirstOrDefault(x => x.Type == min.Type);
+            if (!EffectData.Accordance(effect, min)) return false;
+        }
+        foreach (EffectData max in potion.EffectsMax) {
+            EffectData effect = atEffects.FirstOrDefault(x => x.Type == max.Type);
+            if (effect == null) continue;
+            if (!EffectData.Accordance(effect, max, true)) return false;
+        }
+        return true;
     }
 
     public override void RegisterComponents(params IComponent[] components)

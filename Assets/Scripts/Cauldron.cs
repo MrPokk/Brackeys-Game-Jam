@@ -12,6 +12,10 @@ public class Cauldron : MonoBehaviour
         ingredients.Add(ingredient);
         ingredient.Prefab.GetComponent<Collider2D>().enabled = false;
         effectsMaster.AddEffects(ingredient.Ingredient.Effects);
+
+        if (ingredient.Ingredient is Catalyst catalyst) {
+            catalyst.Effect(effectsMaster.Get());
+        }
     }
     public bool Near(Vector2 pos)
     {
@@ -26,7 +30,11 @@ public class Cauldron : MonoBehaviour
             Destroy(item.Prefab);
         }
         ingredients.Clear();
-        Instantiate(Potion, this.gameObject.transform.position, Quaternion.identity).GetComponent<Potion>().Set(effectsMaster.GetAndClear(), _ingredients);
+
+        List<EffectData> effects = effectsMaster.GetAndClear();
+        SamplePotion sample = CMS.Get<AllPotion>().GetAtEffects(effects);
+        Potion potion = Instantiate(Potion, transform).GetComponent<Potion>();
+        potion.Set(sample, effects, _ingredients);
         return true;
     }
 }

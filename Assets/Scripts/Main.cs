@@ -2,12 +2,13 @@ using DG.Tweening;
 using Engin.Utility;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 /*
  
  Код
- TODO: Сделать систему Зелий 
+ TODO: Сделать систему Зелий +/-
  TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
 
  Арт
@@ -145,7 +146,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[0];
+            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[Random.Range(0, CMS.Get<AllIngredients>().prefabs.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }

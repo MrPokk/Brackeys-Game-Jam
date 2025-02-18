@@ -7,7 +7,7 @@ public class Dragon : BasePeople
 {
     public Dragon()
     {
-        Define<DataPeople>(out DataPeople people).Prefab = PrefabUtility.LoadPrefabContents("Assets/Prefab/People/Dragon.prefab");
+        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Dragon");
         SetTextPrefab(ref people);
         
         people.Description.text = "Dragon";

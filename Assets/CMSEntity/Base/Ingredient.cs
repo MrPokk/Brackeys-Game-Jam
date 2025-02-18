@@ -31,10 +31,10 @@ public class AllIngredients : CMSEntity
     public void LoadAll()
     {
         prefabs = new();
-        string[] fillis = Directory.GetFiles("Assets/Prefab/Ingredient");
+        string[] fillis = Directory.GetFiles("Assets/Resources/Ingredient");
         foreach (string Element in fillis) {
             if (Path.GetExtension(Element) != ".prefab") continue;
-            prefabs.Add(new ObjectIngredient(PrefabUtility.LoadPrefabContents(Element)));
+            prefabs.Add(new ObjectIngredient(Resources.Load<GameObject>($"Ingredient/{Path.GetFileNameWithoutExtension(Element)}")));
         }
     }
     public Ingredient GetByID(int ID)
