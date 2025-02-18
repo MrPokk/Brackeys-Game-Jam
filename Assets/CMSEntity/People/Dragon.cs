@@ -10,15 +10,18 @@ public class Dragon : BasePeople
         Define<DataPeople>(out DataPeople people).Prefab = PrefabUtility.LoadPrefabContents("Assets/Prefab/People/Dragon.prefab");
         SetTextPrefab(ref people);
         
-        people.Description.text = "Dragon";
-        people.Name.text = "I, Mr. Dragon, want healing potions.";
-        
-        Data = people;
-        
+        people.Name.text = "Dragon";
+        people.Description.text = "I, Mr. Dragon, want healing potions.";
+
+        SetData(ref people);
         RegisterComponents(people);
     }
     public override void RegisterComponents(params IComponent[] components)
     {
         Components.AddRange(components);
+    }
+    public override void SetData(ref DataPeople Data)
+    {
+        DataComponent = Data;
     }
 }

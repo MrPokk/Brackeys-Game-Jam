@@ -3,15 +3,10 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public partial class StoreIngredients : MonoBehaviour
+public class StoreIngredients : MonoBehaviour
 {
     [SerializeField] private List<GameObject> TilesList = new();
     public float Spacing;
-
-    private void Update()
-    {
-        //SetPoseTile();
-    }
 
     public void Add(ObjectIngredient Ingredient)
     {
@@ -41,9 +36,9 @@ public partial class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            
+
             var Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
-            TilesList[i].transform.DOMove((Pose),0.5f).SetEase(Ease.InOutElastic);
+            TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
 
         }
     }

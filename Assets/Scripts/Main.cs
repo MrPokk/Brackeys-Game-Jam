@@ -5,15 +5,19 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 /*
- 
+
  Код
- TODO: Сделать систему Зелий 
+ TODO: Сделать систему Зелий
  TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
+ TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
 
  Арт
- TODO: Перерисовать бэкграунд
+ TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации
  TODO: Поменять шрифт;
+
+ Баги
+ TODO: Можно кинуть предмет за край экрана;
 
  */
 public class Main : MonoBehaviour, IMain
@@ -22,9 +26,15 @@ public class Main : MonoBehaviour, IMain
     public StoreIngredients Store;
     public Cauldron Cauldron;
     public PotionZone PotionZone;
-    
+
     private Camera myCam;
     private ObjectIngredient InTheHand;
+
+
+    public float AnimationScale => 0.5f;
+    public float AnimationScaleTime => 0.5f;
+    public float AnimationMove => 0.5f;
+    public float AnimationMoveTime => 0.3f;
 
     public void StartGame()
     {
@@ -62,7 +72,7 @@ public class Main : MonoBehaviour, IMain
 
     public void AddCustomer(BasePeople Customer)
     {
-        Instantiate(Customer.Data.Prefab);
+        Instantiate(Customer.DataComponent.Prefab);
     }
 
 
@@ -84,7 +94,10 @@ public class Main : MonoBehaviour, IMain
                 {
                     InTheHand = new(hit.collider.gameObject);
                     Store.Remove(InTheHand.Prefab);
-                    PotionZone.Remove();
+                    if (InTheHand.Prefab == PotionZone.PotionIn)
+                    {
+                        PotionZone.Remove();
+                    }
                 }
             }
         }
@@ -112,7 +125,7 @@ public class Main : MonoBehaviour, IMain
 
         if (InTheHand != null)
         {
-            InTheHand.Prefab.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), 0.3f).SetEase(Ease.Flash);
+            InTheHand.Prefab.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.Flash);
         }
 
         if (Input.GetKeyDown(KeyCode.C))

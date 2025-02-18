@@ -17,5 +17,5 @@ interface IEnterInReady
 
 interface IEnterInUpdate
 {
- void Update(float TimeDelta);
+  void Update(float TimeDelta);
 }
