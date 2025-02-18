@@ -17,7 +17,7 @@ public class PotionZone : MonoBehaviour
         if (Potion != null && PotionIn == null)
         {
             PotionIn = Potion;
-          //  Potion.GetComponent<Collider2D>().enabled = false;
+          //Potion.GetComponent<Collider2D>().enabled = false;
             Potion.transform.DOMove(this.transform.position,0.3f).SetEase(Ease.InOutElastic);
         }
     }

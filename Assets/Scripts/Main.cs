@@ -52,9 +52,7 @@ public class Main : MonoBehaviour, IMain
 
     public void NextStep()
     {
-        var Ingredients = CMS.Get<DataIngredients>();
-        foreach (var Element in Ingredients.prefabs)
-        {
+        foreach (var Element in CMS.Get<AllIngredients>().prefabs) {
             GameData<Main>.Boot.Store.Add(Element);
         }
         myCam = Camera.main;
@@ -147,7 +145,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<DataIngredients>().prefabs[0];
+            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[0];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }

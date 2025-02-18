@@ -20,11 +20,13 @@ public class Cauldron : MonoBehaviour
     public bool Cook()
     {
         if (ingredients.Count == 0) return false;
-        Instantiate(Potion, this.gameObject.transform.position, Quaternion.identity).GetComponent<Potion>().effects = effectsMaster.GetAndClear();
-        foreach (ObjectIngredient @object in ingredients) {
-            Destroy(@object.Prefab);
+        List<int> _ingredients = new List<int>();
+        foreach (ObjectIngredient item in ingredients) {
+            _ingredients.Add(item.Ingredient.ID);
+            Destroy(item.Prefab);
         }
         ingredients.Clear();
+        Instantiate(Potion, this.gameObject.transform.position, Quaternion.identity).GetComponent<Potion>().Set(effectsMaster.GetAndClear(), _ingredients);
         return true;
     }
 }
