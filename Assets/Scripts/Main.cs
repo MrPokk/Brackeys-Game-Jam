@@ -2,19 +2,22 @@ using DG.Tweening;
 using Engin.Utility;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 /*
 
  Код
- TODO: Сделать систему Зелий
+ TODO: Сделать систему Зелий +/-
  TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
+ 
+ 
  TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
 
  Арт
  TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации
- TODO: Поменять шрифт;
+ TODO: Поменять шрифт
 
  Баги
  TODO: Можно кинуть предмет за край экрана;
@@ -62,9 +65,7 @@ public class Main : MonoBehaviour, IMain
 
     public void NextStep()
     {
-        var Ingredients = CMS.Get<DataIngredients>();
-        foreach (var Element in Ingredients.prefabs)
-        {
+        foreach (var Element in CMS.Get<AllIngredients>().prefabs) {
             GameData<Main>.Boot.Store.Add(Element);
         }
         myCam = Camera.main;
@@ -160,7 +161,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<DataIngredients>().prefabs[0];
+            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[Random.Range(0, CMS.Get<AllIngredients>().prefabs.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }

@@ -8,6 +8,14 @@ public class EffectData
 {
     public EffectType Type;
     public int Power;
+
+    public static bool Accordance(EffectData test, EffectData at, bool inversive = false)
+    {
+        if (test == null || at == null) return false;
+        if (test.Type != at.Type) return false;
+        if (!inversive) return test.Power >= at.Power;
+        else return test.Power <= at.Power;
+    }
 }
 [Serializable]
 public class EffectsMaster
@@ -32,10 +40,26 @@ public class EffectsMaster
         Effects = new List<EffectData>();
         return _Effects;
     }
+    public List<EffectData> Get()
+    {
+        return Effects;
+    }
 }
 public enum EffectType
 {
-    healing,
-    dizziness,
-    bitter
+    BASIC = 0,
+    Energy,
+    Transformation,
+    Consciousness,
+    Connection,
+    Element,
+
+    ADDITIONAL = 100,
+    Stability,
+    Duration,
+    Toxicity,
+
+    TASTES = 200,
+    Sweet,
+    Bitter
 }
