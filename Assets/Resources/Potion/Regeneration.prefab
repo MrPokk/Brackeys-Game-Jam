@@ -98,11 +98,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: -23856
-  Priority: 0
   Name: "\u0420\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438"
   Price: 10
+  effects: []
+  IDIngredients: 
+  Priority: 0
   EffectsMin:
-  - Type: 0
+  - Type: 4
     Power: 10
   EffectsMax:
   - Type: 1

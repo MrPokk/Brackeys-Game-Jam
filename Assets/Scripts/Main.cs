@@ -1,7 +1,9 @@
 using DG.Tweening;
 using Engin.Utility;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,14 +12,16 @@ using UnityEngine.UIElements;
  Код
  TODO: Сделать систему Зелий +/-
  TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
- 
- 
+
  TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
 
  Арт
  TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации
  TODO: Поменять шрифт
+ TODO: Постпроцесинг
+
+ TODO: Костер
 
  Баги
  TODO: Можно кинуть предмет за край экрана;
@@ -65,9 +69,17 @@ public class Main : MonoBehaviour, IMain
 
     public void NextStep()
     {
-        foreach (var Element in CMS.Get<AllIngredients>().prefabs) {
+        foreach (var Element in CMS.Get<AllIngredients>().Prefabs)
+        {
             GameData<Main>.Boot.Store.Add(Element);
         }
+        
+        var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
+        foreach (var Element in PeopleUpdate)
+        {
+          StartCoroutine(Element.Enter());
+        }
+
         myCam = Camera.main;
     }
 
@@ -161,17 +173,17 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[Random.Range(0, CMS.Get<AllIngredients>().prefabs.Count)];
+            var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs[Random.Range(0, CMS.Get<AllIngredients>().Prefabs.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }
 }
-
+/*
 class PeopleController : BaseInteraction, IEnterInUpdate
 {
     private BasePeople Customer = null;
     private bool IsServiced = false;
-    void IEnterInUpdate.Update(float TimeDelta)
+    public void Update(float TimeDelta)
     {
         if (Customer == null && !IsServiced)
         {
@@ -182,5 +194,28 @@ class PeopleController : BaseInteraction, IEnterInUpdate
 
             IsServiced = true;
         }
+    }
+}
+*/
+class PeopleImplementation : BaseInteraction, IEnterInPeople
+{
+    private BasePeople Customer = null;
+    private bool IsServiced = false;
+    
+    
+    public IEnumerator Enter()
+    {
+        if (Customer == null && !IsServiced)
+        {
+            var AllVarPeoples = CMS.GetAll<BasePeople>();
+            var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
+            
+            yield return new WaitForSeconds(3f);
+            
+            GameData<Main>.Boot.AddCustomer(Customer);
+            IsServiced = true;
+            
+        }
+        
     }
 }

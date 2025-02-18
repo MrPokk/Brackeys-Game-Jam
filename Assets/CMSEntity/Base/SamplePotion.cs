@@ -23,37 +23,37 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 }
 public class AllPotion : CMSEntity
 {
-    public List<SamplePotion> potions;
+    public List<SamplePotion> Potions;
     public AllPotion()
     {
         LoadAll();
-        potions.Sort();
+        Potions.Sort();
     }
     public void LoadAll()
     {
-        potions = new();
+        Potions = new();
         string[] fillis = Directory.GetFiles("Assets/Resources/Potion");
         foreach (string Element in fillis) {
             if (Path.GetExtension(Element) != ".prefab") continue;
-            potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
+            Potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
         }
     }
     public SamplePotion GetByID(int ID)
     {
-        return potions.FirstOrDefault(x => x.ID == ID);
+        return Potions.FirstOrDefault(x => x.ID == ID);
     }
-    //Не реализован поск зелья по эффектам
+
     public SamplePotion GetAtEffects(List<EffectData> atEffects)
     {
-        foreach (SamplePotion potion in potions)
+        foreach (SamplePotion potion in Potions)
         {
-            if (TestPotions(potion, atEffects)) {
+            if (CheckPotions(potion, atEffects)) {
                 return potion;
             }
         }
         return null;
     }
-    private bool TestPotions(SamplePotion potion, List<EffectData> atEffects)
+    private bool CheckPotions(SamplePotion potion, List<EffectData> atEffects)
     {
         foreach (EffectData min in potion.EffectsMin) {
             EffectData effect = atEffects.FirstOrDefault(x => x.Type == min.Type);

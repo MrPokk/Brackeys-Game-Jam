@@ -11,7 +11,7 @@ public class StoreIngredients : MonoBehaviour
     public void Add(ObjectIngredient Ingredient)
     {
         if (Ingredient.Prefab == null) return;
-        TilesList.Add(Instantiate(Ingredient.Prefab));
+        TilesList.Add(Instantiate(Ingredient.Prefab,transform));
         SetPoseTile();
     }
     public void Move(GameObject Ingredient)
@@ -36,8 +36,8 @@ public class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-
-            var Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
+            Vector3 Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i - Vector2.down * Spacing * TilesList.Count / 2;
+            Pose += Vector3.back * 0.01f * i;
             TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
 
         }
