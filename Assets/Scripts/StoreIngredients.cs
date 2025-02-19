@@ -29,8 +29,15 @@ public class StoreIngredients : MonoBehaviour
     public void Delete(Ingredient Ingredient)
     {
         TilesList.Remove(Ingredient);
-        Destroy(Ingredient);
+        Destroy(Ingredient.gameObject);
         SetPoseTile();
+    }
+    public void DeleteAll()
+    {
+        foreach (var Ingredient in TilesList) {
+            Destroy(Ingredient.gameObject);
+        }
+        TilesList.Clear();
     }
     public bool Contains(Ingredient ingredient)
     {

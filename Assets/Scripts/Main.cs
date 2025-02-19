@@ -33,7 +33,7 @@ public class Main : MonoBehaviour, IMain
     public int Money;
     public Interaction Interact = new Interaction();
     public StoreIngredients Store;
-    public StoreIngredients Shop;
+    public ShopIngredients Shop;
     public Cauldron Cauldron;
     public PotionZone PotionZone;
 
@@ -83,7 +83,6 @@ public class Main : MonoBehaviour, IMain
         foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
         {
             GameData<Main>.Boot.Store.Add(Element);
-            GameData<Main>.Boot.Shop.Add(Element);
         }
 
         var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
@@ -228,6 +227,9 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             var All = CMS.Get<AllIngredients>().Ingredients;
             foreach (var Element in All)
                 GameData<Main>.Boot.Store.Add(Element);
+        } 
+        else if (Input.GetKeyDown(KeyCode.H)) {
+            GameData<Main>.Boot.Shop.Generatre(Random.Range(3,7));
         }
     }
 }

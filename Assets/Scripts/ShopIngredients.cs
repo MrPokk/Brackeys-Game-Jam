@@ -20,4 +20,17 @@ public class ShopIngredients : StoreIngredients
         TilesList.Add(Ingredient);
         SetPoseTile();
     }
+
+    public void Generatre(int count)
+    {
+        DeleteAll();
+        List<Ingredient> ingredients = CMS.Get<AllIngredients>().Ingredients;
+        for (int i = 0; i < count; i++) {
+            Add(ingredients[Random.Range(0, ingredients.Count)]);
+        }
+    }
+    public void OnDisable()
+    {
+        DeleteAll();
+    }
 }
