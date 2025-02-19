@@ -56,10 +56,10 @@ public class Main : MonoBehaviour, IMain
     public void Awake()
     {
         CMS.Init();
-        GameData<Main>.Boot = this;
     }
     public void StartGame()
     {
+        
         Interact.Init();
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();

@@ -15,7 +15,7 @@ public class Ingredient : Raise
     public int Price;
     public List<EffectData> Effects = new();
 
-    public TMP_Text PriceText;
+    public TMP_Text PriceText ;
     
     [ContextMenu("Generate ID")]
     public void GenerateID()
