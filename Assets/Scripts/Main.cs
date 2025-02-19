@@ -35,8 +35,13 @@ public class Main : MonoBehaviour, IMain
     public Cauldron Cauldron;
     public PotionZone PotionZone;
 
+    public TMP_Text PotionName;
+    public TMP_Text PotionDescription;
+
     private Camera myCam;
     private ObjectIngredient InTheHand;
+
+
 
     public Transform PointStartPeople;
     public Transform PointEndPeople;
@@ -83,6 +88,7 @@ public class Main : MonoBehaviour, IMain
             StartCoroutine(Element.Enter());
         }
 
+
         myCam = Camera.main;
     }
 
@@ -94,9 +100,16 @@ public class Main : MonoBehaviour, IMain
     public void UpdateGame(float TimeDelta)
     {
         var Update = Interact.FindAll<IEnterInUpdate>();
+        var updatePotionInfo = Interact.FindAll<IUpdatePotionInfo>();
+
         foreach (var Element in Update)
         {
             Element.Update(TimeDelta);
+        }
+        
+        foreach (var Element in updatePotionInfo)
+        {
+            Element.UpdateInfo();
         }
 
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
@@ -168,17 +181,18 @@ public class Main : MonoBehaviour, IMain
     }
 }
 
-class PotionInfo : MonoBehaviour
+class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
-   [SerializeField]private TMP_Text Name;
-   [SerializeField]private TMP_Text Description;
-   private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
-
-
-   private void UpdateInfo()
-   {
-      // Description.text += $"\n{}";
-   }
+    private TMP_Text Name => GameData<Main>.Boot.PotionName;
+    private TMP_Text Description => GameData<Main>.Boot.PotionDescription;
+    private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+    public void UpdateInfo()
+    {
+        foreach (var Element in Effects)
+        {
+            Description.text += $"\n{Element.Type.ToString().ToUpperInvariant()}: {Element.Power} ";
+        }
+    }
 }
 
 class MyDebug : BaseInteraction, IEnterInUpdate

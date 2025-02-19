@@ -5,25 +5,30 @@ using System.Threading.Tasks;
 
 public abstract class BaseInteraction
 {
- public Priority PriorityInteraction { get => Priority.Medium; set { } }
+    public Priority PriorityInteraction { get => Priority.Medium; set { } }
 }
 
 interface IEnterInStart
 {
- void Start();
+    void Start();
 }
 
 interface IEnterInReady
 {
- void Start();
+    void Start();
 }
 
 interface IEnterInUpdate
 {
-  void Update(float TimeDelta);
+    void Update(float TimeDelta);
 }
 
 interface IEnterInPeople
 {
- IEnumerator  Enter();
+    IEnumerator Enter();
+}
+
+interface IUpdatePotionInfo
+{
+    void UpdateInfo();
 }
