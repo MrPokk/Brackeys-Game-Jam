@@ -152,7 +152,7 @@ ScriptedImporter:
       x: 5
       y: 375
       width: 64
-      height: 59
+      height: 47
     spriteID: add0f18038fd6764f99215ffeadb350f
     spriteBone: []
     spriteOutline: []
@@ -362,6 +362,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: Content_11
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 9
+      y: 431
+      width: 57
+      height: 18
+    spriteID: 833e0dbccee40044fa2468d5d32e82f4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: 2056750773
@@ -377,7 +397,7 @@ ScriptedImporter:
         x: 44
         y: 1
         width: 436
-        height: 441
+        height: 445
       spriteId: 4008b79e267f35c458e4bdaf70bfc0a4
     linkedCells: []
     parentIndex: -1

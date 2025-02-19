@@ -215,6 +215,12 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs[Random.Range(0, CMS.Get<AllIngredients>().Prefabs.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs;
+            foreach (var Element in LicoriceRoot)
+                GameData<Main>.Boot.Store.Add(Element);
+        }
     }
 }
 
