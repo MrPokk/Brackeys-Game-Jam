@@ -13,6 +13,9 @@ public class Cauldron : MonoBehaviour
 
     private Animator Animator;
     private AllPotion AllPotion;
+
+    private const float SIZE_INFO = 1.2f;
+    
     private void Start()
     {
         AllPotion = CMS.Get<AllPotion>();
@@ -32,9 +35,9 @@ public class Cauldron : MonoBehaviour
 
     public void Add(Ingredient ingredient)
     {
-       // GameData<Main>.Boot.PotionInfo.transform.DOScale(0,GameData<Main>.Boot.AnimationScaleTime);
-        
         GameData<Main>.Boot.PotionInfo.SetActive(true);
+        GameData<Main>.Boot.PotionInfo.transform.DOScale(SIZE_INFO, GameData<Main>.Boot.AnimationScaleTime);
+
         var updatePotionInfo = GameData<Main>.Boot.Interact.FindAll<IUpdatePotionInfo>();
 
         ingredients.Add(ingredient);
@@ -69,11 +72,13 @@ public class Cauldron : MonoBehaviour
 
         List<EffectData> effects = effectsMaster.GetAndClear();
         SamplePotion sample = AllPotion.GetAtEffects(effects);
-        Potion potion = Instantiate(Potion, transform.position, new Quaternion()).GetComponent<Potion>();
+        Potion potion = Instantiate(Potion, transform.position + Vector3.up , new Quaternion()).GetComponent<Potion>();
         potion.Set(sample, effects, _ingredients);
 
 
-        Main.TogglePopup(GameData<Main>.Boot.PotionInfo);
+        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0,GameData<Main>.Boot.AnimationScaleTime).OnComplete(
+            (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
+        
         return true;
     }
     public SamplePotion PreCook()
