@@ -53,7 +53,6 @@ public class Cauldron : MonoBehaviour
         {
             Element.UpdateInfo();
         }
-
         SoundManager.PlaySound(SoundType.Gurgle);
     }
     public bool Near(Vector2 pos)

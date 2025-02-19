@@ -60,6 +60,7 @@ public class Main : MonoBehaviour, IMain
     }
     public void StartGame()
     {
+        
         Interact.Init();
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
@@ -72,6 +73,7 @@ public class Main : MonoBehaviour, IMain
         {
             Element.Start();
         }
+
 
         GameData<Main>.IsStartGame = true;
         NextStep();
@@ -133,6 +135,7 @@ public class Main : MonoBehaviour, IMain
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null) {
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+            
             if (raise != null) {
                 if (raise is Ingredient ingredient) {
                     if (Store.Contains(ingredient))
@@ -147,6 +150,11 @@ public class Main : MonoBehaviour, IMain
                     PotionZone.Remove();
                 }
                 InTheHand = raise;
+            }
+
+            if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button)
+            {
+                Button.EventClose();
             }
         }
     }
