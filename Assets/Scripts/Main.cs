@@ -33,7 +33,16 @@ TODO: Добавить менеджер всех текстов
  */
 public class Main : MonoBehaviour, IMain
 {
-    public int Money;
+    public int Money
+    {
+        get {
+            return _Money;
+        }
+        set {
+            _Money = value;
+        }
+    }
+    private int _Money;
 
     public TextManager TextManager;
 
@@ -134,7 +143,7 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
-    public void LeftClick()
+    private void LeftClick()
     {
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null)
@@ -160,14 +169,14 @@ public class Main : MonoBehaviour, IMain
                 }
                 InTheHand = raise;
             }
-
-            if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button)
-            {
-                Button.EventClose();
+            else {
+                if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button) {
+                    Button.Click();
+                }
             }
         }
     }
-    public void RightClick()
+    private void RightClick()
     {
         if (InTheHand is Ingredient ingredient)
         {
@@ -263,19 +272,19 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     }
 }
 
-class PeopleImplementation : BaseInteraction, IEnterInPeople
+public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
 
-    private GameObject CustomerInGame;
-    private static BasePeople Customer = null;
-    private bool IsServiced = false;
+    public GameObject CustomerInGame { get; private set; }
+    public static BasePeople Customer { get; private set; } = null;
+    public bool IsServiced { get; private set; } = false;
 
     public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
-            var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
+            Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
             yield return new WaitForSeconds(5f);
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
