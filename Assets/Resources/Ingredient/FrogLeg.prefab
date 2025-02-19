@@ -101,6 +101,7 @@ MonoBehaviour:
   ID: -21306
   Name: "\u041B\u044F\u0433\u0443\u0448\u0430\u0447\u044C\u044F \u043B\u0430\u043F\u043A\u0430"
   Description: 
+  Price: 8
   Effects:
   - Type: 4
     Power: -10

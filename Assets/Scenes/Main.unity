@@ -401,7 +401,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.16, y: 2.7885, z: 0}
   m_LocalScale: {x: 1.2282, y: 1.2282, z: 1.2282}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1503985557}
   - {fileID: 966927150}
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TilesList: []
   Spacing: 0.58
+  AxisSwap: 0
 --- !u!1 &878469912
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +629,53 @@ Transform:
   - {fileID: 445121558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &959329255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 959329257}
+  - component: {fileID: 959329256}
+  m_Layer: 0
+  m_Name: ShopIngredients
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &959329256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959329255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8debc2def5e491742a6eaf0ae218eab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TilesList: []
+  Spacing: 0.8
+  AxisSwap: 1
+--- !u!4 &959329257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959329255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.86, y: -4.06, z: 0.010572769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &966927149
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +688,7 @@ GameObject:
   - component: {fileID: 966927152}
   - component: {fileID: 966927151}
   m_Layer: 0
-  m_Name: Text (3)
+  m_Name: PotionInfoDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,9 +1160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<b>ON USE</b>
-
-'
+  m_text: ON USE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34f5841c609f3af42b278694c443a677, type: 2}
   m_sharedMaterial: {fileID: -5810707553318581779, guid: 34f5841c609f3af42b278694c443a677, type: 2}
@@ -1147,7 +1193,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1273,7 +1319,7 @@ GameObject:
   - component: {fileID: 1563639498}
   - component: {fileID: 1563639497}
   m_Layer: 0
-  m_Name: Text (1)
+  m_Name: PotionInfoName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,9 +1630,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cb291afecd5804bb13f6892ee1ef68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Money: 5
   Store: {fileID: 652289595}
+  Shop: {fileID: 959329256}
   Cauldron: {fileID: 1581441488}
   PotionZone: {fileID: 643659806}
+  PotionInfo: {fileID: 487566624}
+  PotionName: {fileID: 1563639497}
+  PotionDescription: {fileID: 966927151}
   PointStartPeople: {fileID: 1701437831}
   PointEndPeople: {fileID: 334552961}
 --- !u!4 &1582853820
@@ -1727,6 +1778,7 @@ SceneRoots:
   - {fileID: 1582853820}
   - {fileID: 1581441487}
   - {fileID: 652289594}
+  - {fileID: 959329257}
   - {fileID: 878469913}
   - {fileID: 1746357907}
   - {fileID: 1291902189}

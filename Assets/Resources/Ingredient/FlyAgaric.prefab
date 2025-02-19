@@ -101,6 +101,7 @@ MonoBehaviour:
   ID: 26844
   Name: "\u041C\u0443\u0445\u043C\u043E\u0440"
   Description: 
+  Price: 5
   Effects:
   - Type: 1
     Power: 15

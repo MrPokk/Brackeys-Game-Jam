@@ -30,11 +30,14 @@ using UnityEngine.UIElements;
  */
 public class Main : MonoBehaviour, IMain
 {
-    private Interaction Interact = new Interaction();
+    public int Money;
+    public Interaction Interact = new Interaction();
     public StoreIngredients Store;
+    public StoreIngredients Shop;
     public Cauldron Cauldron;
     public PotionZone PotionZone;
 
+    public GameObject PotionInfo;
     public TMP_Text PotionName;
     public TMP_Text PotionDescription;
 
@@ -53,7 +56,7 @@ public class Main : MonoBehaviour, IMain
     public void Awake()
     {
         CMS.Init();
-        GameData<Main>.Boot = this; 
+        GameData<Main>.Boot = this;
     }
     public void StartGame()
     {
@@ -80,6 +83,7 @@ public class Main : MonoBehaviour, IMain
         foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
         {
             GameData<Main>.Boot.Store.Add(Element);
+            GameData<Main>.Boot.Shop.Add(Element);
         }
 
         var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
@@ -100,56 +104,19 @@ public class Main : MonoBehaviour, IMain
     public void UpdateGame(float TimeDelta)
     {
         var Update = Interact.FindAll<IEnterInUpdate>();
-        var updatePotionInfo = Interact.FindAll<IUpdatePotionInfo>();
+        
 
         foreach (var Element in Update)
         {
             Element.Update(TimeDelta);
         }
-        
-        foreach (var Element in updatePotionInfo)
-        {
-            Element.UpdateInfo();
-        }
+
+
 
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider != null)
-            {
-                Raise raise = hit.collider.gameObject.GetComponent<Raise>();
-                if (raise is Ingredient ingredient)
-                {
-                    InTheHand = ingredient;
-                    Store.Remove(ingredient);
-                    if (ingredient.gameObject == PotionZone.PotionIn)
-                    {
-                        PotionZone.Remove();
-                    }
-                }
-            }
-        }
+            LeftClick();
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
-        {
-
-            if (InTheHand is Ingredient ingredient)
-            {
-                if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
-                {
-                    Cauldron.Add(ingredient);
-                }
-                else
-                {
-                    Store.Move(ingredient);
-                }
-            }
-            else if (InTheHand is Potion potion && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
-            {
-                PotionZone.Add(potion.gameObject);
-            }
-
-            InTheHand = null;
-        }
+            RightClick();
 
         if (InTheHand != null)
         {
@@ -160,6 +127,45 @@ public class Main : MonoBehaviour, IMain
         {
             Cauldron.Cook();
         }
+    }
+
+    public void LeftClick()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hit.collider != null) {
+            Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+            if (raise != null) {
+                if (raise is Ingredient ingredient) {
+                    if (Store.Contains(ingredient))
+                        Store.Remove(ingredient);
+                    else if (Shop.Contains(ingredient)) {
+                        if (ingredient.Price > Money) return;
+                        Shop.Remove(ingredient);
+                        Money -= ingredient.Price;
+                    }
+                }
+                else if (raise.gameObject == PotionZone.PotionIn) {
+                    PotionZone.Remove();
+                }
+                InTheHand = raise;
+            }
+        }
+    }
+    public void RightClick()
+    {
+        if (InTheHand is Ingredient ingredient) {
+            if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
+                Cauldron.Add(ingredient);
+            }
+            else {
+                Store.Move(ingredient);
+            }
+        }
+        else if (InTheHand is Potion potion && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
+            PotionZone.Add(potion.gameObject);
+        }
+
+        InTheHand = null;
     }
 
     public void PhysicUpdateGame(float TimeDelta)
@@ -179,19 +185,32 @@ public class Main : MonoBehaviour, IMain
     {
         StartGame();
     }
+    
+    public static void TogglePopup(GameObject Popup)
+    {
+        Popup.SetActive(!Popup.activeSelf);
+    }
 }
 
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
-    private TMP_Text Name => GameData<Main>.Boot.PotionName;
-    private TMP_Text Description => GameData<Main>.Boot.PotionDescription;
+    private TMP_Text Name = GameData<Main>.Boot.PotionName;
+    private TMP_Text Description = GameData<Main>.Boot.PotionDescription;
     private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
     public void UpdateInfo()
     {
+       var StringsElementData = new List<string>();
+     
+        
+        var Potion = GameData<Main>.Boot.Cauldron.PreCook();
+        Name.SetText(Potion.name);
+        
         foreach (var Element in Effects)
         {
-            Description.text += $"\n{Element.Type.ToString().ToUpperInvariant()}: {Element.Power} ";
+            StringsElementData.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
         }
+        Description.SetText("");
+        Description.SetText(string.Join("\n", StringsElementData));
     }
 }
 
@@ -222,13 +241,13 @@ class PeopleImplementation : BaseInteraction, IEnterInPeople
             yield return new WaitForSeconds(5f);
             var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-            TogglePopup(Popup);
+            Main.TogglePopup(Popup);
 
             yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
 
             yield return new WaitForSeconds(.5f);
             // Запуск звука 
-            TogglePopup(Popup);
+            Main.TogglePopup(Popup);
 
             var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
             var Description = AllTextComponent.First(Text => (Text.name == "Description"));
@@ -238,11 +257,6 @@ class PeopleImplementation : BaseInteraction, IEnterInPeople
 
         yield break;
 
-    }
-
-    private void TogglePopup(GameObject Popup)
-    {
-        Popup.SetActive(!Popup.activeSelf);
     }
 
 }

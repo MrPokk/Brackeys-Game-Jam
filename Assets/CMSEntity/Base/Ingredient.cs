@@ -11,6 +11,7 @@ public class Ingredient : Raise
     public int ID;
     public String Name;
     public String Description;
+    public int Price;
     public List<EffectData> Effects = new();
 
     [ContextMenu("Generate ID")]

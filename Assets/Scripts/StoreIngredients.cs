@@ -7,7 +7,7 @@ public class StoreIngredients : MonoBehaviour
 {
     [SerializeField] private List<Ingredient> TilesList = new();
     public float Spacing;
-    public bool AxisSwith;
+    public bool AxisSwap;
 
     public void Add(Ingredient Ingredient)
     {
@@ -32,13 +32,16 @@ public class StoreIngredients : MonoBehaviour
         Destroy(Ingredient);
         SetPoseTile();
     }
-
-    private void SetPoseTile()
+    public bool Contains(Ingredient ingredient)
+    {
+        return TilesList.Contains(ingredient);
+    }
+    protected void SetPoseTile()
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            Vector2 space = new Vector2(0, Spacing * (i - TilesList.Count / 2));
-            if (AxisSwith) space = new Vector2(space.y, space.x);
+            Vector2 space = new Vector2(0, Spacing * (i - TilesList.Count / 2f));
+            if (AxisSwap) space = new Vector2(space.y, space.x);
 
             Vector3 Pose = (Vector2)gameObject.transform.position + space;
             Pose += Vector3.forward * (0.01f * i);
