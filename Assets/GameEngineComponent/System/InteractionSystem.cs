@@ -32,7 +32,7 @@ public static class InteractionCache<T>
  public static List<T> AllInteraction;
  const int COUNT_INTERACTION = 64;
 
- public static List<T> FindAll(Interaction Interact)
+ public static List<T> FindAll(Interaction Interact = null)
  {
   if (AllInteraction != null) return AllInteraction;
   AllInteraction = new List<T>(COUNT_INTERACTION);
