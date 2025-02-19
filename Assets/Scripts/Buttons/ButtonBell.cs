@@ -15,7 +15,7 @@ public class ButtonBell : CustomButton
                 if (potionZone.PotionIn != null) {
                     Potion potion = potionZone.PotionIn.GetComponent<Potion>();
                     if (potion.ID == people.DataComponent.TypePoison.ID) {
-                        GameData<Main>.Boot.AddMoney(potion.Price);
+                        GameData<Main>.Boot.Money += potion.Price;
                         potionZone.Delete();
                     }
                 }

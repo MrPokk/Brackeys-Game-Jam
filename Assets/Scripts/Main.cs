@@ -184,11 +184,6 @@ public class Main : MonoBehaviour, IMain
         InTheHand = null;
     }
 
-    public void AddMoney(int count)
-    {
-        Money += count;
-    }
-
     public void PhysicUpdateGame(float TimeDelta)
     { }
 
