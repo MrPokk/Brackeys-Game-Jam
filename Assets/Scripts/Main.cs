@@ -225,8 +225,8 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs;
-            foreach (var Element in LicoriceRoot)
+            var All = CMS.Get<AllIngredients>().Ingredients;
+            foreach (var Element in All)
                 GameData<Main>.Boot.Store.Add(Element);
         }
     }
