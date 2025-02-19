@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class StoreIngredients : MonoBehaviour
 {
-    [SerializeField] private List<Ingredient> TilesList = new();
+    [SerializeField] protected List<Ingredient> TilesList = new();
     public float Spacing;
     public bool AxisSwap;
 
-    public void Add(Ingredient Ingredient)
+    public virtual void Add(Ingredient Ingredient)
     {
         if (Ingredient == null) return;
-        TilesList.Add(Instantiate(Ingredient,transform.position, new Quaternion()));
+        TilesList.Add(Instantiate(Ingredient, transform.position, new Quaternion()));
         SetPoseTile();
     }
     public void Move(Ingredient Ingredient)
@@ -21,7 +21,7 @@ public class StoreIngredients : MonoBehaviour
         TilesList.Add(Ingredient);
         SetPoseTile();
     }
-    public void Remove(Ingredient Ingredient)
+    public virtual void Remove(Ingredient Ingredient)
     {
         TilesList.Remove(Ingredient);
         SetPoseTile();
@@ -40,10 +40,10 @@ public class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            Vector2 space = new Vector2(0, Spacing * (i - TilesList.Count / 2f));
-            if (AxisSwap) space = new Vector2(space.y, space.x);
+            var space = new Vector3(0, Spacing * (i - TilesList.Count / 2f),0);
+            if (AxisSwap) space = new Vector3(space.y, space.x,space.z);
 
-            Vector3 Pose = (Vector2)gameObject.transform.position + space;
+            Vector3 Pose = gameObject.transform.position + space;
             Pose += Vector3.forward * (0.01f * i);
             TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
 

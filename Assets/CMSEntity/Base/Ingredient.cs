@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Engin.Utility;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -13,6 +14,8 @@ public class Ingredient : Raise
     public String Description;
     public int Price;
     public List<EffectData> Effects = new();
+
+    public TMP_Text PriceText => GetComponentInChildren<TextMeshPro>(true);
 
     [ContextMenu("Generate ID")]
     public void GenerateID()
