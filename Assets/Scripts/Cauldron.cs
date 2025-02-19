@@ -33,7 +33,6 @@ public class Cauldron : MonoBehaviour
         if (ingredient.Ingredient is Catalyst catalyst) {
             catalyst.Effect(effectsMaster.Get());
         }    }
-    private delegate void ResetUnlock();
 
     public bool Near(Vector2 pos)
     {
