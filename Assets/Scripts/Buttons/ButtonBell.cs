@@ -23,7 +23,7 @@ public class ButtonBell : CustomButton
                         potionZone.Delete();
                     }
                 }
-                var PeopleInteract = GameData<Main>.Boot.Interact.FindAll<PeopleImplementation>();
+                var PeopleInteract = InteractionCache<PeopleImplementation>.AllInteraction;
                 foreach (var Element in PeopleInteract)
                 {
                     StartCoroutine(Element.Exit());
@@ -36,7 +36,7 @@ public class ButtonBell : CustomButton
         }
         else
         {
-            var PeopleInteract = GameData<Main>.Boot.Interact.FindAll<PeopleImplementation>();
+            var PeopleInteract = InteractionCache<PeopleImplementation>.AllInteraction;
             foreach (var Element in PeopleInteract)
             {
                 StartCoroutine(Element.Enter());

@@ -38,9 +38,7 @@ public class Cauldron : MonoBehaviour
     {
         GameData<Main>.Boot.PotionInfo.SetActive(true);
         GameData<Main>.Boot.PotionInfo.transform.DOScale(SIZE_INFO, GameData<Main>.Boot.AnimationScaleTime);
-
-        var updatePotionInfo = GameData<Main>.Boot.Interact.FindAll<IUpdatePotionInfo>();
-
+        
         ingredients.Add(ingredient);
         ingredient.GetComponent<Collider2D>().enabled = false;
         effectsMaster.AddEffects(ingredient.Effects);
@@ -49,7 +47,7 @@ public class Cauldron : MonoBehaviour
             catalyst.Effect(effectsMaster.Get());
         }
 
-        foreach (var Element in updatePotionInfo)
+        foreach (var Element in InteractionCache<IUpdatePotionInfo>.AllInteraction)
         {
             Element.UpdateInfo();
         }

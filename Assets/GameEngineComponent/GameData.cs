@@ -13,8 +13,13 @@ public static class GameData<T> where T : IMain
   }
   set {
    _Money = value;
+
+   foreach (var Element in  InteractionCache<GameDataInfo>.AllInteraction)
+   {
+    Element.Update();
+   }
   }
  }
- private static int _Money;
+ private static int _Money = 100;
  
 }

@@ -95,7 +95,17 @@ public class Main : MonoBehaviour, IMain
             StartCoroutine(Element.Enter());
         }
 
-
+       var GamaData = Interact.FindAll<GameDataInfo>();
+       foreach (var Element in GamaData)
+       {
+           Element.Update();
+       }
+        
+        Interact.FindAll<PeopleImplementation>();
+        Interact.FindAll<PotionZone>();
+        Interact.FindAll<MyDebug>();
+        Interact.FindAll<IUpdatePotionInfo>();
+        
         myCam = Camera.main;
     }
 
@@ -117,9 +127,7 @@ public class Main : MonoBehaviour, IMain
         {
             Element.Update(TimeDelta);
         }
-
-
-
+        
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
             LeftClick();
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
@@ -214,15 +222,16 @@ public class Main : MonoBehaviour, IMain
     {
         Popup.SetActive(!Popup.activeSelf);
     }
-
-
 }
 
-class GameDataInfo : BaseInteraction
+class GameDataInfo : BaseInteraction, IUpdateGameData
 {
-    
+  public void Update()
+   {
+      var MoneyText =  GameData<Main>.Boot.TextManager.Get("Money");
+      MoneyText.SetText(GameData<Main>.Money.ToString());
+   }
 }
-
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
     private TMP_Text Name = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
@@ -245,15 +254,6 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         Description.SetText(string.Join("\n", StringsElementData));
     }
 }
-
-
-
-class PotionEvent : BaseInteraction, IUpdatePotionEvent
-{
-    public void Event()
-    { }
-}
-
 class MyDebug : BaseInteraction, IEnterInUpdate
 {
     void IEnterInUpdate.Update(float TimeDelta)
@@ -276,7 +276,6 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     }
 
 }
-
 public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
 
@@ -291,6 +290,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             var AllVarPeoples = CMS.GetAll<BasePeople>();
             Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
+           
+
             yield return new WaitForSeconds(5f);
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
@@ -302,8 +303,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             // Запуск звука 
             Main.TogglePopup(Popup);
 
-            //  var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
-            // var Description = AllTextComponent.First(Text => (Text.name == "Description"));
+            //var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
+            //var Description = AllTextComponent.First(Text => (Text.name == "Description"));
 
             CustomerInGame.transform.DOComplete();
 

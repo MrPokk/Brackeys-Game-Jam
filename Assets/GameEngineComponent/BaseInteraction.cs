@@ -39,3 +39,8 @@ interface IUpdatePotionEvent
     void Event();
 }
 
+interface IUpdateGameData
+{
+    void Update();
+}
+
