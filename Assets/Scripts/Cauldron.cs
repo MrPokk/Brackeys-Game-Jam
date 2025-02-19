@@ -6,7 +6,11 @@ public class Cauldron : MonoBehaviour
     public List<ObjectIngredient> ingredients = new List<ObjectIngredient>();
     public EffectsMaster effectsMaster = new EffectsMaster();
     public GameObject Potion;
-
+    private AllPotion AllPotion;
+    private void Start()
+    {
+        AllPotion = CMS.Get<AllPotion>();
+    }
     public void Add(ObjectIngredient ingredient)
     {
         ingredients.Add(ingredient);
@@ -32,7 +36,7 @@ public class Cauldron : MonoBehaviour
         ingredients.Clear();
 
         List<EffectData> effects = effectsMaster.GetAndClear();
-        SamplePotion sample = CMS.Get<AllPotion>().GetAtEffects(effects);
+        SamplePotion sample = AllPotion.GetAtEffects(effects);
         Potion potion = Instantiate(Potion, transform).GetComponent<Potion>();
         potion.Set(sample, effects, _ingredients);
         return true;
