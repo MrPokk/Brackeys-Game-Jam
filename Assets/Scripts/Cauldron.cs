@@ -11,12 +11,14 @@ public class Cauldron : MonoBehaviour
     public EffectsMaster effectsMaster = new EffectsMaster();
     public GameObject Potion;
 
-    private Animator Animator => GetComponent<Animator>();
+    private Animator Animator;
     private AllPotion AllPotion;
     private void Start()
     {
         AllPotion = CMS.Get<AllPotion>();
-    }    private void Update()
+        Animator = GetComponent<Animator>();
+    }    
+    private void Update()
     {
         if (ingredients.Any())
         {
@@ -53,11 +55,15 @@ public class Cauldron : MonoBehaviour
         ingredients.Clear();
         transform.DOComplete();
         transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
+        
         List<EffectData> effects = effectsMaster.GetAndClear();
-      
         SamplePotion sample = AllPotion.GetAtEffects(effects);
         Potion potion = Instantiate(Potion, transform.position,new Quaternion()).GetComponent<Potion>();
         potion.Set(sample, effects, _ingredients);        
         return true;
+    }
+    public SamplePotion PreCook() 
+    {
+        return AllPotion.GetAtEffects(effectsMaster.Get());
     }
 }

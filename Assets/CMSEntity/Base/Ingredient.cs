@@ -9,7 +9,7 @@ using UnityEngine;
 [Serializable]
 public class Ingredient : MonoBehaviour, IRaise
 {
-    public int ID  ;
+    public int ID;
     public String Name;
     public String Description;
     public List<EffectData> Effects = new();

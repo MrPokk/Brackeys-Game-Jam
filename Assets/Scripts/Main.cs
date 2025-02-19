@@ -45,16 +45,16 @@ public class Main : MonoBehaviour, IMain
     public float AnimationScaleTime => 0.5f;
     public float AnimationMove => 0.5f;
     public float AnimationMoveTime => 0.3f;
-
+    public void Awake()
+    {
+        CMS.Init();
+        GameData<Main>.Boot = this; 
+    }
     public void StartGame()
     {
         Interact.Init();
-        CMS.Init();
-        GameData<Main>.Boot = this;
-
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
-
         foreach (var Element in Start)
         {
             Element.Start();
