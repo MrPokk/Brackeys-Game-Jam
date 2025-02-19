@@ -1,28 +1,29 @@
 using Engin.Utility;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
-public class Dragon : BasePeople
+public class Sidorovich : BasePeople
 {
-    public Dragon()
+    public Sidorovich()
     {
         Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Dragon");
         SetTextPrefab(ref people);
 
-        people.Type = TypePeople.Customer;
+        people.Type = TypePeople.Trader;
+        people.TypePoison = CMS.Get<AllPotion>().Bad;
         
         SetData(ref people);
         
         ModifyDataSet();
         RegisterComponents(people);
     }
-
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Dragon";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetRandom();
-        DataComponent.Description.text = $"I, Mr. Dragon, want <color=#ed2246>{DataComponent.TypePoison.Name}</color> potions.";
+        DataComponent.Name.text = "Sidorovich";
+        DataComponent.Description.text = $"I, Mr. Sidorovich and i have an item for sale.";
         return this;
     }
-
     public override void RegisterComponents(params IComponent[] components)
     {
         Components.AddRange(components);

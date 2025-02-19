@@ -2,9 +2,6 @@ using DG.Tweening;
 using Engin.Utility;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,20 +9,16 @@ using UnityEngine.UIElements;
 
  Код
 
- TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
-
  TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
 
  Арт
  TODO: Перерисовать бэкграунд +-
- TODO: Добавить анимации
- TODO: Поменять шрифт
- TODO: Постпроцесинг
+ TODO: Добавить анимации +-
+ TODO: Поменять шрифт +
+ TODO: Постпроцесинг -
 
- TODO: Костер
+ TODO: Костер -
 
-Потом
-TODO: Добавить менеджер всех текстов
 
  Баги
  TODO: Можно кинуть предмет за край экрана;
@@ -45,16 +38,18 @@ public class Main : MonoBehaviour, IMain
 
     private Camera myCam;
     private Raise InTheHand;
-
-
-
+    
     public Transform PointStartPeople;
     public Transform PointEndPeople;
 
-    public float AnimationScale => 0.5f;
-    public float AnimationScaleTime => 0.5f;
-    public float AnimationMove => 0.5f;
-    public float AnimationMoveTime => 0.3f;
+    public const float AnimationScale = 0.5f;
+    public const float AnimationScaleTime = 0.5f;
+    public const float AnimationMove = 0.5f;
+    public const float AnimationMoveTime = 0.3f;
+    
+    
+    public const float ReputationDebuff = 20f;
+    
     public void Awake()
     {
         CMS.Init();
@@ -135,7 +130,7 @@ public class Main : MonoBehaviour, IMain
 
         if (InTheHand != null)
         {
-            InTheHand.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.Flash);
+            InTheHand.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), Main.AnimationMoveTime).SetEase(Ease.Flash);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -228,8 +223,8 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 {
   public void Update()
    {
-      var MoneyText =  GameData<Main>.Boot.TextManager.Get("Money");
-      MoneyText.SetText(GameData<Main>.Money.ToString());
+      GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString());;
+      GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
    }
 }
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
@@ -282,29 +277,29 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     public GameObject CustomerInGame { get; private set; }
     public static BasePeople Customer { get; private set; } = null;
     public bool IsServiced { get; private set; } = false;
-
+    public static void ExitAll()
+    {
+        foreach (var Element in InteractionCache<PeopleImplementation>.AllInteraction) {
+            GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Element.Exit());
+        }
+    }
     public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
-            Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
-
-           
-
-            yield return new WaitForSeconds(5f);
+            Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)].ModifyDataSet();
+            
+            yield return new WaitForSeconds(1f);
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
             Main.TogglePopup(Popup);
 
-            yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
+            yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, Main.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
 
             yield return new WaitForSeconds(.5f);
             // Запуск звука 
             Main.TogglePopup(Popup);
-
-            //var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
-            //var Description = AllTextComponent.First(Text => (Text.name == "Description"));
 
             CustomerInGame.transform.DOComplete();
 
@@ -317,10 +312,9 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         var Popup = CustomerInGame.transform.Find("Popup").gameObject;
         Main.TogglePopup(Popup);
+        
 
-        yield return new WaitForSeconds(1f);
-
-        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, GameData<Main>.Boot.AnimationMoveTime + .5f).SetEase(Ease.InCirc).WaitForCompletion();
+        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
 
         CustomerInGame.transform.DOComplete();
         

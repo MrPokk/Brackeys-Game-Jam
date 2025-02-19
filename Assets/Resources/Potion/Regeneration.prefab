@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: -23856
-  Name: "\u0420\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438"
+  Name: Regeneration
   Price: 10
   effects: []
   IDIngredients: 

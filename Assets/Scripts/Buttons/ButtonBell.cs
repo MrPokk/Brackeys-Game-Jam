@@ -20,26 +20,22 @@ public class ButtonBell : CustomButton
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
                         GameData<Main>.Money += potion.Price;
+                        GameData<Main>.Reputation += potion.Price * 0.1f;
+                        
                         potionZone.Delete();
+                        PeopleImplementation.ExitAll();
+                        
+                        return;
                     }
                 }
-                var PeopleInteract = InteractionCache<PeopleImplementation>.AllInteraction;
-                foreach (var Element in PeopleInteract)
-                {
-                    StartCoroutine(Element.Exit());
-                }
+                
+                GameData<Main>.Reputation -= Main.ReputationDebuff;
+                
+                PeopleImplementation.ExitAll();
             }
-            else
+            else if (people.DataComponent.Type == TypePeople.Trader)
             {
                 GameData<Main>.Boot.Shop.Generatre(Random.Range(MinGoods, MaxGoods + 1));
-            }
-        }
-        else
-        {
-            var PeopleInteract = InteractionCache<PeopleImplementation>.AllInteraction;
-            foreach (var Element in PeopleInteract)
-            {
-                StartCoroutine(Element.Enter());
             }
         }
     }

@@ -19,8 +19,8 @@ public class PotionZone : MonoBehaviour
             PotionIn = Potion;
             InZone = true;
           
-            Potion.transform.DOMove(this.transform.position,GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
-            SpritePotionZone.transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
+            Potion.transform.DOMove(this.transform.position,Main.AnimationMoveTime).SetEase(Ease.InOutElastic);
+            SpritePotionZone.transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
         }
     }
 

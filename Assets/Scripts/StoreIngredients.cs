@@ -13,12 +13,14 @@ public class StoreIngredients : MonoBehaviour
     {
         if (Ingredient == null) return;
         TilesList.Add(Instantiate(Ingredient, transform.position, new Quaternion()));
+        TilesList.Sort();
         SetPoseTile();
     }
     public void Move(Ingredient Ingredient)
     {
         if (Ingredient == null) return;
         TilesList.Add(Ingredient);
+        TilesList.Sort();
         SetPoseTile();
     }
     public virtual void Remove(Ingredient Ingredient)
@@ -52,7 +54,7 @@ public class StoreIngredients : MonoBehaviour
 
             Vector3 Pose = gameObject.transform.position + space;
             Pose += Vector3.forward * (0.01f * i);
-            TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
+            TilesList[i].transform.DOMove(Pose, Main.AnimationMoveTime).SetEase(Ease.InOutElastic);
 
         }
     }

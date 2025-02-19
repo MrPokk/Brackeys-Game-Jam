@@ -1,10 +1,11 @@
 using Engin.Utility;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 public abstract class BasePeople : CMSEntity
 {
-    public DataPeople DataComponent { get; set; }
+    public DataPeople DataComponent;
     public virtual void SetTextPrefab(ref DataPeople Data)
     {
         foreach (var Element in Data.Prefab.GetComponentsInChildren<TMP_Text>())
@@ -19,7 +20,7 @@ public abstract class BasePeople : CMSEntity
             }
         }
     }
-    
+    public abstract BasePeople ModifyDataSet();
     public abstract void SetData(ref DataPeople Data);
 }
 public struct DataPeople : IComponent

@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 
 [Serializable]
-public class Ingredient : Raise
+public class Ingredient : Raise , IComparable<Ingredient>
 {
     public int ID;
     public String Name;
@@ -21,6 +21,10 @@ public class Ingredient : Raise
     public void GenerateID()
     {
         ID = GetHashCode();
+    }
+    
+    public int CompareTo(Ingredient comparePart) {  
+        return ID.CompareTo(comparePart.ID);
     }
 }
 

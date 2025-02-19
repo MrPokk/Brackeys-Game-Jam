@@ -4,7 +4,7 @@ public class ButtonCloseShop : CustomButton
 
     public void EventClose()
     {
-        //уходит
+        PeopleImplementation.ExitAll();
         transform.parent.gameObject.SetActive(false);
     }
 }

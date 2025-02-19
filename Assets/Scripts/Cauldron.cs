@@ -37,12 +37,12 @@ public class Cauldron : MonoBehaviour
     public void Add(Ingredient ingredient)
     {
         GameData<Main>.Boot.PotionInfo.SetActive(true);
-        GameData<Main>.Boot.PotionInfo.transform.DOScale(SIZE_INFO, GameData<Main>.Boot.AnimationScaleTime);
+        GameData<Main>.Boot.PotionInfo.transform.DOScale(SIZE_INFO,Main.AnimationScaleTime);
         
         ingredients.Add(ingredient);
         ingredient.GetComponent<Collider2D>().enabled = false;
         effectsMaster.AddEffects(ingredient.Effects);
-        transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
+        transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
         if (ingredient is Catalyst catalyst) {
             catalyst.Effect(effectsMaster.Get());
         }
@@ -67,9 +67,9 @@ public class Cauldron : MonoBehaviour
         }
         ingredients.Clear();
         transform.DOComplete();
-        transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
+        transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
 
-        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0, GameData<Main>.Boot.AnimationScaleTime).OnComplete(
+        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0, Main.AnimationScaleTime).OnComplete(
             (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
 
         List<EffectData> effects = effectsMaster.GetAndClear();
