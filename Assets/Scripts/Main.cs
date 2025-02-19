@@ -33,17 +33,6 @@ TODO: Добавить менеджер всех текстов
  */
 public class Main : MonoBehaviour, IMain
 {
-    public int Money
-    {
-        get {
-            return _Money;
-        }
-        set {
-            _Money = value;
-        }
-    }
-    private int _Money;
-
     public TextManager TextManager;
 
     public Interaction Interact = new Interaction();
@@ -114,6 +103,10 @@ public class Main : MonoBehaviour, IMain
     {
         return Instantiate(Customer.DataComponent.Prefab, GameData<Main>.Boot.PointStartPeople.position, new Quaternion());
     }
+    public void DeleteCustomer(GameObject Customer)
+    {
+        Destroy(Customer);
+    }
 
     public void UpdateGame(float TimeDelta)
     {
@@ -158,9 +151,9 @@ public class Main : MonoBehaviour, IMain
                         Store.Remove(ingredient);
                     else if (Shop.Contains(ingredient))
                     {
-                        if (ingredient.Price > Money) return;
+                        if (ingredient.Price > GameData<Main>.Money) return;
                         Shop.Remove(ingredient);
-                        Money -= ingredient.Price;
+                        GameData<Main>.Money -= ingredient.Price;
                     }
                 }
                 else if (raise.gameObject == PotionZone.PotionIn)
@@ -169,8 +162,10 @@ public class Main : MonoBehaviour, IMain
                 }
                 InTheHand = raise;
             }
-            else {
-                if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button) {
+            else
+            {
+                if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button)
+                {
                     Button.Click();
                 }
             }
@@ -219,6 +214,13 @@ public class Main : MonoBehaviour, IMain
     {
         Popup.SetActive(!Popup.activeSelf);
     }
+
+
+}
+
+class GameDataInfo : BaseInteraction
+{
+    
 }
 
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
@@ -243,6 +245,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         Description.SetText(string.Join("\n", StringsElementData));
     }
 }
+
+
 
 class PotionEvent : BaseInteraction, IUpdatePotionEvent
 {
@@ -270,6 +274,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
     }
+
 }
 
 public class PeopleImplementation : BaseInteraction, IEnterInPeople
@@ -297,10 +302,13 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             // Запуск звука 
             Main.TogglePopup(Popup);
 
-          //  var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
-           // var Description = AllTextComponent.First(Text => (Text.name == "Description"));
+            //  var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
+            // var Description = AllTextComponent.First(Text => (Text.name == "Description"));
+
+            CustomerInGame.transform.DOComplete();
 
             IsServiced = true;
+
         }
         yield break;
     }
@@ -308,12 +316,18 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         var Popup = CustomerInGame.transform.Find("Popup").gameObject;
         Main.TogglePopup(Popup);
-        
+
         yield return new WaitForSeconds(1f);
+
+        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, GameData<Main>.Boot.AnimationMoveTime + .5f).SetEase(Ease.InCirc).WaitForCompletion();
+
+        CustomerInGame.transform.DOComplete();
         
-        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
-        
+        GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
+        Customer = null;
         IsServiced = false;
+
+        GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Enter());
         yield break;
     }
 
