@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using System.IO;
 using Engin.Utility;
 using System;
+using Random = UnityEngine.Random;
+using System.Xml.Linq;
 
 public class SamplePotion : Potion, IComparable<SamplePotion>
 {
@@ -24,6 +25,7 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 public class AllPotion : CMSEntity
 {
     public List<SamplePotion> Potions;
+    public SamplePotion Bad;
     public AllPotion()
     {
         LoadAll();
@@ -32,15 +34,20 @@ public class AllPotion : CMSEntity
     public void LoadAll()
     {
         Potions = new();
+        Bad = Resources.Load<GameObject>($"Potion/Bad").GetComponent<SamplePotion>();
         string[] fillis = Directory.GetFiles("Assets/Resources/Potion");
         foreach (string Element in fillis) {
             if (Path.GetExtension(Element) != ".prefab") continue;
             Potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
         }
+        Potions.Remove(Bad);
     }
     public SamplePotion GetByID(int ID)
     {
-        return Potions.FirstOrDefault(x => x.ID == ID);
+        SamplePotion potion = Potions.FirstOrDefault(x => x.ID == ID);
+        if (potion != null) return potion;
+        if (ID == Bad.ID) return Bad;
+        return null;
     }
 
     public SamplePotion GetAtEffects(List<EffectData> atEffects)
@@ -51,7 +58,7 @@ public class AllPotion : CMSEntity
                 return potion;
             }
         }
-        return null;
+        return Bad;
     }
     private bool CheckPotions(SamplePotion potion, List<EffectData> atEffects)
     {
@@ -65,6 +72,10 @@ public class AllPotion : CMSEntity
             if (!EffectData.Accordance(effect, max, true)) return false;
         }
         return true;
+    }
+    public SamplePotion GetRandom()
+    {
+        return Potions[Random.Range(0, Potions.Count)];
     }
 
     public override void RegisterComponents(params IComponent[] components)

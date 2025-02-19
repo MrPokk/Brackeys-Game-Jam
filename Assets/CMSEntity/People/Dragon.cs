@@ -12,6 +12,7 @@ public class Dragon : BasePeople
         
         people.Name.text = "Dragon";
         people.Description.text = "I, Mr. Dragon, want healing potions.";
+        people.TypePoison = CMS.Get<AllPotion>().GetRandom();
 
         SetData(ref people);
         RegisterComponents(people);

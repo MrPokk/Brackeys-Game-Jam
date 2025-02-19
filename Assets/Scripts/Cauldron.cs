@@ -72,14 +72,17 @@ public class Cauldron : MonoBehaviour
         transform.DOComplete();
         transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
 
+        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0, GameData<Main>.Boot.AnimationScaleTime).OnComplete(
+            (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
+
         List<EffectData> effects = effectsMaster.GetAndClear();
         SamplePotion sample = AllPotion.GetAtEffects(effects);
+        // Если сварил говно
+        if (sample == AllPotion.Bad) return false;
+
         Potion potion = Instantiate(Potion, transform.position + Vector3.up , new Quaternion()).GetComponent<Potion>();
         potion.Set(sample, effects, _ingredients);
-
-
-        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0,GameData<Main>.Boot.AnimationScaleTime).OnComplete(
-            (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
+        
         return true;
     }
     public SamplePotion PreCook()
