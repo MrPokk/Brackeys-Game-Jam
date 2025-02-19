@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 /*
@@ -37,6 +38,8 @@ public class Main : MonoBehaviour, IMain
     private Camera myCam;
     private ObjectIngredient InTheHand;
 
+    public Transform PointStartPeople;
+    public Transform PointEndPeople;
 
     public float AnimationScale => 0.5f;
     public float AnimationScaleTime => 0.5f;
@@ -67,27 +70,26 @@ public class Main : MonoBehaviour, IMain
     }
 
 
-    public void NextStep()
+    private void NextStep()
     {
         foreach (var Element in CMS.Get<AllIngredients>().Prefabs)
         {
             GameData<Main>.Boot.Store.Add(Element);
         }
-        
+
         var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
         foreach (var Element in PeopleUpdate)
         {
-          StartCoroutine(Element.Enter());
+            StartCoroutine(Element.Enter());
         }
 
         myCam = Camera.main;
     }
 
-    public void AddCustomer(BasePeople Customer)
+    public GameObject AddCustomer(BasePeople Customer)
     {
-        Instantiate(Customer.DataComponent.Prefab);
+        return Instantiate(Customer.DataComponent.Prefab, GameData<Main>.Boot.PointStartPeople.position, new Quaternion());
     }
-
 
     public void UpdateGame(float TimeDelta)
     {
@@ -164,7 +166,19 @@ public class Main : MonoBehaviour, IMain
     {
         StartGame();
     }
+}
 
+class PotionInfo : MonoBehaviour
+{
+   [SerializeField]private TMP_Text Name;
+   [SerializeField]private TMP_Text Description;
+   private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+
+
+   private void UpdateInfo()
+   {
+      // Description.text += $"\n{}";
+   }
 }
 
 class MyDebug : BaseInteraction, IEnterInUpdate
@@ -178,44 +192,43 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         }
     }
 }
-/*
-class PeopleController : BaseInteraction, IEnterInUpdate
-{
-    private BasePeople Customer = null;
-    private bool IsServiced = false;
-    public void Update(float TimeDelta)
-    {
-        if (Customer == null && !IsServiced)
-        {
-            var AllVarPeoples = CMS.GetAll<BasePeople>();
-            var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
-            GameData<Main>.Boot.AddCustomer(Customer);
-
-            IsServiced = true;
-        }
-    }
-}
-*/
 class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
     private BasePeople Customer = null;
     private bool IsServiced = false;
-    
-    
+
     public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
             var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
-            
-            yield return new WaitForSeconds(3f);
-            
-            GameData<Main>.Boot.AddCustomer(Customer);
+
+            yield return new WaitForSeconds(5f);
+            var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
+            var Popup = CustomerInGame.transform.Find("Popup").gameObject;
+            TogglePopup(Popup);
+
+            yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
+
+            yield return new WaitForSeconds(.5f);
+            // Запуск звука 
+            TogglePopup(Popup);
+
+            var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
+            var Description = AllTextComponent.First(Text => (Text.name == "Description"));
+
             IsServiced = true;
-            
         }
-        
+
+        yield break;
+
     }
+
+    private void TogglePopup(GameObject Popup)
+    {
+        Popup.SetActive(!Popup.activeSelf);
+    }
+
 }
