@@ -32,3 +32,9 @@ interface IUpdatePotionInfo
 {
     void UpdateInfo();
 }
+
+interface IUpdatePotionEvent
+{
+    void Event();
+}
+

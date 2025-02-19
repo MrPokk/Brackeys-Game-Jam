@@ -221,6 +221,14 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     }
 }
 
+class PotionEvent : BaseInteraction, IUpdatePotionEvent
+{
+    public void Event()
+    {
+        
+    }
+}
+
 class MyDebug : BaseInteraction, IEnterInUpdate
 {
     void IEnterInUpdate.Update(float TimeDelta)
