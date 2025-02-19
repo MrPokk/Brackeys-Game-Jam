@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : MonoBehaviour, IRaise
+public class Potion : Raise
 {
     public int ID;
     public string Name;

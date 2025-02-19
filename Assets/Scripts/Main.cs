@@ -39,7 +39,7 @@ public class Main : MonoBehaviour, IMain
     public TMP_Text PotionDescription;
 
     private Camera myCam;
-    private ObjectIngredient InTheHand;
+    private Raise InTheHand;
 
 
 
@@ -77,7 +77,7 @@ public class Main : MonoBehaviour, IMain
 
     private void NextStep()
     {
-        foreach (var Element in CMS.Get<AllIngredients>().Prefabs)
+        foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
         {
             GameData<Main>.Boot.Store.Add(Element);
         }
@@ -117,12 +117,12 @@ public class Main : MonoBehaviour, IMain
             RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
-                IRaise raise = hit.collider.gameObject.GetComponent<IRaise>();
-                if (raise != null)
+                Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+                if (raise is Ingredient ingredient)
                 {
-                    InTheHand = new(hit.collider.gameObject);
-                    Store.Remove(InTheHand.Prefab);
-                    if (InTheHand.Prefab == PotionZone.PotionIn)
+                    InTheHand = ingredient;
+                    Store.Remove(ingredient);
+                    if (ingredient.gameObject == PotionZone.PotionIn)
                     {
                         PotionZone.Remove();
                     }
@@ -132,20 +132,20 @@ public class Main : MonoBehaviour, IMain
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
         {
 
-            if (InTheHand.Ingredient != null)
+            if (InTheHand is Ingredient ingredient)
             {
                 if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
                 {
-                    Cauldron.Add(InTheHand);
+                    Cauldron.Add(ingredient);
                 }
                 else
                 {
-                    Store.Move(InTheHand.Prefab);
+                    Store.Move(ingredient);
                 }
             }
-            else if (InTheHand.Prefab.GetComponent<Potion>() != null && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
+            else if (InTheHand is Potion potion && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
             {
-                PotionZone.Add(InTheHand);
+                PotionZone.Add(potion.gameObject);
             }
 
             InTheHand = null;
@@ -153,7 +153,7 @@ public class Main : MonoBehaviour, IMain
 
         if (InTheHand != null)
         {
-            InTheHand.Prefab.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.Flash);
+            InTheHand.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.Flash);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -201,7 +201,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs[Random.Range(0, CMS.Get<AllIngredients>().Prefabs.Count)];
+            var LicoriceRoot = CMS.Get<AllIngredients>().Ingredients[Random.Range(0, CMS.Get<AllIngredients>().Ingredients.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }

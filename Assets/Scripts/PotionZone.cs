@@ -14,9 +14,8 @@ public class PotionZone : MonoBehaviour
         return Vector2.Distance(pos, this.transform.position) < 1f;
     }
 
-    public void Add(ObjectIngredient PotionInHand)
+    public void Add(GameObject Potion)
     {
-        var Potion = PotionInHand.Prefab;
         if (Potion != null && InZone == false)
         {
             PotionIn = Potion;

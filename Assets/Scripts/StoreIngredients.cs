@@ -5,27 +5,28 @@ using UnityEngine;
 
 public class StoreIngredients : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> TilesList = new();
+    [SerializeField] private List<Ingredient> TilesList = new();
     public float Spacing;
+    public bool AxisSwith;
 
-    public void Add(ObjectIngredient Ingredient)
+    public void Add(Ingredient Ingredient)
     {
-        if (Ingredient.Prefab == null) return;
-        TilesList.Add(Instantiate(Ingredient.Prefab,transform));
+        if (Ingredient == null) return;
+        TilesList.Add(Instantiate(Ingredient,transform));
         SetPoseTile();
     }
-    public void Move(GameObject Ingredient)
+    public void Move(Ingredient Ingredient)
     {
         if (Ingredient == null) return;
         TilesList.Add(Ingredient);
         SetPoseTile();
     }
-    public void Remove(GameObject Ingredient)
+    public void Remove(Ingredient Ingredient)
     {
         TilesList.Remove(Ingredient);
         SetPoseTile();
     }
-    public void Delete(GameObject Ingredient)
+    public void Delete(Ingredient Ingredient)
     {
         TilesList.Remove(Ingredient);
         Destroy(Ingredient);
@@ -36,8 +37,11 @@ public class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            Vector3 Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i - Vector2.down * Spacing * TilesList.Count / 2;
-            Pose += Vector3.back * 0.01f * i;
+            Vector2 space = new Vector2(0, Spacing * (i - TilesList.Count / 2));
+            if (AxisSwith) space = new Vector2(space.y, space.x);
+
+            Vector3 Pose = (Vector2)gameObject.transform.position + space;
+            Pose += Vector3.forward * (0.01f * i);
             TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
 
         }

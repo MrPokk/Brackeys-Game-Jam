@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Cauldron : MonoBehaviour
 {
-    public List<ObjectIngredient> ingredients = new List<ObjectIngredient>();
+    public List<Ingredient> ingredients = new List<Ingredient>();
     public EffectsMaster effectsMaster = new EffectsMaster();
     public GameObject Potion;
 
@@ -30,13 +30,13 @@ public class Cauldron : MonoBehaviour
         }
     }
 
-    public void Add(ObjectIngredient ingredient)
+    public void Add(Ingredient ingredient)
     {
         ingredients.Add(ingredient);
-        ingredient.Prefab.GetComponent<Collider2D>().enabled = false;
-        effectsMaster.AddEffects(ingredient.Ingredient.Effects);
+        ingredient.GetComponent<Collider2D>().enabled = false;
+        effectsMaster.AddEffects(ingredient.Effects);
         transform.DOPunchScale(new(GameData<Main>.Boot.AnimationScale, GameData<Main>.Boot.AnimationScale, 0), GameData<Main>.Boot.AnimationScaleTime, 0, 0);
-        if (ingredient.Ingredient is Catalyst catalyst) {
+        if (ingredient is Catalyst catalyst) {
             catalyst.Effect(effectsMaster.Get());
         }
     }
@@ -48,9 +48,9 @@ public class Cauldron : MonoBehaviour
     {
         if (ingredients.Count == 0) return false;
         List<int> _ingredients = new List<int>();
-        foreach (ObjectIngredient item in ingredients) {
-            _ingredients.Add(item.Ingredient.ID);
-            Destroy(item.Prefab);
+        foreach (Ingredient item in ingredients) {
+            _ingredients.Add(item.ID);
+            Destroy(item);
         }
         ingredients.Clear();
         transform.DOComplete();
