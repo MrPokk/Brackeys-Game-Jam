@@ -12,10 +12,12 @@ public class ShopIngredients : StoreIngredients
     }
     public override void Add(Ingredient Ingredient)
     {
+        if (Ingredient == null) return;
+        Ingredient = Instantiate(Ingredient, transform.position, new Quaternion());
 
         Ingredient.PriceText.text = Ingredient.Price.ToString();
         Ingredient.PriceText.gameObject.SetActive(true);
-        
-        base.Add(Ingredient);
+        TilesList.Add(Ingredient);
+        SetPoseTile();
     }
 }

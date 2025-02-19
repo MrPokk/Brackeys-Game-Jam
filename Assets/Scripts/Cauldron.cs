@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using SmallHedge.SoundManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ public class Cauldron : MonoBehaviour
         {
             Element.UpdateInfo();
         }
-
+        SoundManager.PlaySound(SoundType.Gurgle);
     }
     public bool Near(Vector2 pos)
     {
@@ -78,7 +79,6 @@ public class Cauldron : MonoBehaviour
 
         GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0,GameData<Main>.Boot.AnimationScaleTime).OnComplete(
             (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
-        
         return true;
     }
     public SamplePotion PreCook()

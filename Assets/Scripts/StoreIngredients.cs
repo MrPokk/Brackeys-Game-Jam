@@ -12,7 +12,7 @@ public class StoreIngredients : MonoBehaviour
     public virtual void Add(Ingredient Ingredient)
     {
         if (Ingredient == null) return;
-        TilesList.Add(Instantiate(Ingredient,transform.position, new Quaternion()));
+        TilesList.Add(Instantiate(Ingredient, transform.position, new Quaternion()));
         SetPoseTile();
     }
     public void Move(Ingredient Ingredient)
