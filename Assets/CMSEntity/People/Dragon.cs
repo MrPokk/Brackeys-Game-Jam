@@ -10,11 +10,11 @@ public class Dragon : BasePeople
         Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Dragon");
         SetTextPrefab(ref people);
 
-        people.Type = TypePeople.Trader;
-        people.Name.text = "Dragon";
-        people.Description.text = "I, Mr. Dragon, want healing potions.";
+        people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().GetRandom();
-
+        people.Name.text = "Dragon";
+        people.Description.text = $"I, Mr. Dragon, want <color=#ed2246>{people.TypePoison.name}</color> potions.";
+        
         SetData(ref people);
         RegisterComponents(people);
     }

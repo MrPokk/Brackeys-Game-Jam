@@ -24,6 +24,9 @@ using UnityEngine.UIElements;
 
  TODO: Костер
 
+Потом
+TODO: Добавить менеджер всех текстов
+
  Баги
  TODO: Можно кинуть предмет за край экрана;
 
@@ -40,6 +43,9 @@ public class Main : MonoBehaviour, IMain
         }
     }
     private int _Money;
+
+    public TextManager TextManager;
+
     public Interaction Interact = new Interaction();
     public StoreIngredients Store;
     public ShopIngredients Shop;
@@ -47,8 +53,6 @@ public class Main : MonoBehaviour, IMain
     public PotionZone PotionZone;
 
     public GameObject PotionInfo;
-    public TMP_Text PotionName;
-    public TMP_Text PotionDescription;
 
     private Camera myCam;
     private Raise InTheHand;
@@ -69,7 +73,7 @@ public class Main : MonoBehaviour, IMain
     }
     public void StartGame()
     {
-        
+
         Interact.Init();
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
@@ -114,7 +118,7 @@ public class Main : MonoBehaviour, IMain
     public void UpdateGame(float TimeDelta)
     {
         var Update = Interact.FindAll<IEnterInUpdate>();
-        
+
 
         foreach (var Element in Update)
         {
@@ -142,20 +146,25 @@ public class Main : MonoBehaviour, IMain
     private void LeftClick()
     {
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null) {
+        if (hit.collider != null)
+        {
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
-            
-            if (raise != null) {
-                if (raise is Ingredient ingredient) {
+
+            if (raise != null)
+            {
+                if (raise is Ingredient ingredient)
+                {
                     if (Store.Contains(ingredient))
                         Store.Remove(ingredient);
-                    else if (Shop.Contains(ingredient)) {
+                    else if (Shop.Contains(ingredient))
+                    {
                         if (ingredient.Price > Money) return;
                         Shop.Remove(ingredient);
                         Money -= ingredient.Price;
                     }
                 }
-                else if (raise.gameObject == PotionZone.PotionIn) {
+                else if (raise.gameObject == PotionZone.PotionIn)
+                {
                     PotionZone.Remove();
                 }
                 InTheHand = raise;
@@ -169,15 +178,19 @@ public class Main : MonoBehaviour, IMain
     }
     private void RightClick()
     {
-        if (InTheHand is Ingredient ingredient) {
-            if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
+        if (InTheHand is Ingredient ingredient)
+        {
+            if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
+            {
                 Cauldron.Add(ingredient);
             }
-            else {
+            else
+            {
                 Store.Move(ingredient);
             }
         }
-        else if (InTheHand is Potion potion && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
+        else if (InTheHand is Potion potion && PotionZone.Near(myCam.ScreenToWorldPoint(Input.mousePosition)))
+        {
             PotionZone.Add(potion.gameObject);
         }
 
@@ -201,7 +214,7 @@ public class Main : MonoBehaviour, IMain
     {
         StartGame();
     }
-    
+
     public static void TogglePopup(GameObject Popup)
     {
         Popup.SetActive(!Popup.activeSelf);
@@ -210,17 +223,18 @@ public class Main : MonoBehaviour, IMain
 
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
-    private TMP_Text Name = GameData<Main>.Boot.PotionName;
-    private TMP_Text Description = GameData<Main>.Boot.PotionDescription;
+    private TMP_Text Name = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
+
+    private TMP_Text Description = GameData<Main>.Boot.TextManager.Get("PotionInfoDescription");
     private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
     public void UpdateInfo()
     {
-       var StringsElementData = new List<string>();
-     
-        
+        var StringsElementData = new List<string>();
+
+
         var Potion = GameData<Main>.Boot.Cauldron.PreCook();
         Name.SetText(Potion.name);
-        
+
         foreach (var Element in Effects)
         {
             StringsElementData.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
@@ -233,9 +247,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 class PotionEvent : BaseInteraction, IUpdatePotionEvent
 {
     public void Event()
-    {
-        
-    }
+    { }
 }
 
 class MyDebug : BaseInteraction, IEnterInUpdate
@@ -252,17 +264,20 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             var All = CMS.Get<AllIngredients>().Ingredients;
             foreach (var Element in All)
                 GameData<Main>.Boot.Store.Add(Element);
-        } 
-        else if (Input.GetKeyDown(KeyCode.H)) {
-            GameData<Main>.Boot.Shop.Generatre(Random.Range(3,7));
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
     }
 }
 
 public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
-    public static BasePeople Customer = null;
-    public bool IsServiced = false;
+
+    public GameObject CustomerInGame { get; private set; }
+    public static BasePeople Customer { get; private set; } = null;
+    public bool IsServiced { get; private set; } = false;
 
     public IEnumerator Enter()
     {
@@ -272,7 +287,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
             yield return new WaitForSeconds(5f);
-            var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
+            CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
             Main.TogglePopup(Popup);
 
@@ -282,14 +297,24 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             // Запуск звука 
             Main.TogglePopup(Popup);
 
-            var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
-            var Description = AllTextComponent.First(Text => (Text.name == "Description"));
+          //  var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
+           // var Description = AllTextComponent.First(Text => (Text.name == "Description"));
 
             IsServiced = true;
         }
-
         yield break;
-
+    }
+    public IEnumerator Exit()
+    {
+        var Popup = CustomerInGame.transform.Find("Popup").gameObject;
+        Main.TogglePopup(Popup);
+        
+        yield return new WaitForSeconds(1f);
+        
+        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
+        
+        IsServiced = false;
+        yield break;
     }
 
 }

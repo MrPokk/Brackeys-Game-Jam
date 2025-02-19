@@ -26,6 +26,7 @@ interface IEnterInUpdate
 interface IEnterInPeople
 {
     IEnumerator Enter();
+    IEnumerator Exit();
 }
 
 interface IUpdatePotionInfo
