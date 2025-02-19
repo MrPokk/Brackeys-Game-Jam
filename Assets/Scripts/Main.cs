@@ -283,7 +283,13 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     public GameObject CustomerInGame { get; private set; }
     public static BasePeople Customer { get; private set; } = null;
     public bool IsServiced { get; private set; } = false;
-
+    public static void ExitAll()
+    {
+        var PeopleInteract = GameData<Main>.Boot.Interact.FindAll<PeopleImplementation>();
+        foreach (var Element in PeopleInteract) {
+            GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Element.Exit());
+        }
+    }
     public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
@@ -291,7 +297,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             var AllVarPeoples = CMS.GetAll<BasePeople>();
             Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(1f);
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
             Main.TogglePopup(Popup);

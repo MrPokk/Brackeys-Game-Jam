@@ -1,4 +1,5 @@
 using Engin.Utility;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,7 @@ public abstract class BasePeople : CMSEntity
             }
         }
     }
-    
+    public abstract BasePeople Generation();
     public abstract void SetData(ref DataPeople Data);
 }
 public struct DataPeople : IComponent

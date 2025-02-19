@@ -23,23 +23,11 @@ public class ButtonBell : CustomButton
                         potionZone.Delete();
                     }
                 }
-                var PeopleInteract = GameData<Main>.Boot.Interact.FindAll<PeopleImplementation>();
-                foreach (var Element in PeopleInteract)
-                {
-                    StartCoroutine(Element.Exit());
-                }
+                PeopleImplementation.ExitAll();
             }
             else
             {
                 GameData<Main>.Boot.Shop.Generatre(Random.Range(MinGoods, MaxGoods + 1));
-            }
-        }
-        else
-        {
-            var PeopleInteract = GameData<Main>.Boot.Interact.FindAll<PeopleImplementation>();
-            foreach (var Element in PeopleInteract)
-            {
-                StartCoroutine(Element.Enter());
             }
         }
     }
