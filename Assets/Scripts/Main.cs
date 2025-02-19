@@ -1,20 +1,31 @@
 using DG.Tweening;
 using Engin.Utility;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 /*
- 
+
  Код
  TODO: Сделать систему Зелий +/-
  TODO: Придумать как хранить Параметры зелья для передачи его в BasePeople
 
+ TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
+
  Арт
- TODO: Перерисовать бэкграунд
+ TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации
- TODO: Поменять шрифт;
+ TODO: Поменять шрифт
+ TODO: Постпроцесинг
+
+ TODO: Костер
+
+ Баги
+ TODO: Можно кинуть предмет за край экрана;
 
  */
 public class Main : MonoBehaviour, IMain
@@ -23,9 +34,17 @@ public class Main : MonoBehaviour, IMain
     public StoreIngredients Store;
     public Cauldron Cauldron;
     public PotionZone PotionZone;
-    
+
     private Camera myCam;
     private ObjectIngredient InTheHand;
+
+    public Transform PointStartPeople;
+    public Transform PointEndPeople;
+
+    public float AnimationScale => 0.5f;
+    public float AnimationScaleTime => 0.5f;
+    public float AnimationMove => 0.5f;
+    public float AnimationMoveTime => 0.3f;
 
     public void StartGame()
     {
@@ -51,19 +70,26 @@ public class Main : MonoBehaviour, IMain
     }
 
 
-    public void NextStep()
+    private void NextStep()
     {
-        foreach (var Element in CMS.Get<AllIngredients>().prefabs) {
+        foreach (var Element in CMS.Get<AllIngredients>().Prefabs)
+        {
             GameData<Main>.Boot.Store.Add(Element);
         }
+
+        var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
+        foreach (var Element in PeopleUpdate)
+        {
+            StartCoroutine(Element.Enter());
+        }
+
         myCam = Camera.main;
     }
 
-    public void AddCustomer(BasePeople Customer)
+    public GameObject AddCustomer(BasePeople Customer)
     {
-        Instantiate(Customer.Data.Prefab);
+        return Instantiate(Customer.DataComponent.Prefab, GameData<Main>.Boot.PointStartPeople.position, new Quaternion());
     }
-
 
     public void UpdateGame(float TimeDelta)
     {
@@ -83,7 +109,10 @@ public class Main : MonoBehaviour, IMain
                 {
                     InTheHand = new(hit.collider.gameObject);
                     Store.Remove(InTheHand.Prefab);
-                    PotionZone.Remove();
+                    if (InTheHand.Prefab == PotionZone.PotionIn)
+                    {
+                        PotionZone.Remove();
+                    }
                 }
             }
         }
@@ -111,7 +140,7 @@ public class Main : MonoBehaviour, IMain
 
         if (InTheHand != null)
         {
-            InTheHand.Prefab.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), 0.3f).SetEase(Ease.Flash);
+            InTheHand.Prefab.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.Flash);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -137,7 +166,19 @@ public class Main : MonoBehaviour, IMain
     {
         StartGame();
     }
+}
 
+class PotionInfo : MonoBehaviour
+{
+   [SerializeField]private TMP_Text Name;
+   [SerializeField]private TMP_Text Description;
+   private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+
+
+   private void UpdateInfo()
+   {
+      // Description.text += $"\n{}";
+   }
 }
 
 class MyDebug : BaseInteraction, IEnterInUpdate
@@ -146,26 +187,48 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            var LicoriceRoot = CMS.Get<AllIngredients>().prefabs[Random.Range(0, CMS.Get<AllIngredients>().prefabs.Count)];
+            var LicoriceRoot = CMS.Get<AllIngredients>().Prefabs[Random.Range(0, CMS.Get<AllIngredients>().Prefabs.Count)];
             GameData<Main>.Boot.Store.Add(LicoriceRoot);
         }
     }
 }
 
-class PeopleController : BaseInteraction, IEnterInUpdate
+class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
     private BasePeople Customer = null;
     private bool IsServiced = false;
-    void IEnterInUpdate.Update(float TimeDelta)
+
+    public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
             var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
-            GameData<Main>.Boot.AddCustomer(Customer);
+            yield return new WaitForSeconds(5f);
+            var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
+            var Popup = CustomerInGame.transform.Find("Popup").gameObject;
+            TogglePopup(Popup);
+
+            yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
+
+            yield return new WaitForSeconds(.5f);
+            // Запуск звука 
+            TogglePopup(Popup);
+
+            var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
+            var Description = AllTextComponent.First(Text => (Text.name == "Description"));
 
             IsServiced = true;
         }
+
+        yield break;
+
     }
+
+    private void TogglePopup(GameObject Popup)
+    {
+        Popup.SetActive(!Popup.activeSelf);
+    }
+
 }

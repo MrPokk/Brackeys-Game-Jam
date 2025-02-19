@@ -9,7 +9,7 @@ using UnityEngine;
 [Serializable]
 public class Ingredient : MonoBehaviour, IRaise
 {
-    public int ID;
+    public int ID  ;
     public String Name;
     public String Description;
     public List<EffectData> Effects = new();
@@ -23,23 +23,23 @@ public class Ingredient : MonoBehaviour, IRaise
 
 public class AllIngredients : CMSEntity
 {
-    public List<ObjectIngredient> prefabs;
+    public List<ObjectIngredient> Prefabs;
     public AllIngredients()
     {
         LoadAll();
     }
     public void LoadAll()
     {
-        prefabs = new();
+        Prefabs = new();
         string[] fillis = Directory.GetFiles("Assets/Resources/Ingredient");
         foreach (string Element in fillis) {
             if (Path.GetExtension(Element) != ".prefab") continue;
-            prefabs.Add(new ObjectIngredient(Resources.Load<GameObject>($"Ingredient/{Path.GetFileNameWithoutExtension(Element)}")));
+            Prefabs.Add(new ObjectIngredient(Resources.Load<GameObject>($"Ingredient/{Path.GetFileNameWithoutExtension(Element)}")));
         }
     }
     public Ingredient GetByID(int ID)
     {
-        return prefabs.FirstOrDefault(x => x.Ingredient.ID == ID).Ingredient;
+        return Prefabs.FirstOrDefault(x => x.Ingredient.ID == ID).Ingredient;
     }
 
     public override void RegisterComponents(params IComponent[] components)

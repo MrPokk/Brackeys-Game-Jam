@@ -4,8 +4,7 @@ using TMPro;
 using UnityEngine;
 public abstract class BasePeople : CMSEntity
 {
-    public DataPeople Data { get; set; }
-    
+    public DataPeople DataComponent { get; set; }
     public virtual void SetTextPrefab(ref DataPeople Data)
     {
         foreach (var Element in Data.Prefab.GetComponentsInChildren<TMP_Text>())
@@ -20,6 +19,8 @@ public abstract class BasePeople : CMSEntity
             }
         }
     }
+    
+    public abstract void SetData(ref DataPeople Data);
 }
 public struct DataPeople : IComponent
 {

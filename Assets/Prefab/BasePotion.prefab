@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7085484710536445234}
   - component: {fileID: 6265807515243881561}
-  - component: {fileID: 2104394980019407653}
-  - component: {fileID: 5283126607293705992}
+  - component: {fileID: -1446940390495003798}
+  - component: {fileID: -6004431116956914163}
   m_Layer: 0
-  m_Name: LicoriceRoot
+  m_Name: BasePotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 2268872014140718020, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,10 +83,10 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2104394980019407653
+--- !u!114 &-1446940390495003798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,16 +95,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338450181906888421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0042da380856c534a88b54c6fd463a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 27104
-  Name: "\u041A\u043E\u0440\u0435\u043D\u044C \u0441\u043E\u043B\u043E\u0434\u043A\u0438"
-  Description: 
-  Effects:
-  - Type: 1
-    Power: 3
---- !u!61 &5283126607293705992
+  ID: 0
+  Name: 
+  Price: 0
+  effects: []
+  IDIngredients: 
+--- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +139,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64285713, y: 0.96428573}
+    oldSize: {x: 1, y: 0.8828125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

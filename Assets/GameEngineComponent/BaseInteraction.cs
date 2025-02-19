@@ -1,4 +1,7 @@
 using Engin.Utility;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public abstract class BaseInteraction
 {
@@ -17,5 +20,10 @@ interface IEnterInReady
 
 interface IEnterInUpdate
 {
- void Update(float TimeDelta);
+  void Update(float TimeDelta);
+}
+
+interface IEnterInPeople
+{
+ IEnumerator  Enter();
 }

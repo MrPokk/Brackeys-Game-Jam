@@ -3,20 +3,15 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public partial class StoreIngredients : MonoBehaviour
+public class StoreIngredients : MonoBehaviour
 {
     [SerializeField] private List<GameObject> TilesList = new();
     public float Spacing;
 
-    private void Update()
-    {
-        //SetPoseTile();
-    }
-
     public void Add(ObjectIngredient Ingredient)
     {
         if (Ingredient.Prefab == null) return;
-        TilesList.Add(Instantiate(Ingredient.Prefab));
+        TilesList.Add(Instantiate(Ingredient.Prefab,transform));
         SetPoseTile();
     }
     public void Move(GameObject Ingredient)
@@ -41,9 +36,9 @@ public partial class StoreIngredients : MonoBehaviour
     {
         for (int i = 0; i < TilesList.Count; i++)
         {
-            
-            var Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i;
-            TilesList[i].transform.DOMove((Pose),0.5f).SetEase(Ease.InOutElastic);
+            Vector3 Pose = (Vector2)gameObject.transform.position + Vector2.down * Spacing * i - Vector2.down * Spacing * TilesList.Count / 2;
+            Pose += Vector3.back * 0.01f * i;
+            TilesList[i].transform.DOMove(Pose, GameData<Main>.Boot.AnimationMoveTime).SetEase(Ease.InOutElastic);
 
         }
     }
