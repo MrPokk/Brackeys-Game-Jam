@@ -30,11 +30,12 @@ using UnityEngine.UIElements;
  */
 public class Main : MonoBehaviour, IMain
 {
-    private Interaction Interact = new Interaction();
+    public Interaction Interact = new Interaction();
     public StoreIngredients Store;
     public Cauldron Cauldron;
     public PotionZone PotionZone;
 
+    public GameObject PotionInfo;
     public TMP_Text PotionName;
     public TMP_Text PotionDescription;
 
@@ -53,7 +54,7 @@ public class Main : MonoBehaviour, IMain
     public void Awake()
     {
         CMS.Init();
-        GameData<Main>.Boot = this; 
+        GameData<Main>.Boot = this;
     }
     public void StartGame()
     {
@@ -100,17 +101,14 @@ public class Main : MonoBehaviour, IMain
     public void UpdateGame(float TimeDelta)
     {
         var Update = Interact.FindAll<IEnterInUpdate>();
-        var updatePotionInfo = Interact.FindAll<IUpdatePotionInfo>();
+        
 
         foreach (var Element in Update)
         {
             Element.Update(TimeDelta);
         }
-        
-        foreach (var Element in updatePotionInfo)
-        {
-            Element.UpdateInfo();
-        }
+
+
 
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
         {
@@ -179,19 +177,32 @@ public class Main : MonoBehaviour, IMain
     {
         StartGame();
     }
+    
+    public static void TogglePopup(GameObject Popup)
+    {
+        Popup.SetActive(!Popup.activeSelf);
+    }
 }
 
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
-    private TMP_Text Name => GameData<Main>.Boot.PotionName;
-    private TMP_Text Description => GameData<Main>.Boot.PotionDescription;
+    private TMP_Text Name = GameData<Main>.Boot.PotionName;
+    private TMP_Text Description = GameData<Main>.Boot.PotionDescription;
     private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
     public void UpdateInfo()
     {
+       var StringsElementData = new List<string>();
+     
+        
+        var Potion = GameData<Main>.Boot.Cauldron.PreCook();
+        Name.SetText(Potion.name);
+        
         foreach (var Element in Effects)
         {
-            Description.text += $"\n{Element.Type.ToString().ToUpperInvariant()}: {Element.Power} ";
+            StringsElementData.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
         }
+        Description.SetText("");
+        Description.SetText(string.Join("\n", StringsElementData));
     }
 }
 
@@ -222,13 +233,13 @@ class PeopleImplementation : BaseInteraction, IEnterInPeople
             yield return new WaitForSeconds(5f);
             var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-            TogglePopup(Popup);
+            Main.TogglePopup(Popup);
 
             yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, GameData<Main>.Boot.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
 
             yield return new WaitForSeconds(.5f);
             // Запуск звука 
-            TogglePopup(Popup);
+            Main.TogglePopup(Popup);
 
             var AllTextComponent = CustomerInGame.GetComponentsInChildren<TMP_Text>();
             var Description = AllTextComponent.First(Text => (Text.name == "Description"));
@@ -238,11 +249,6 @@ class PeopleImplementation : BaseInteraction, IEnterInPeople
 
         yield break;
 
-    }
-
-    private void TogglePopup(GameObject Popup)
-    {
-        Popup.SetActive(!Popup.activeSelf);
     }
 
 }
