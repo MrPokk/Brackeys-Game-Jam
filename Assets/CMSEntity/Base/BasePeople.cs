@@ -25,7 +25,7 @@ public abstract class BasePeople : CMSEntity
 public struct DataPeople : IComponent
 {
     public GameObject Prefab;
-    public GameObject TypePoison;
+    public SamplePotion TypePoison;
     public TMP_Text Description;
     public TMP_Text Name;
 }
