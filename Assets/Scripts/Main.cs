@@ -8,8 +8,11 @@ using UnityEngine.UIElements;
 /*
 
  Код
-
+ 
+ на завтра
+ TODO: Добавить больше зелий и ингредиентов
  TODO: При наведёте на ингридиент появления эффектов (В отдельной панельки)
+ TODO: Добавить панель отображающую что нужно для варки конкретного зелья покупателя
 
  Арт
  TODO: Перерисовать бэкграунд +-
@@ -38,7 +41,7 @@ public class Main : MonoBehaviour, IMain
 
     private Camera myCam;
     private Raise InTheHand;
-    
+
     public Transform PointStartPeople;
     public Transform PointEndPeople;
 
@@ -46,10 +49,10 @@ public class Main : MonoBehaviour, IMain
     public const float AnimationScaleTime = 0.5f;
     public const float AnimationMove = 0.5f;
     public const float AnimationMoveTime = 0.3f;
-    
-    
+
+
     public const float ReputationDebuff = 20f;
-    
+
     public void Awake()
     {
         CMS.Init();
@@ -90,17 +93,17 @@ public class Main : MonoBehaviour, IMain
             StartCoroutine(Element.Enter());
         }
 
-       var GamaData = Interact.FindAll<GameDataInfo>();
-       foreach (var Element in GamaData)
-       {
-           Element.Update();
-       }
-        
+        var GamaData = Interact.FindAll<GameDataInfo>();
+        foreach (var Element in GamaData)
+        {
+            Element.Update();
+        }
+
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
         Interact.FindAll<MyDebug>();
         Interact.FindAll<IUpdatePotionInfo>();
-        
+
         myCam = Camera.main;
     }
 
@@ -122,7 +125,7 @@ public class Main : MonoBehaviour, IMain
         {
             Element.Update(TimeDelta);
         }
-        
+
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
             LeftClick();
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
@@ -221,11 +224,12 @@ public class Main : MonoBehaviour, IMain
 
 class GameDataInfo : BaseInteraction, IUpdateGameData
 {
-  public void Update()
-   {
-      GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString());;
-      GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
-   }
+    public void Update()
+    {
+        GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString());
+        ;
+        GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
+    }
 }
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
@@ -279,7 +283,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     public bool IsServiced { get; private set; } = false;
     public static void ExitAll()
     {
-        foreach (var Element in InteractionCache<PeopleImplementation>.AllInteraction) {
+        foreach (var Element in InteractionCache<PeopleImplementation>.AllInteraction)
+        {
             GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Element.Exit());
         }
     }
@@ -289,7 +294,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
             Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)].ModifyDataSet();
-            
+
             yield return new WaitForSeconds(1f);
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
@@ -312,12 +317,12 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         var Popup = CustomerInGame.transform.Find("Popup").gameObject;
         Main.TogglePopup(Popup);
-        
+
 
         yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
 
         CustomerInGame.transform.DOComplete();
-        
+
         GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
         Customer = null;
         IsServiced = false;
