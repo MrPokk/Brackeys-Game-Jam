@@ -30,7 +30,16 @@ using UnityEngine.UIElements;
  */
 public class Main : MonoBehaviour, IMain
 {
-    public int Money;
+    public int Money
+    {
+        get {
+            return _Money;
+        }
+        set {
+            _Money = value;
+        }
+    }
+    private int _Money;
     public Interaction Interact = new Interaction();
     public StoreIngredients Store;
     public ShopIngredients Shop;
@@ -130,7 +139,7 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
-    public void LeftClick()
+    private void LeftClick()
     {
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null) {
@@ -151,14 +160,14 @@ public class Main : MonoBehaviour, IMain
                 }
                 InTheHand = raise;
             }
-
-            if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button)
-            {
-                Button.EventClose();
+            else {
+                if (hit.collider.gameObject.GetComponent<CustomButton>() is CustomButton Button) {
+                    Button.Click();
+                }
             }
         }
     }
-    public void RightClick()
+    private void RightClick()
     {
         if (InTheHand is Ingredient ingredient) {
             if (Cauldron.Near(myCam.ScreenToWorldPoint(Input.mousePosition))) {
@@ -173,6 +182,11 @@ public class Main : MonoBehaviour, IMain
         }
 
         InTheHand = null;
+    }
+
+    public void AddMoney(int count)
+    {
+        Money += count;
     }
 
     public void PhysicUpdateGame(float TimeDelta)
@@ -250,17 +264,17 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     }
 }
 
-class PeopleImplementation : BaseInteraction, IEnterInPeople
+public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
-    private BasePeople Customer = null;
-    private bool IsServiced = false;
+    public static BasePeople Customer = null;
+    public bool IsServiced = false;
 
     public IEnumerator Enter()
     {
         if (Customer == null && !IsServiced)
         {
             var AllVarPeoples = CMS.GetAll<BasePeople>();
-            var Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
+            Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)];
 
             yield return new WaitForSeconds(5f);
             var CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);

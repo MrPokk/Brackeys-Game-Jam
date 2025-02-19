@@ -28,4 +28,10 @@ public struct DataPeople : IComponent
     public SamplePotion TypePoison;
     public TMP_Text Description;
     public TMP_Text Name;
+    public TypePeople Type;
+}
+public enum TypePeople
+{
+    Customer,
+    Trader
 }

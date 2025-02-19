@@ -13,8 +13,8 @@ public class EffectData
     {
         if (test == null || at == null) return false;
         if (test.Type != at.Type) return false;
-        if (!inversive) return test.Power >= at.Power;
-        else return test.Power <= at.Power;
+        if (!inversive) return at.Power >= 0 ? test.Power >= at.Power : test.Power <= at.Power;
+        else return at.Power >= 0 ? test.Power <= at.Power : test.Power >= at.Power;
     }
 }
 [Serializable]

@@ -389,6 +389,8 @@ GameObject:
   m_Component:
   - component: {fileID: 445121558}
   - component: {fileID: 445121557}
+  - component: {fileID: 445121560}
+  - component: {fileID: 445121559}
   m_Layer: 0
   m_Name: Bell
   m_TagString: Untagged
@@ -463,6 +465,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 878469913}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &445121559
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445121556}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1071428, y: 1.3214285}
+    newSize: {x: 1.1071428, y: 1.3214285}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1071428, y: 1.3214285}
+  m_EdgeRadius: 0
+--- !u!114 &445121560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445121556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c194931cd411a4fbe10be3013e925c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinGoods: 5
+  MaxGoods: 8
 --- !u!1 &452953228
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004863ef8ab3b7348b385a8df6afb108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InZone: 0
   SpritePotionZone: {fileID: 1141045109}
 --- !u!4 &643659808
 Transform:
@@ -944,7 +1004,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 652421197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdea6b1ed1ad7814aa3d77313aff4e3f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d813d01015e054489c8feb298b70711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &704075108
@@ -963,7 +1023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &704075109
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2154,7 +2214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cb291afecd5804bb13f6892ee1ef68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Money: 5
   Store: {fileID: 652289595}
   Shop: {fileID: 959329258}
   Cauldron: {fileID: 1581441488}
