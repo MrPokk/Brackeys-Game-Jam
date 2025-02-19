@@ -64,7 +64,7 @@ public class Cauldron : MonoBehaviour
         List<int> _ingredients = new List<int>();
         foreach (Ingredient item in ingredients) {
             _ingredients.Add(item.ID);
-            Destroy(item);
+            Destroy(item.gameObject);
         }
         ingredients.Clear();
         transform.DOComplete();

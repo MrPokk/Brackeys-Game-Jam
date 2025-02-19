@@ -573,7 +573,7 @@ Transform:
   m_GameObject: {fileID: 652289593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.98, y: -0.54, z: 0}
+  m_LocalPosition: {x: 8, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -722,29 +722,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 959329257}
-  - component: {fileID: 959329256}
+  - component: {fileID: 959329258}
   m_Layer: 0
   m_Name: ShopIngredients
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &959329256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959329255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8debc2def5e491742a6eaf0ae218eab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TilesList: []
-  Spacing: 0.8
-  AxisSwap: 1
 --- !u!4 &959329257
 Transform:
   m_ObjectHideFlags: 0
@@ -754,12 +739,27 @@ Transform:
   m_GameObject: {fileID: 959329255}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.55, y: 1, z: -5}
+  m_LocalPosition: {x: -0, y: 1.26, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &959329258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959329255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25f9deb967f5a64eb3cc25135a20da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TilesList: []
+  Spacing: 0.8
+  AxisSwap: 1
 --- !u!1 &966927149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: 5
   Store: {fileID: 652289595}
-  Shop: {fileID: 959329256}
+  Shop: {fileID: 959329258}
   Cauldron: {fileID: 1581441488}
   PotionZone: {fileID: 643659806}
   PotionInfo: {fileID: 487566624}

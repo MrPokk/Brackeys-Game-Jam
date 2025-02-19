@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Engin.Utility;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -14,6 +15,8 @@ public class Ingredient : Raise
     public int Price;
     public List<EffectData> Effects = new();
 
+    public TMP_Text PriceText;
+    
     [ContextMenu("Generate ID")]
     public void GenerateID()
     {
