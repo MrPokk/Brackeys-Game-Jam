@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
-  Name: Emberheart
+  Name: Energy
   NegativeName: 
   Color: {r: 0.93066853, g: 0.9622642, b: 0.17702031, a: 0}

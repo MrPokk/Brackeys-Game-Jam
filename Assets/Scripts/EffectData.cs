@@ -41,10 +41,10 @@ public enum EffectType
 {
     BASIC = 0,
     Energy,
-    Transformation,
-    Consciousness,
-    Connection,
-    Elementality,
+    Chaotic,
+    Sagacity,
+    Magic,
+    Primary,
 
     ADDITIONAL = 100,
     Stability,
