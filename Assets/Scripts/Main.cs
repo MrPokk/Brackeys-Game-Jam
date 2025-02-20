@@ -3,9 +3,11 @@ using Engin.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using MouseButton = UnityEngine.UIElements.MouseButton;
 using Random = UnityEngine.Random;
 /*
 
@@ -157,33 +159,58 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
-
     private void HoverMouse()
     {
-       
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null &&  InTheHand == null)
+        if (hit.collider != null && InTheHand == null)
         {
-            ToolKit.transform.position = hit.point + new Vector2(-1.8f, 1.5f) ;
+            ToolKit.transform.position = hit.point + new Vector2(-1.8f, 1.5f);
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
 
-            if (raise is Ingredient ingredient )
+            if (raise is Ingredient ingredient)
             {
                 var EffectsInIngredient = new List<string>();
                 TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
 
+                TMP_Text Effect = GameData<Main>.Boot.TextManager.Get("ToolKitEffectObject");
                 TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
-                TMP_Text Type = GameData<Main>.Boot.TextManager.Get("ToolKitTypeObject");
-                
+
+                List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+
                 foreach (var Element in ingredient.Effects)
                 {
-                    EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                    if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
+                    {
+                        var EffectCustomer = EffectsInCustomer.FirstOrDefault(range => {
+                            if (range.Type == Element.Type)
+                                return true;
+                            return false;
+                        });
+                        if (EffectCustomer != null && EffectCustomer.Type == Element.Type)
+                        {
+                            var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
+                            Color.a = 1f;
+                            var ColorHex = $"#{XColor.ToHexString(Color)}";
+                            EffectsInIngredient.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
+                        }
+                        else
+                        {
+                            var ColorBad = $"#373737";
+                            EffectsInIngredient.Add($"<color={ColorBad}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
+                        }
+                    }
+                    else
+                    {
+                        EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                    }
                 }
-                
+
+
+
                 Name.SetText(ingredient.Name);
-                Description.SetText(string.Join("\n", EffectsInIngredient));
-                Type.SetText(ingredient.GetType().ToString());
-                
+                Description.SetText(ingredient.Description);
+                Effect.SetText(string.Join("\n", EffectsInIngredient));
+
                 GameData<Main>.Boot.ToolKit.SetActive(true);
             }
         }
@@ -290,18 +317,20 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
     private TMP_Text NeedCraftText = GameData<Main>.Boot.TextManager.Get("PotionInfoNeed");
 
-    private static Vector3 SIZE_INFO = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
+    private static Vector3 SIZE_INFO_CAULDRON = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
+    private static Vector3 SIZE_INFO_CUSTOMER = GameData<Main>.Boot.PotionInfoCustomer.transform.localScale;
     public static void OpenPopup<T>()
     {
         Type WhoCalled = typeof(T);
         if (WhoCalled == typeof(Cauldron))
         {
             GameData<Main>.Boot.PotionInfoCauldron.SetActive(true);
-            GameData<Main>.Boot.PotionInfoCauldron.transform.DOScale(SIZE_INFO, Main.AnimationScaleTime);
+            GameData<Main>.Boot.PotionInfoCauldron.transform.DOScale(SIZE_INFO_CAULDRON, Main.AnimationScaleTime);
         }
         else if (WhoCalled == typeof(PeopleImplementation) && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
         {
             GameData<Main>.Boot.PotionInfoCustomer.SetActive(true);
+            GameData<Main>.Boot.PotionInfoCustomer.transform.DOScale(SIZE_INFO_CUSTOMER, Main.AnimationScaleTime);
         }
     }
     public static void ClosePopup<T>()
@@ -315,38 +344,65 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         }
         else if (WhoCalled == typeof(PeopleImplementation))
         {
-            GameData<Main>.Boot.PotionInfoCustomer.SetActive(false);
+            GameData<Main>.Boot.PotionInfoCustomer
+                .transform.DOScale(0, Main.AnimationScaleTime).OnComplete(
+                    (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfoCustomer)));
         }
     }
 
-    private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+    private List<EffectData> EffectsInCauldron => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+    private List<EffectRange> EffectsInCustomer => PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
     public void UpdateInfo()
     {
         var EffectsInCauldronText = new List<string>();
-
-        var EffectsCraftText = new List<string>();
+        var EffectsInCraftText = new List<string>();
 
         var Potion = GameData<Main>.Boot.Cauldron.GetEffectPotion();
         Name.SetText(Potion.Name);
 
-        foreach (var Element in Effects)
+        foreach (var ElementCauldron in EffectsInCauldron)
         {
-            EffectsInCauldronText.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}\n");
+
+            if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
+            {
+                var EffectCustomer = EffectsInCustomer.FirstOrDefault(range => {
+                    if (range.Type == ElementCauldron.Type)
+                        return true;
+                    return false;
+                });
+                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type)
+                {
+                    var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
+                    Color.a = 1f;
+                    var ColorHex = $"#{XColor.ToHexString(Color)}";
+                    EffectsInCauldronText.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                }
+                else
+                {
+                    var ColorBad = $"#373737";
+                    EffectsInCauldronText.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                }
+            }
+            else
+            {
+                EffectsInCauldronText.Add($"{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}");
+            }
+
         }
 
-        var Customer = PeopleImplementation.Customer;
-        if (Customer != null)
+        if (PeopleImplementation.Customer != null)
         {
-            var TypePoison = Customer.DataComponent.TypePoison;
-
-            foreach (var Element in TypePoison.Recipe)
+            foreach (var Element in EffectsInCustomer)
             {
-                EffectsCraftText.Add($"{Element.Type.ToString().ToUpperInvariant()}: [{Element.Min}, {Element.Max}]\n");
+                var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
+                Color.a = 1f;
+                var ColorHex = $"#{XColor.ToHexString(Color)}";
+                EffectsInCraftText.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: [{Element.Min} {Element.Max}]");
             }
         }
 
-        Description.SetText(string.Join(" ", EffectsInCauldronText));
-        NeedCraftText.SetText(string.Join(" ", EffectsCraftText));
+        Description.SetText(string.Join("\n", EffectsInCauldronText));
+        NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));
     }
 }
 class MyDebug : BaseInteraction, IEnterInUpdate

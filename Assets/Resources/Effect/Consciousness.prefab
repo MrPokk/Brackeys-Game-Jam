@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   Name: Consciousness
+  NegativeName: 
+  Color: {r: 0.3456164, g: 0.11053756, b: 0.8679245, a: 0}

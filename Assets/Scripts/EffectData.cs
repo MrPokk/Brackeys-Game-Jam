@@ -44,7 +44,7 @@ public enum EffectType
     Transformation,
     Consciousness,
     Connection,
-    Element,
+    Elementality,
 
     ADDITIONAL = 100,
     Stability,

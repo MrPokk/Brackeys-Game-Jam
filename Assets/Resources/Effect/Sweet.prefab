@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 201
   Name: Sweet
+  NegativeName: 
+  Color: {r: 0.9339623, g: 0.5066305, b: 0.8445849, a: 0}

@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 5
   Name: Element
+  NegativeName: 
+  Color: {r: 0.26885572, g: 0.102794595, b: 0.3962264, a: 0}

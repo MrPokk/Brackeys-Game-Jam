@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 102
   Name: Duration
+  NegativeName: 
+  Color: {r: 0.6363475, g: 0.9433962, b: 0.838746, a: 0}

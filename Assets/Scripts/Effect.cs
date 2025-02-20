@@ -9,6 +9,7 @@ public class Effect : MonoBehaviour
     public EffectType ID;
     public string Name;
     public string NegativeName;
+    public Color Color = Color.black;
 }
 
 public class AllEffect : CMSEntity
