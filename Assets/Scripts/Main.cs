@@ -397,7 +397,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                 var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
                 Color.a = 1f;
                 var ColorHex = $"#{XColor.ToHexString(Color)}";
-                EffectsInCraftText.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: [{Element.Min} - {Element.Max}]");
+                EffectsInCraftText.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Min} — {Element.Max}");
             }
         }
 

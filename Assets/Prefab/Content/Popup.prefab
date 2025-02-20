@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 233291668877059585}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.371, y: 1.5063, z: 0}
-  m_LocalScale: {x: 0.8251, y: 0.8817, z: 1}
+  m_LocalPosition: {x: 3.1566, y: 1.5063, z: 0}
+  m_LocalScale: {x: 0.7514186, y: 0.8817, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5531983370722505313}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -3.528398, w: -0.41132808}
+  m_margin: {x: 0, y: 0, z: -3.052781, w: -0.41132808}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
