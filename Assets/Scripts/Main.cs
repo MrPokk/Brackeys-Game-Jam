@@ -41,7 +41,7 @@ public class Main : MonoBehaviour, IMain
 
     public GameObject PotionInfoCauldron;
     public GameObject PotionInfoCustomer;
-
+    public GameObject ToolKit;
 
     private Camera myCam;
     private Raise InTheHand;
@@ -108,6 +108,10 @@ public class Main : MonoBehaviour, IMain
         Interact.FindAll<MyDebug>();
         Interact.FindAll<IUpdatePotionInfo>();
 
+        PotionInfoCauldron.SetActive(false);
+        PotionInfoCustomer.SetActive(false);
+        ToolKit.SetActive(false);
+
         myCam = Camera.main;
     }
 
@@ -140,6 +144,8 @@ public class Main : MonoBehaviour, IMain
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
             RightClick();
 
+        HoverMouse();
+
         if (InTheHand != null)
         {
             InTheHand.transform.DOMove(new(myCam.ScreenToWorldPoint(Input.mousePosition).x, myCam.ScreenToWorldPoint(Input.mousePosition).y, 0), Main.AnimationMoveTime).SetEase(Ease.Flash);
@@ -151,6 +157,41 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
+
+    private void HoverMouse()
+    {
+       
+        RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hit.collider != null &&  InTheHand == null)
+        {
+            ToolKit.transform.position = hit.point + new Vector2(-1.8f, 1.5f) ;
+            Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+
+            if (raise is Ingredient ingredient )
+            {
+                var EffectsInIngredient = new List<string>();
+                TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
+
+                TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
+                TMP_Text Type = GameData<Main>.Boot.TextManager.Get("ToolKitTypeObject");
+                
+                foreach (var Element in ingredient.Effects)
+                {
+                    EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                }
+                
+                Name.SetText(ingredient.Name);
+                Description.SetText(string.Join("\n", EffectsInIngredient));
+                Type.SetText(ingredient.GetType().ToString());
+                
+                GameData<Main>.Boot.ToolKit.SetActive(true);
+            }
+        }
+        else
+        {
+            GameData<Main>.Boot.ToolKit.SetActive(false);
+        }
+    }
     private void LeftClick()
     {
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -186,6 +227,7 @@ public class Main : MonoBehaviour, IMain
             }
         }
     }
+
     private void RightClick()
     {
         if (InTheHand is Ingredient ingredient)
@@ -240,15 +282,13 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
         GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
     }
 }
-class PotionInfo
-    : BaseInteraction, IUpdatePotionInfo
+class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
     private TMP_Text Name = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
 
     private TMP_Text Description = GameData<Main>.Boot.TextManager.Get("PotionInfoDescription");
 
-    private TMP_Text Min = GameData<Main>.Boot.TextManager.Get("PotionInfoMin");
-    private TMP_Text Max = GameData<Main>.Boot.TextManager.Get("PotionInfoMax");
+    private TMP_Text NeedCraftText = GameData<Main>.Boot.TextManager.Get("PotionInfoNeed");
 
     private static Vector3 SIZE_INFO = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
     public static void OpenPopup<T>()
@@ -256,15 +296,12 @@ class PotionInfo
         Type WhoCalled = typeof(T);
         if (WhoCalled == typeof(Cauldron))
         {
-            GameData<Main>.Boot.PotionInfoCauldron
-                .SetActive(true);
-            GameData<Main>.Boot.PotionInfoCauldron
-                .transform.DOScale(SIZE_INFO, Main.AnimationScaleTime);
+            GameData<Main>.Boot.PotionInfoCauldron.SetActive(true);
+            GameData<Main>.Boot.PotionInfoCauldron.transform.DOScale(SIZE_INFO, Main.AnimationScaleTime);
         }
-        else if (WhoCalled == typeof(PeopleImplementation) || PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
+        else if (WhoCalled == typeof(PeopleImplementation) && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
         {
-            GameData<Main>.Boot.PotionInfoCauldron
-                .SetActive(true);
+            GameData<Main>.Boot.PotionInfoCustomer.SetActive(true);
         }
     }
     public static void ClosePopup<T>()
@@ -274,13 +311,12 @@ class PotionInfo
         {
             GameData<Main>.Boot.PotionInfoCauldron
                 .transform.DOScale(0, Main.AnimationScaleTime).OnComplete(
-                    (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfoCauldron
-                    )));
+                    (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfoCauldron)));
         }
         else if (WhoCalled == typeof(PeopleImplementation))
-        { }
-
-
+        {
+            GameData<Main>.Boot.PotionInfoCustomer.SetActive(false);
+        }
     }
 
     private List<EffectData> Effects => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
@@ -288,15 +324,14 @@ class PotionInfo
     {
         var EffectsInCauldronText = new List<string>();
 
-        var EffectsCraftMaxText = new List<string>();
-        var EffectsCraftMinText = new List<string>();
+        var EffectsCraftText = new List<string>();
 
         var Potion = GameData<Main>.Boot.Cauldron.GetEffectPotion();
-        Name.SetText(Potion.name);
+        Name.SetText(Potion.Name);
 
         foreach (var Element in Effects)
         {
-            EffectsInCauldronText.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+            EffectsInCauldronText.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}\n");
         }
 
         var Customer = PeopleImplementation.Customer;
@@ -304,19 +339,14 @@ class PotionInfo
         {
             var TypePoison = Customer.DataComponent.TypePoison;
 
-            foreach (var Element in TypePoison.EffectsMax)
+            foreach (var Element in TypePoison.Recipe)
             {
-                EffectsCraftMaxText.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
-            }
-            foreach (var Element in TypePoison.EffectsMin)
-            {
-                EffectsCraftMinText.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                EffectsCraftText.Add($"{Element.Type.ToString().ToUpperInvariant()}: [{Element.Min}, {Element.Max}]\n");
             }
         }
 
         Description.SetText(string.Join(" ", EffectsInCauldronText));
-        Min.SetText(string.Join(" ", EffectsCraftMinText));
-        Max.SetText(string.Join(" ", EffectsCraftMaxText));
+        NeedCraftText.SetText(string.Join(" ", EffectsCraftText));
     }
 }
 class MyDebug : BaseInteraction, IEnterInUpdate
