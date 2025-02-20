@@ -116,5 +116,5 @@ MonoBehaviour:
     Min: 2
     Max: 20
   - Type: 103
-    Min: 0
-    Max: 20
+    Min: -20
+    Max: 0

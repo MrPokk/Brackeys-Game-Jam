@@ -24,7 +24,7 @@ public class Ingredient : Raise , IComparable<Ingredient>
     }
     
     public int CompareTo(Ingredient comparePart) {  
-        return ID.CompareTo(comparePart.ID);
+        return ID - comparePart.ID;
     }
 }
 
