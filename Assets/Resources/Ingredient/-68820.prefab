@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7085484710536445234}
   - component: {fileID: 6265807515243881561}
-  - component: {fileID: 2104394980019407653}
+  - component: {fileID: 693929933427539173}
   - component: {fileID: -6004431116956914163}
   m_Layer: 0
-  m_Name: 25730
+  m_Name: -68820
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,9 +30,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1255839423331338898}
+  - {fileID: 3490893404367262740}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6265807515243881561
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 6660553031640442976, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 8177471321811730583, guid: 87aaca0a643d54397ba969dab4fc8875, type: 3}
+  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2104394980019407653
+--- !u!114 &693929933427539173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,22 +96,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338450181906888421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
+  m_Script: {fileID: 11500000, guid: c4900a33a7a2d6b43bd67663c63005d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 25730
-  Name: Poisonous Mushroom
+  ID: -68820
+  Name: Reflection Mirror
   Description: 
-  Price: 5
+  Price: 0
   Effects:
-  - Type: 1
-    Power: 1
-  - Type: 3
-    Power: -2
   - Type: 101
-    Power: -1
+    Power: -5
   - Type: 103
-    Power: 2
+    Power: 3
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,7 +144,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.89285713, y: 1.0714285}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -157,7 +153,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1001 &4343701155007819939
+--- !u!1001 &2114558139943218725
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -254,8 +250,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78c62e3e37469845b51635a1bfd2373, type: 3}
---- !u!224 &1255839423331338898 stripped
+--- !u!224 &3490893404367262740 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3254499865692568113, guid: c78c62e3e37469845b51635a1bfd2373, type: 3}
-  m_PrefabInstance: {fileID: 4343701155007819939}
+  m_PrefabInstance: {fileID: 2114558139943218725}
   m_PrefabAsset: {fileID: 0}

@@ -50,8 +50,11 @@ public class AllPotion : CMSEntity
         return null;
     }
 
-    public SamplePotion GetAtEffects(List<EffectData> atEffects)
+    public SamplePotion GetAtEffects(List<EffectData> atEffects, SamplePotion priority = null)
     {
+        if (priority != null) {
+            if (CheckPotions(priority, atEffects)) return priority;
+        }
         foreach (SamplePotion potion in Potions)
         {
             if (CheckPotions(potion, atEffects)) {

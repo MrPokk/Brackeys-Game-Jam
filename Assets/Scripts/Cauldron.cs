@@ -69,7 +69,7 @@ public class Cauldron : MonoBehaviour
         PotionInfo.ClosePopup<Cauldron>();
 
         List<EffectData> effects = effectsMaster.GetAndClear();
-        SamplePotion sample = AllPotion.GetAtEffects(effects);
+        SamplePotion sample = AllPotion.GetAtEffects(effects, PeopleImplementation.Customer.DataComponent.TypePoison);
         // Если сварил говно
         if (sample == AllPotion.Bad) return false;
 
@@ -80,6 +80,6 @@ public class Cauldron : MonoBehaviour
     }
     public SamplePotion GetEffectPotion()
     {
-        return AllPotion.GetAtEffects(effectsMaster.Get());
+        return AllPotion.GetAtEffects(effectsMaster.Get(), PeopleImplementation.Customer.DataComponent.TypePoison);
     }
 }
