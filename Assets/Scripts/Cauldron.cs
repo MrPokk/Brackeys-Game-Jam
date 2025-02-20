@@ -36,8 +36,8 @@ public class Cauldron : MonoBehaviour
 
     public void Add(Ingredient ingredient)
     {
-        GameData<Main>.Boot.PotionInfo.SetActive(true);
-        GameData<Main>.Boot.PotionInfo.transform.DOScale(SIZE_INFO,Main.AnimationScaleTime);
+
+        PotionInfo.OpenPopup<Cauldron>();
         
         ingredients.Add(ingredient);
         ingredient.GetComponent<Collider2D>().enabled = false;
@@ -46,11 +46,8 @@ public class Cauldron : MonoBehaviour
         if (ingredient is Catalyst catalyst) {
             catalyst.Effect(effectsMaster.Get());
         }
-
-        foreach (var Element in InteractionCache<IUpdatePotionInfo>.AllInteraction)
-        {
-            Element.UpdateInfo();
-        }
+        
+        
         SoundManager.PlaySound(SoundType.Gurgle);
     }
     public bool Near(Vector2 pos)
@@ -68,9 +65,8 @@ public class Cauldron : MonoBehaviour
         ingredients.Clear();
         transform.DOComplete();
         transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
-
-        GameData<Main>.Boot.PotionInfo.transform.DOScale(transform.localScale * 0, Main.AnimationScaleTime).OnComplete(
-            (() => Main.TogglePopup(GameData<Main>.Boot.PotionInfo)));
+        
+        PotionInfo.ClosePopup<Cauldron>();
 
         List<EffectData> effects = effectsMaster.GetAndClear();
         SamplePotion sample = AllPotion.GetAtEffects(effects);
@@ -82,7 +78,7 @@ public class Cauldron : MonoBehaviour
         
         return true;
     }
-    public SamplePotion PreCook()
+    public SamplePotion GetEffectPotion()
     {
         return AllPotion.GetAtEffects(effectsMaster.Get());
     }
