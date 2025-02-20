@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 103
-  Name: Toxicity
+  NameEffect: Toxicity
   NegativeName: 
   Color: {r: 0.28924885, g: 0.9433962, b: 0.46823376, a: 0}
