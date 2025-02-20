@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2104394980019407653}
   - component: {fileID: -6004431116956914163}
   m_Layer: 0
-  m_Name: Nettles
+  m_Name: 26948
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -3943326746374225304, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4009434, b: 0.90150017, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,16 +99,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 25962
-  Name: "\u0420\u043E\u043C\u0430\u0448\u043A\u0430"
-  Description: jkhdfghijkfdegrfgrtijkfghijkfgjkhfgjkhfghjk
+  ID: 26948
+  Name: Magic Pollen
+  Description: 
   Price: 1
   Effects:
   - Type: 1
-    Power: 0
-  - Type: 4
-    Power: 10
-  PriceText: {fileID: 0}
+    Power: 1
+  - Type: 2
+    Power: 3
+  - Type: 102
+    Power: 2
+  - Type: 103
+    Power: 1
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0

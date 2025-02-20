@@ -273,7 +273,6 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
     }
-
 }
 public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {

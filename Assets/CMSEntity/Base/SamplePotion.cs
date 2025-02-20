@@ -5,13 +5,13 @@ using System.IO;
 using Engin.Utility;
 using System;
 using Random = UnityEngine.Random;
-using System.Xml.Linq;
 
 public class SamplePotion : Potion, IComparable<SamplePotion>
 {
     public int Priority;
-    public List<EffectData> EffectsMin = new();
-    public List<EffectData> EffectsMax = new();
+    public Difity Difity;
+    public int Level;
+    public List<EffectRange> Recipe = new();
 
     [ContextMenu("Generate ID")]
     public void GenerateID()
@@ -19,7 +19,7 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
         ID = GetHashCode();
     }
     public int CompareTo(SamplePotion comparePart) {  
-        return Priority.CompareTo(comparePart.Priority);
+        return -Priority.CompareTo(comparePart.Priority);
     }
 }
 public class AllPotion : CMSEntity
@@ -62,14 +62,12 @@ public class AllPotion : CMSEntity
     }
     private bool CheckPotions(SamplePotion potion, List<EffectData> atEffects)
     {
-        foreach (EffectData min in potion.EffectsMin) {
-            EffectData effect = atEffects.FirstOrDefault(x => x.Type == min.Type);
-            if (!EffectData.Accordance(effect, min)) return false;
-        }
-        foreach (EffectData max in potion.EffectsMax) {
-            EffectData effect = atEffects.FirstOrDefault(x => x.Type == max.Type);
-            if (effect == null) continue;
-            if (!EffectData.Accordance(effect, max, true)) return false;
+        foreach (EffectRange effectRange in potion.Recipe) {
+            EffectData effect = atEffects.FirstOrDefault(x => x.Type == effectRange.Type);
+            int power;
+            if (effect == null) power = 0;
+            else power = effect.Power;
+            if (power < effectRange.Min || power > effectRange.Max) return false;
         }
         return true;
     }
@@ -82,4 +80,21 @@ public class AllPotion : CMSEntity
     {
         throw new System.NotImplementedException();
     }
+}
+[Serializable]
+public class EffectRange
+{
+    public EffectType Type;
+    [Range(-20, 20)]
+    public int Min;
+    [Range(-20, 20)]
+    public int Max;
+}
+public enum Difity
+{
+    VeryEasy = 1,
+    Easy,
+    Normal,
+    Hard,
+    VeryHard
 }

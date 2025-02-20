@@ -8,14 +8,6 @@ public class EffectData
 {
     public EffectType Type;
     public int Power;
-
-    public static bool Accordance(EffectData test, EffectData at, bool inversive = false)
-    {
-        if (test == null || at == null) return false;
-        if (test.Type != at.Type) return false;
-        if (!inversive) return at.Power >= 0 ? test.Power >= at.Power : test.Power <= at.Power;
-        else return at.Power >= 0 ? test.Power <= at.Power : test.Power >= at.Power;
-    }
 }
 [Serializable]
 public class EffectsMaster

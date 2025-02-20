@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6265807515243881561}
   - component: {fileID: 4378773657436420819}
   m_Layer: 0
-  m_Name: Poison
+  m_Name: 27668
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.005697286, g: 0.7264151, b: 0, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,13 +97,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6ee72d560dea439ca576332756a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 28988
-  Name: Poison
-  Price: 15
+  ID: 27668
+  Name: Vigor Potion
+  Price: 20
   effects: []
   IDIngredients: 
   Priority: 0
-  EffectsMin:
+  Difity: 2
+  Level: 1
+  Recipe:
   - Type: 1
-    Power: -15
-  EffectsMax: []
+    Min: 5
+    Max: 9
+  - Type: 3
+    Min: 1
+    Max: 3
+  - Type: 101
+    Min: -2
+    Max: 20
