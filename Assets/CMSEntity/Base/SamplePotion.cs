@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.IO;
 using Engin.Utility;
 using System;
 using Random = UnityEngine.Random;
@@ -24,7 +23,7 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 }
 public class AllPotion : CMSEntity
 {
-    public List<SamplePotion> Potions;
+    public List<SamplePotion> Potions = new();
     public SamplePotion Bad;
     public AllPotion()
     {
@@ -33,12 +32,10 @@ public class AllPotion : CMSEntity
     }
     public void LoadAll()
     {
-        Potions = new();
-        Bad = Resources.Load<GameObject>($"Potion/Bad").GetComponent<SamplePotion>();
-        string[] fillis = Directory.GetFiles("Assets/Resources/Potion");
-        foreach (string Element in fillis) {
-            if (Path.GetExtension(Element) != ".prefab") continue;
-            Potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
+        GameObject[] objects = Resources.LoadAll<GameObject>("Potion");
+        Bad = Resources.Load<GameObject>("Potion/Bad").GetComponent<SamplePotion>();
+        foreach (GameObject obj in objects) {
+            Potions.Add(obj.GetComponent<SamplePotion>());
         }
         Potions.Remove(Bad);
     }

@@ -389,9 +389,9 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
         List<EffectRange> EffectsInCustomer = new List<EffectRange>();
-        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.TypePoison.Recipe.Any())
-            EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
-        else return;
+        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type == TypePeople.Trader) return;
+        
+        EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
 
         var EffectsInCauldronText = new List<string>();
         var EffectsInCraftText = new List<string>();

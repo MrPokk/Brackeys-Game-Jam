@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Engin.Utility;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [Serializable]
 public class Ingredient : Raise , IComparable<Ingredient>
@@ -30,18 +30,16 @@ public class Ingredient : Raise , IComparable<Ingredient>
 
 public class AllIngredients : CMSEntity
 {
-    public List<Ingredient> Ingredients;
+    public List<Ingredient> Ingredients = new();
     public AllIngredients()
     {
         LoadAll();
     }
     public void LoadAll()
     {
-        Ingredients = new();
-        string[] fillis = Directory.GetFiles("Assets/Resources/Ingredient");
-        foreach (string Element in fillis) {
-            if (Path.GetExtension(Element) != ".prefab") continue;
-            Ingredients.Add(Resources.Load<GameObject>($"Ingredient/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<Ingredient>());
+        GameObject[] objects = Resources.LoadAll<GameObject>("Ingredient");
+        foreach (GameObject obj in objects) {
+            Ingredients.Add(obj.GetComponent<Ingredient>());
         }
     }
     public Ingredient GetByID(int ID)

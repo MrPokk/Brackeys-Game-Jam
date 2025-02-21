@@ -45,7 +45,7 @@ public class ButtonBell : CustomButton
                 FileWriter.Write(people, null);
                 PeopleImplementation.ExitAll();
             }
-            else if (people.DataComponent.Type == TypePeople.Trader)
+            else if (people.DataComponent.Type == TypePeople.Trader && PeopleImplementation.IsServiced)
             {
                 GameData<Main>.Boot.Shop.Generatre(Random.Range(MinGoods, MaxGoods + 1));
             }

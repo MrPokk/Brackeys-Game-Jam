@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class Effect : MonoBehaviour
@@ -23,19 +24,16 @@ public class Effect : MonoBehaviour
 
 public class AllEffect : CMSEntity
 {
-    public List<Effect> effects;
+    public List<Effect> effects = new();
     public AllEffect()
     {
         LoadAll();
     }
     public void LoadAll()
     {
-        effects = new();
-        string[] fillis = Directory.GetFiles("Assets/Resources/Effect");
-        foreach (string Element in fillis)
-        {
-            if (Path.GetExtension(Element) != ".prefab") continue;
-            effects.Add(Resources.Load<GameObject>($"Effect/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<Effect>());
+        GameObject[] objects = Resources.LoadAll<GameObject>($"Effect");
+        foreach (GameObject obj in objects) {
+            effects.Add(obj.GetComponent<Effect>());
         }
     }
     public Effect GetAtID(EffectType type)

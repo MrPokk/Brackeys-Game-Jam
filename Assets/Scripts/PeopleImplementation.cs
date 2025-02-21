@@ -11,7 +11,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     private int NexstTrader = CountViaTrader;
     public GameObject CustomerInGame { get; private set; }
     public static BasePeople Customer { get; private set; } = null;
-    public bool IsServiced { get; private set; } = false;
+    public static bool IsServiced { get; private set; } = false;
     public static void ExitAll()
     {
         for (int i = 0; i < InteractionCache<PeopleImplementation>.AllInteraction.Count(); i++)
@@ -56,18 +56,16 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     }
     public IEnumerator Exit()
     {
-        var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-        Main.TogglePopup(Popup);
-
+        if (CustomerInGame == null) yield break;
+        var Popup = CustomerInGame.transform.Find("Popup");
+        Main.TogglePopup(Popup.gameObject);
+        IsServiced = false;
         yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
-
-        CustomerInGame.transform.DOComplete();
 
         if (CustomerInGame != null && Customer != null)
         {
             GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
             Customer = null;
-            IsServiced = false;
         }
 
         PotionInfo.ClosePopup<PeopleImplementation>();

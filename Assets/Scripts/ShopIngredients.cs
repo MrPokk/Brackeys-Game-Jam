@@ -23,14 +23,7 @@ public class ShopIngredients : StoreIngredients
 
     public void Generatre(int count)
     {
-        #if UNITY_EDITOR
-        if (!this.gameObject.activeInHierarchy)
-        {
-            transform.parent.gameObject.SetActive(true);
-        };
-#endif
-        if (!this.gameObject.activeInHierarchy) return;
-        
+        transform.parent.gameObject.SetActive(true);
         DeleteAll();
         List<Ingredient> ingredients = CMS.Get<AllIngredients>().Ingredients;
         for (int i = 0; i < count; i++) {
