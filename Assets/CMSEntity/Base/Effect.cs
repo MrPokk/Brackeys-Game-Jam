@@ -7,7 +7,16 @@ using UnityEngine;
 public class Effect : MonoBehaviour
 {
     public EffectType ID;
-    public string Name;
+    public string Name {
+        get {
+            if (ID > EffectType.BASIC && ID < EffectType.ADDITIONAL )
+            {
+                return ID.ToString();
+            }
+            return NameEffect;
+        }
+    }
+    [SerializeField] private string NameEffect;
     public string NegativeName;
     public Color Color = Color.black;
 }
@@ -23,14 +32,15 @@ public class AllEffect : CMSEntity
     {
         effects = new();
         string[] fillis = Directory.GetFiles("Assets/Resources/Effect");
-        foreach (string Element in fillis) {
+        foreach (string Element in fillis)
+        {
             if (Path.GetExtension(Element) != ".prefab") continue;
             effects.Add(Resources.Load<GameObject>($"Effect/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<Effect>());
         }
     }
     public Effect GetAtID(EffectType type)
     {
-        return effects.FirstOrDefault(x =>  x.ID == type);
+        return effects.FirstOrDefault(x => x.ID == type);
     }
 
     public override void RegisterComponents(params IComponent[] components)
