@@ -17,9 +17,8 @@ public class ButtonBell : CustomButton
     public override void Click()
     {
         BasePeople people = PeopleImplementation.Customer;
-        
-        Animator.SetTrigger("Click");
-        Animator.ResetTrigger("Click");
+
+        Animator.SetBool("IsClick", true);
         
         if (people != null)
         {
@@ -51,5 +50,10 @@ public class ButtonBell : CustomButton
                 GameData<Main>.Boot.Shop.Generatre(Random.Range(MinGoods, MaxGoods + 1));
             }
         }
+    }
+
+    public void ResetTrigger()
+    {
+        Animator.SetBool("IsClick", false);
     }
 }

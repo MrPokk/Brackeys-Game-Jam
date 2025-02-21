@@ -214,7 +214,7 @@ public class Main : MonoBehaviour, IMain
             }
             else if (raise is Potion potion)
             {
-                
+
                 TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
 
                 TMP_Text Effect = GameData<Main>.Boot.TextManager.Get("ToolKitEffectObject");
@@ -224,7 +224,7 @@ public class Main : MonoBehaviour, IMain
 
 
                 List<EffectData> EffectsInPotion = potion.effects;
-                
+
 
                 foreach (var Element in EffectsInPotion)
                 {
@@ -233,7 +233,7 @@ public class Main : MonoBehaviour, IMain
                 Name.SetText(potion.Name);
                 Description.SetText(potion.Descriptions);
                 Effect.SetText(string.Join("\n", EffectsInPotionName));
-                
+
                 GameData<Main>.Boot.ToolKit.SetActive(true);
             }
         }
@@ -319,7 +319,8 @@ public class Main : MonoBehaviour, IMain
 
     public static void TogglePopup(GameObject Popup)
     {
-        Popup.SetActive(!Popup.activeSelf);
+        if (Popup != null)
+            Popup.SetActive(!Popup.activeSelf);
     }
 }
 
@@ -328,8 +329,15 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
     public void Update()
     {
         GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString());
-        ;
         GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
+    }
+    public static void LoseGame()
+    {
+        
+    }
+    public static void WinGame()
+    {
+        
     }
 }
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
@@ -380,9 +388,9 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     {
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
-        List<EffectRange> EffectsInCustomer;
+        List<EffectRange> EffectsInCustomer = new List<EffectRange>();
         if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.TypePoison.Recipe.Any())
-            EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+            EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
         else return;
 
         var EffectsInCauldronText = new List<string>();
@@ -468,9 +476,9 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     public bool IsServiced { get; private set; } = false;
     public static void ExitAll()
     {
-        foreach (var Element in InteractionCache<PeopleImplementation>.AllInteraction)
+        for (int i = 0; i < InteractionCache<PeopleImplementation>.AllInteraction.Count(); i++)
         {
-            GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Element.Exit());
+            GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(InteractionCache<PeopleImplementation>.AllInteraction[i].Exit());
         }
     }
     public IEnumerator Enter()
@@ -491,7 +499,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             // Запуск звука 
             Main.TogglePopup(Popup);
 
-            CustomerInGame.transform.DOComplete();
+            if (CustomerInGame != null)
+                CustomerInGame.transform.DOComplete();
 
             PotionInfo.OpenPopup<PeopleImplementation>();
 
@@ -504,16 +513,17 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         var Popup = CustomerInGame.transform.Find("Popup").gameObject;
         Main.TogglePopup(Popup);
-        
+
         yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
 
         CustomerInGame.transform.DOComplete();
 
-        if (CustomerInGame != null)
+        if (CustomerInGame != null && Customer != null)
+        {
             GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
-       
-        Customer = null;
-        IsServiced = false;
+            Customer = null;
+            IsServiced = false;
+        }
 
         PotionInfo.ClosePopup<PeopleImplementation>();
 
