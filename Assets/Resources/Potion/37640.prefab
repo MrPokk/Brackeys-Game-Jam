@@ -115,7 +115,7 @@ MonoBehaviour:
     Max: 2
   - Type: 4
     Min: 1
-    Max: 14
+    Max: 3
   - Type: 101
     Min: 1
     Max: 20

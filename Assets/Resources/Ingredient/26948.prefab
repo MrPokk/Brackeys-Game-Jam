@@ -106,10 +106,10 @@ MonoBehaviour:
   Effects:
   - Type: 1
     Power: 1
-  - Type: 2
-    Power: 3
   - Type: 4
     Power: 3
+  - Type: 5
+    Power: 2
   - Type: 102
     Power: 2
   - Type: 103

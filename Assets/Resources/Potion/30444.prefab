@@ -99,11 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 30444
   Name: Strength
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
   Priority: 0
-  Difity: 3
+  Difity: 4
   Level: 1
   Recipe:
   - Type: 1
@@ -114,7 +115,7 @@ MonoBehaviour:
     Max: 2
   - Type: 5
     Min: -2
-    Max: 2
+    Max: 3
   - Type: 101
     Min: 2
     Max: 20

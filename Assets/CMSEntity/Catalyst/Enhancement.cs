@@ -8,7 +8,7 @@ public class Enhancement : Catalyst
     {
         foreach (EffectData effect in effects)
         {
-            if (effect.Power > 0) effect.Power = (int)(effect.Power * 1.5f + 0.5f);
+            if (effect.Power > 0) effect.Power *= 2;
         }
     }
 }

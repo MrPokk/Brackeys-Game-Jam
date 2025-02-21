@@ -5,14 +5,15 @@ using UnityEngine;
 public static class FileWriter
 {
     private const char separator = ';';
-    private static string path = "DebugInfo/potions/";
+    private static string path = "DebugInfo/";
+    private const string fileType = ".dat";
     private static string sesionID = string.Empty;
     public static async void Write(BasePeople people, Potion potion)
     {
         if (sesionID == string.Empty) {
             Directory.CreateDirectory(path);
             sesionID = Random.Range(10000, 99999).ToString();
-            path += sesionID + ".dat";
+            path += sesionID + fileType;
         }
         FileStream fstream = new FileStream(path, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
