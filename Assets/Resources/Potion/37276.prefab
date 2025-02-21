@@ -99,11 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 37276
   Name: Speeds
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
   Priority: -1
-  Difity: 2
+  Difity: 1
   Level: 1
   Recipe:
   - Type: 1

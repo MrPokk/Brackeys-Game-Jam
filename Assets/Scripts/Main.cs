@@ -1,7 +1,6 @@
 using DG.Tweening;
 using Engin.Utility;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -63,6 +62,7 @@ public class Main : MonoBehaviour, IMain
     public void Awake()
     {
         CMS.Init();
+        PeopleMaster.Load();
         GameData<Main>.Boot = this;
     }
     public void StartGame()
@@ -165,7 +165,7 @@ public class Main : MonoBehaviour, IMain
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null && InTheHand == null)
         {
-            ToolKit.transform.position = hit.point + new Vector2(-1.8f, 1.5f);
+            ToolKit.transform.position = hit.point;
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
 
             if (raise is Ingredient ingredient)
@@ -467,68 +467,4 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
     }
-}
-public class PeopleImplementation : BaseInteraction, IEnterInPeople
-{
-
-    public GameObject CustomerInGame { get; private set; }
-    public static BasePeople Customer { get; private set; } = null;
-    public bool IsServiced { get; private set; } = false;
-    public static void ExitAll()
-    {
-        for (int i = 0; i < InteractionCache<PeopleImplementation>.AllInteraction.Count(); i++)
-        {
-            GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(InteractionCache<PeopleImplementation>.AllInteraction[i].Exit());
-        }
-    }
-    public IEnumerator Enter()
-    {
-        if (Customer == null && !IsServiced)
-        {
-            var AllVarPeoples = CMS.GetAll<BasePeople>();
-            Customer = AllVarPeoples[Random.Range(0, AllVarPeoples.Count)].ModifyDataSet();
-
-            yield return new WaitForSeconds(1f);
-            CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
-            var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-            Main.TogglePopup(Popup);
-
-            yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, Main.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
-
-            yield return new WaitForSeconds(.5f);
-            // Запуск звука 
-            Main.TogglePopup(Popup);
-
-            if (CustomerInGame != null)
-                CustomerInGame.transform.DOComplete();
-
-            PotionInfo.OpenPopup<PeopleImplementation>();
-
-            IsServiced = true;
-
-        }
-        yield break;
-    }
-    public IEnumerator Exit()
-    {
-        var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-        Main.TogglePopup(Popup);
-
-        yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
-
-        CustomerInGame.transform.DOComplete();
-
-        if (CustomerInGame != null && Customer != null)
-        {
-            GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
-            Customer = null;
-            IsServiced = false;
-        }
-
-        PotionInfo.ClosePopup<PeopleImplementation>();
-
-        GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Enter());
-        yield break;
-    }
-
 }

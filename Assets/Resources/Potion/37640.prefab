@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6ee72d560dea439ca576332756a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 37544
+  ID: 37640
   Name: Stamina
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
@@ -114,7 +115,7 @@ MonoBehaviour:
     Max: 2
   - Type: 4
     Min: 1
-    Max: 14
+    Max: 3
   - Type: 101
     Min: 1
     Max: 20

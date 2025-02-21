@@ -4,9 +4,9 @@ using Random = UnityEngine.Random;
 
 public class ButtonBell : CustomButton
 {
-    [Range(2, 10)]
+    [Range(2, 16)]
     public int MinGoods;
-    [Range(2, 10)]
+    [Range(2, 16)]
     public int MaxGoods;
 
     private Animator Animator;
