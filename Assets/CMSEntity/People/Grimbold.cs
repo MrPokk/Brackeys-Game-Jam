@@ -2,7 +2,7 @@ using Engin.Utility;
 using UnityEngine;
 public class Grimbold : BasePeople
 {
-    Grimbold()
+    public Grimbold()
     {
         Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
         SetTextPrefab(ref people);
@@ -19,7 +19,7 @@ public class Grimbold : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Grimbold";
-        
+
         DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(30444);
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grimbold>()}";
         return this;

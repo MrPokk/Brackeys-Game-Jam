@@ -2,7 +2,7 @@ using Engin.Utility;
 using UnityEngine;
 public class Mirabella : BasePeople
 {
-    Mirabella()
+    public Mirabella()
     {
         Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
         SetTextPrefab(ref people);
@@ -20,9 +20,9 @@ public class Mirabella : BasePeople
     {
         DataComponent.Name.text = "Mirabella";
 
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{27668,37276,37640});
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new[] { 27668, 37276, 37640 });
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Mirabella>()}";
-        
+
         return this;
     }
 

@@ -5,6 +5,7 @@ public class Potion : Raise
 {
     public int ID;
     public string Name;
+    public string Descriptions;
     public int Price;
     public List<EffectData> effects = new();
     public List<int> IDIngredients = new();

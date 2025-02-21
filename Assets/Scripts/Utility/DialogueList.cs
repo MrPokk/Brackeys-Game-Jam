@@ -9,9 +9,9 @@ public static class DialogueList
         {
             typeof(Eldar), new List<string>()
             {
-                "Hello, young alchemist. I’ve heard that excellent potions are brewed here. I need a special potion for my plants. They’ve completely withered.",
+                "Hello, young alchemist. I've heard that excellent potions are brewed here. I need a special potion for my plants. They've completely withered.",
                 "Hey, alchemist! Your potions are famous. My plants are dying! Need something to revive them.",
-                "Hello, alchemist. I understand you create excellent potions. I’m in need of one for my plants, as they are not thriving. Maybe you have a potion that solves this problem?"
+                "Hello, alchemist. I understand you create excellent potions. I'm in need of one for my plants, as they are not thriving. Maybe you have a potion that solves this problem?"
             }
         },
         {
@@ -25,7 +25,7 @@ public static class DialogueList
         {
             typeof(Grimbold), new List<string>()
             {
-                "Potions. Strength, urgently",
+                "Potion. Strength, urgently",
                 "I don't have enough strength"
             }
         },
@@ -33,14 +33,14 @@ public static class DialogueList
             typeof(Isabella), new List<string>()
             {
                 "Greetings, lord of the cauldron! I've heard that you can make potions as well as Merlin himself! I have a business proposal for you, you might need some ingredients, look what I have.",
-                "Hail, potion-brewing extraordinaire! They say you’re the modern-day Merlin! I’ve got a business proposition that’s practically magical. Speaking of magic, you might need some ingredients… and lucky you, I brought some!"
+                "Hail, potion-brewing extraordinaire! They say you're the modern-day Merlin! I've got a business proposition that's practically magical. Speaking of magic, you might need some ingredients… and lucky you, I brought some!"
             }
         },
         {
             typeof(Mirabella), new List<string>()
             {
-                "Hi, hi! I need a super-duper energy potion! I’m performing tonight, you see? Dancing all night. I need something that… really perks me up.",
-                "Help! I’m performing tonight, a big dance show. I need a really strong energy potion to get me through it. I need something that’ll really wake me up"
+                "Hi, hi! I need a super-duper energy potion! I'm performing tonight, you see? Dancing all night. I need something that… really perks me up.",
+                "Help! I'm performing tonight, a big dance show. I need a really strong energy potion to get me through it. I need something that'll really wake me up"
             }
         },
         {

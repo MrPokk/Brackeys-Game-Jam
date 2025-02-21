@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 202
-  NameEffect: Better
+  NameEffect: Bitter
   NegativeName: 
-  Color: {r: 0, g: 0, b: 0, a: 0}
+  Color: {r: 0.49362388, g: 0.22988607, b: 0.7735849, a: 1}

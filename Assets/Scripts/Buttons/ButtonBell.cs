@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ButtonBell : CustomButton
 {
@@ -6,9 +8,19 @@ public class ButtonBell : CustomButton
     public int MinGoods;
     [Range(2, 10)]
     public int MaxGoods;
+
+    private Animator Animator;
+    private void Start()
+    {
+        Animator = GetComponent<Animator>();
+    }
     public override void Click()
     {
         BasePeople people = PeopleImplementation.Customer;
+        
+        Animator.SetTrigger("Click");
+        Animator.ResetTrigger("Click");
+        
         if (people != null)
         {
             if (people.DataComponent.Type == TypePeople.Customer)

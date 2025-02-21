@@ -4,7 +4,7 @@ public class Grail : BasePeople
 {
     public Grail()
     {
-        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
+        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Grail");
         SetTextPrefab(ref people);
 
         people.Type = TypePeople.Customer;
@@ -18,7 +18,7 @@ public class Grail : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Grail";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(28988);
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(30444);
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grail>()}";
         return this;
     }

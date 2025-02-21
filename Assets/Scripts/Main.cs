@@ -206,12 +206,34 @@ public class Main : MonoBehaviour, IMain
                     }
                 }
 
-
-
                 Name.SetText(ingredient.Name);
                 Description.SetText(ingredient.Description);
                 Effect.SetText(string.Join("\n", EffectsInIngredient));
 
+                GameData<Main>.Boot.ToolKit.SetActive(true);
+            }
+            else if (raise is Potion potion)
+            {
+                
+                TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
+
+                TMP_Text Effect = GameData<Main>.Boot.TextManager.Get("ToolKitEffectObject");
+                TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
+
+                var EffectsInPotionName = new List<string>();
+
+
+                List<EffectData> EffectsInPotion = potion.effects;
+                
+
+                foreach (var Element in EffectsInPotion)
+                {
+                    EffectsInPotionName.Add($"{CMS.Get<AllEffect>().GetAtID(Element.Type).Name}: {Element.Power}");
+                }
+                Name.SetText(potion.Name);
+                Description.SetText(potion.Descriptions);
+                Effect.SetText(string.Join("\n", EffectsInPotionName));
+                
                 GameData<Main>.Boot.ToolKit.SetActive(true);
             }
         }
@@ -313,6 +335,8 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
     private TMP_Text Name = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
+    private TMP_Text NameCustomerPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoCustomerPotionName");
+
 
     private TMP_Text Description = GameData<Main>.Boot.TextManager.Get("PotionInfoDescription");
 
@@ -351,21 +375,29 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         }
     }
 
-    private List<EffectData> EffectsInCauldron => GameData<Main>.Boot.Cauldron.effectsMaster.Get();
-    private List<EffectRange> EffectsInCustomer => PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+
     public void UpdateInfo()
     {
+        var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
+
+        List<EffectRange> EffectsInCustomer;
+        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.TypePoison.Recipe.Any())
+            EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+        else return;
+
         var EffectsInCauldronText = new List<string>();
         var EffectsInCraftText = new List<string>();
 
         var Potion = GameData<Main>.Boot.Cauldron.GetEffectPotion();
         Name.SetText(Potion.Name);
 
+
         foreach (var ElementCauldron in EffectsInCauldron)
         {
 
             if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
             {
+
                 var EffectCustomer = EffectsInCustomer.FirstOrDefault(range => {
                     if (range.Type == ElementCauldron.Type)
                         return true;
@@ -402,6 +434,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
             }
         }
 
+        NameCustomerPotion.SetText(PeopleImplementation.Customer.DataComponent.TypePoison.Name);
         Description.SetText(string.Join("\n", EffectsInCauldronText));
         NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));
     }
@@ -471,13 +504,14 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         var Popup = CustomerInGame.transform.Find("Popup").gameObject;
         Main.TogglePopup(Popup);
-
-
+        
         yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
 
         CustomerInGame.transform.DOComplete();
 
-        GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
+        if (CustomerInGame != null)
+            GameData<Main>.Boot.DeleteCustomer(CustomerInGame);
+       
         Customer = null;
         IsServiced = false;
 

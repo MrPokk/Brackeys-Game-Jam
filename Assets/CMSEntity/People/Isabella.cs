@@ -12,16 +12,16 @@ public class Isabella : BasePeople
 
         people.Type = TypePeople.Trader;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
-        
+
         SetData(ref people);
-        
+
         ModifyDataSet();
         RegisterComponents(people);
     }
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Isabella";
-      
+
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Isabella>()}";
         return this;
     }
