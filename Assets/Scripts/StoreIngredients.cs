@@ -9,6 +9,11 @@ public class StoreIngredients : MonoBehaviour
     public float Spacing;
     public bool AxisSwap;
 
+    [Range(0.1f,2)]
+    public float MaxSpacing;
+    [Range(1, 20)]
+    public float MaxSize;
+
     public virtual void Add(Ingredient Ingredient)
     {
         if (Ingredient == null) return;
@@ -37,7 +42,7 @@ public class StoreIngredients : MonoBehaviour
     public void DeleteAll()
     {
         foreach (var Ingredient in TilesList) {
-            Destroy(Ingredient.gameObject);
+            if (Ingredient.gameObject) Destroy(Ingredient.gameObject);
         }
         TilesList.Clear();
     }
@@ -47,6 +52,11 @@ public class StoreIngredients : MonoBehaviour
     }
     protected void SetPoseTile()
     {
+        float size = MaxSpacing * TilesList.Count;
+        if (size < MaxSize) Spacing = MaxSpacing;
+        else {
+            Spacing = MaxSize / size * MaxSpacing;
+        }
         for (int i = 0; i < TilesList.Count; i++)
         {
             var space = new Vector3(0, Spacing * (i - TilesList.Count / 2f),0);

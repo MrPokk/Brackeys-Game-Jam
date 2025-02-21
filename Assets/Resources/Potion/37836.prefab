@@ -99,11 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 37836
   Name: 'Fire Protection  '
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
   Priority: 0
-  Difity: 3
+  Difity: 4
   Level: 1
   Recipe:
   - Type: 2

@@ -1456,7 +1456,7 @@ Transform:
   m_GameObject: {fileID: 652289593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.42, z: 0}
+  m_LocalPosition: {x: 0.25, y: -4.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1477,6 +1477,8 @@ MonoBehaviour:
   TilesList: []
   Spacing: 0.6
   AxisSwap: 1
+  MaxSpacing: 0.8
+  MaxSize: 17
 --- !u!1 &652421197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,7 +2128,7 @@ Transform:
   m_GameObject: {fileID: 959329255}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0.855, z: -0.5}
+  m_LocalPosition: {x: 0.15, y: 0.855, z: -0.5}
   m_LocalScale: {x: 0.5208334, y: 0.5208334, z: 0.5208334}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2145,8 +2147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TilesList: []
-  Spacing: 1
+  Spacing: 0.75
   AxisSwap: 1
+  MaxSpacing: 1
+  MaxSize: 9
 --- !u!1 &966927149
 GameObject:
   m_ObjectHideFlags: 0
