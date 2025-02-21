@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 35282
   Name: Distorted Eye
-  Description: 
+  Description: One of the ingredients for the potion
   Price: 1
   Effects:
   - Type: 1

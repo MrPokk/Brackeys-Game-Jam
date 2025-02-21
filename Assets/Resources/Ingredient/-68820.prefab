@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -68820
   Name: Reflection Mirror
-  Description: 
+  Description: <color=#723882>Events:</color> Inverts all <color=#1715a1>Effects</color>
   Price: 0
   Effects:
   - Type: 101

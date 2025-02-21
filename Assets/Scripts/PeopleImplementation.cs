@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using SmallHedge.SoundManager;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,24 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         if (Customer == null && !IsServiced)
         {
-            if (NexstTrader == 0) {
+            if (NexstTrader == 0)
+            {
                 Customer = PeopleMaster.GetRandTrader();
                 NexstTrader = CountViaTrader;
             }
-            else {
+            else
+            {
                 Customer = PeopleMaster.GetRandCustomer();
                 NexstTrader--;
             }
             Customer.ModifyDataSet();
 
+            #if UNITY_EDITOR
+            Customer.DataComponent.TypePoison = MyDebug.CustomCustomerPotion(123);
+  #endif
+
             yield return new WaitForSeconds(1f);
+            
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
             var Popup = CustomerInGame.transform.Find("Popup").gameObject;
             Main.TogglePopup(Popup);
@@ -41,16 +49,19 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, Main.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
 
             yield return new WaitForSeconds(.5f);
-            // Запуск звука 
+
             Main.TogglePopup(Popup);
 
             if (CustomerInGame != null)
                 CustomerInGame.transform.DOComplete();
-
+           
+            SoundManager.PlaySound(SoundType.OpenPopup);
             PotionInfo.OpenPopup<PeopleImplementation>();
 
             IsServiced = true;
 
+            foreach (var Element in InteractionCache<PotionInfo>.AllInteraction)
+                Element.UpdateInfo();
         }
         yield break;
     }
@@ -90,7 +101,8 @@ public static class PeopleMaster
     {
         BasePeople people = peoples[Random.Range(0, peoples.Count)];
         peoples.Remove(people);
-        if (peoples.Count == 0) {
+        if (peoples.Count == 0)
+        {
             peoples.AddRange(parent);
         }
         return people;
@@ -100,10 +112,12 @@ public static class PeopleMaster
         List<BasePeople> allPeoples = CMS.GetAll<BasePeople>();
         foreach (var people in allPeoples)
         {
-            if (people.DataComponent.Type == TypePeople.Customer) {
+            if (people.DataComponent.Type == TypePeople.Customer)
+            {
                 customer.Add(people);
             }
-            else if (people.DataComponent.Type == TypePeople.Trader) {
+            else if (people.DataComponent.Type == TypePeople.Trader)
+            {
                 trader.Add(people);
             }
         }

@@ -42,6 +42,11 @@ namespace SmallHedge.SoundManager
                 instance.audioSource.PlayOneShot(randomClip, volume * soundList.volume);
             }
         }
+
+        public static void SetVolume(SoundType sound, float volume)
+        {
+            
+        }
     }
 
     [Serializable]

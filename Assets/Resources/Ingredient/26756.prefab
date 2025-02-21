@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 26756
   Name: Moonstone
-  Description: 
+  Description: One of the ingredients for the potion
   Price: 1
   Effects:
   - Type: 3

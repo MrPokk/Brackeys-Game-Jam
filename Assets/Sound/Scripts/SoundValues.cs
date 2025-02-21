@@ -5,6 +5,9 @@ namespace SmallHedge.SoundManager
 {
     public enum SoundType
     {
-        Gurgle
+        Gurgle,
+        OpenPopup,
+        DropPotionInSlot,
+        ClickBell
     }
 }

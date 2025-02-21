@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Engin.Utility;
+using SmallHedge.SoundManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,7 +110,7 @@ public class Main : MonoBehaviour, IMain
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
         Interact.FindAll<MyDebug>();
-        Interact.FindAll<IUpdatePotionInfo>();
+        Interact.FindAll<PotionInfo>();
 
         PotionInfoCauldron.SetActive(false);
         PotionInfoCustomer.SetActive(false);
@@ -130,12 +131,6 @@ public class Main : MonoBehaviour, IMain
     public void UpdateGame(float TimeDelta)
     {
         var Update = Interact.FindAll<IEnterInUpdate>();
-
-
-        foreach (var Element in InteractionCache<IUpdatePotionInfo>.AllInteraction)
-        {
-            Element.UpdateInfo();
-        }
 
         foreach (var Element in Update)
         {
@@ -160,13 +155,21 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
+    private static GameObject ObjectHit;
     private void HoverMouse()
     {
+        if (PauseMenu.Paused)
+            return;
+
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
         if (hit.collider != null && InTheHand == null)
         {
             ToolKit.transform.position = hit.point;
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+
+            if (GameData<Main>.Boot.ToolKit.activeSelf && hit.transform.gameObject == ObjectHit) return;
+            ObjectHit = hit.transform.gameObject;
 
             if (raise is Ingredient ingredient)
             {
@@ -251,6 +254,7 @@ public class Main : MonoBehaviour, IMain
 
             if (raise != null)
             {
+                SoundManager.PlaySound(SoundType.OpenPopup);
                 if (raise is Ingredient ingredient)
                 {
                     if (Store.Contains(ingredient))
@@ -332,13 +336,9 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
         GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
     }
     public static void LoseGame()
-    {
-        
-    }
+    { }
     public static void WinGame()
-    {
-        
-    }
+    { }
 }
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
@@ -346,8 +346,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     private TMP_Text NameCustomerPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoCustomerPotionName");
 
 
-    private TMP_Text Description = GameData<Main>.Boot.TextManager.Get("PotionInfoDescription");
-
+    private TMP_Text DescriptionAttributes = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionAttributes");
+    private TMP_Text DescriptionEffect = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionEffect");
     private TMP_Text NeedCraftText = GameData<Main>.Boot.TextManager.Get("PotionInfoNeed");
 
     private static Vector3 SIZE_INFO_CAULDRON = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
@@ -357,11 +357,13 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         Type WhoCalled = typeof(T);
         if (WhoCalled == typeof(Cauldron))
         {
+            SoundManager.PlaySound(SoundType.OpenPopup);
             GameData<Main>.Boot.PotionInfoCauldron.SetActive(true);
             GameData<Main>.Boot.PotionInfoCauldron.transform.DOScale(SIZE_INFO_CAULDRON, Main.AnimationScaleTime);
         }
         else if (WhoCalled == typeof(PeopleImplementation) && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
         {
+            SoundManager.PlaySound(SoundType.OpenPopup);
             GameData<Main>.Boot.PotionInfoCustomer.SetActive(true);
             GameData<Main>.Boot.PotionInfoCustomer.transform.DOScale(SIZE_INFO_CUSTOMER, Main.AnimationScaleTime);
         }
@@ -393,7 +395,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
             EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
         else return;
 
-        var EffectsInCauldronText = new List<string>();
+        var EffectsInCauldronTextAttributes = new List<string>();
+        var EffectsInCauldronTextEffect = new List<string>();
         var EffectsInCraftText = new List<string>();
 
         var Potion = GameData<Main>.Boot.Cauldron.GetEffectPotion();
@@ -411,22 +414,35 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                         return true;
                     return false;
                 });
-                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type)
+                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type < EffectType.ADDITIONAL)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
                     var ColorHex = $"#{XColor.ToHexString(Color)}";
-                    EffectsInCauldronText.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                    EffectsInCauldronTextEffect.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
                 }
-                else
+                else if (ElementCauldron.Type < EffectType.ADDITIONAL)
                 {
                     var ColorBad = $"#373737";
-                    EffectsInCauldronText.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                    EffectsInCauldronTextEffect.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                }
+
+                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type > EffectType.ADDITIONAL)
+                {
+                    var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
+                    Color.a = 1f;
+                    var ColorHex = $"#{XColor.ToHexString(Color)}";
+                    EffectsInCauldronTextAttributes.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
+                }
+                else if (ElementCauldron.Type > EffectType.ADDITIONAL)
+                {
+                    var ColorBad = $"#373737";
+                    EffectsInCauldronTextAttributes.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: {ElementCauldron.Power}");
                 }
             }
             else
             {
-                EffectsInCauldronText.Add($"{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}");
+                EffectsInCauldronTextEffect.Add($"{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}");
             }
 
         }
@@ -442,8 +458,12 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
             }
         }
 
+
         NameCustomerPotion.SetText(PeopleImplementation.Customer.DataComponent.TypePoison.Name + " " + PeopleImplementation.Customer.DataComponent.TypePoison.ID);
-        Description.SetText(string.Join("\n", EffectsInCauldronText));
+
+        DescriptionAttributes.SetText(string.Join("\n", EffectsInCauldronTextAttributes));
+        DescriptionEffect.SetText(string.Join("\n", EffectsInCauldronTextEffect));
+
         NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));
     }
 }
@@ -466,5 +486,13 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         {
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
+    }
+    
+    public static SamplePotion CustomCustomerPotion(int IDPotion)
+    {
+        return CMS.Get<AllPotion>().Potions.Find(x => {
+            if (x.ID == IDPotion) return true;
+            throw new Exception("Нет зелья");
+        });
     }
 }

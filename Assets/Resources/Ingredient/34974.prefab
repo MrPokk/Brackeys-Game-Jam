@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 34974
   Name: Icy Heart
-  Description: 
+  Description: One of the ingredients for the potion
   Price: 1
   Effects:
   - Type: 1

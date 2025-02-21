@@ -42,13 +42,17 @@ public class Cauldron : MonoBehaviour
         ingredients.Add(ingredient);
         ingredient.GetComponent<Collider2D>().enabled = false;
         effectsMaster.AddEffects(ingredient.Effects);
-        transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
-        if (ingredient is Catalyst catalyst) {
-            catalyst.Effect(effectsMaster.Get());
-        }
-        
         
         SoundManager.PlaySound(SoundType.Gurgle);
+        
+        transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0).OnComplete(() => {
+            if (ingredient is Catalyst catalyst) {
+                catalyst.Effect(effectsMaster.Get());
+            }
+            
+            foreach (var Element in InteractionCache<PotionInfo>.AllInteraction)
+                Element.UpdateInfo();
+        });
     }
     public bool Near(Vector2 pos)
     {

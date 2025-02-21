@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -62688
   Name: Fly agaric
-  Description: 
+  Description: <color=#723882>Events:</color>  Adds +2 to all positive effects
   Price: 0
   Effects:
   - Type: 101

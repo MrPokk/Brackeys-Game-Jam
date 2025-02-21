@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 35738
   Name: Ash Strife
-  Description: 
+  Description: One of the ingredients for the potion
   Price: 1
   Effects:
   - Type: 2

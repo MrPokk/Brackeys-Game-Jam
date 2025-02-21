@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: PixeloidSans-Bold
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 587352109
   material: {fileID: -5810707553318581779}
-  materialHashCode: 0
+  materialHashCode: -391479571
   m_Version: 1.1.0
   m_SourceFontFileGUID: 71c58e8839743344ba85f2cd7d67c606
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 71c58e8839743344ba85f2cd7d67c606, type: 3}
@@ -2479,7 +2479,7 @@ MonoBehaviour:
     atlasHeight: 512
     characterSetSelectionMode: 6
     characterSequence: 20-7E,A0,2026,25A1
-    referencedFontAssetGUID: b4cfcc19235a4af4e94a08cee1de6fab
+    referencedFontAssetGUID: 34f5841c609f3af42b278694c443a677
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0

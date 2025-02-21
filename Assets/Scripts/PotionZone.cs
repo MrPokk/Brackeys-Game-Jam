@@ -1,4 +1,5 @@
 using DG.Tweening;
+using SmallHedge.SoundManager;
 using UnityEngine;
 
 public class PotionZone : MonoBehaviour
@@ -19,6 +20,8 @@ public class PotionZone : MonoBehaviour
             PotionIn = Potion;
             InZone = true;
           
+            SoundManager.PlaySound(SoundType.DropPotionInSlot);
+            
             Potion.transform.DOMove(this.transform.position,Main.AnimationMoveTime).SetEase(Ease.InOutElastic);
             SpritePotionZone.transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
         }

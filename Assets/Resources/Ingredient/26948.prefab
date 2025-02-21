@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 26948
   Name: Magic Pollen
-  Description: 
+  Description: One of the ingredients for the potion
   Price: 1
   Effects:
   - Type: 1

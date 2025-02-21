@@ -1,3 +1,4 @@
+using SmallHedge.SoundManager;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -19,6 +20,8 @@ public class ButtonBell : CustomButton
         BasePeople people = PeopleImplementation.Customer;
 
         Animator.SetBool("IsClick", true);
+        
+        SoundManager.PlaySound(SoundType.ClickBell);
         
         if (people != null)
         {
