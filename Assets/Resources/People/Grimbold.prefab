@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -5177388603050735206, guid: 05cbe08a323f02342ab0f2486aa2e00f, type: 3}
+  m_Sprite: {fileID: 3328555184790628559, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0357143, y: 1.0357143}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -93,6 +93,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 709183434046768286}
     m_Modifications:
+    - target: {fileID: 2790656935019851512, guid: fbd4c69a4b2c6b6449003c6c652c8c67, type: 3}
+      propertyPath: m_text
+      value: I'm working in the mine. Give me something.
+      objectReference: {fileID: 0}
     - target: {fileID: 5531983370722505313, guid: fbd4c69a4b2c6b6449003c6c652c8c67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -132,6 +136,10 @@ PrefabInstance:
     - target: {fileID: 5531983370722505313, guid: fbd4c69a4b2c6b6449003c6c652c8c67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774386355006272347, guid: fbd4c69a4b2c6b6449003c6c652c8c67, type: 3}
+      propertyPath: m_text
+      value: Grimbold
       objectReference: {fileID: 0}
     - target: {fileID: 7898620815439414209, guid: fbd4c69a4b2c6b6449003c6c652c8c67, type: 3}
       propertyPath: m_Name
