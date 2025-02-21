@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6265807515243881561}
   - component: {fileID: 4378773657436420819}
   m_Layer: 0
-  m_Name: 28988
+  m_Name: 31260
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,18 +97,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6ee72d560dea439ca576332756a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 28988
-  Name: Healing Potion
+  ID: 31260
+  Name: Poisoning
   Price: 15
   effects: []
   IDIngredients: 
-  Priority: -1
-  Difity: 1
+  Priority: 0
+  Difity: 3
   Level: 1
   Recipe:
   - Type: 1
-    Min: 2
-    Max: 6
+    Min: -4
+    Max: 0
+  - Type: 102
+    Min: 0
+    Max: 20
   - Type: 103
-    Min: -20
-    Max: -2
+    Min: 4
+    Max: 20

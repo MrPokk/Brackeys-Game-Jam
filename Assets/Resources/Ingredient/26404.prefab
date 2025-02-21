@@ -105,7 +105,7 @@ MonoBehaviour:
   Price: 1
   Effects:
   - Type: 1
-    Power: 2
+    Power: 3
   - Type: 3
     Power: 2
   - Type: 102

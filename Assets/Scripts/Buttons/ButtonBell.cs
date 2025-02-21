@@ -14,14 +14,15 @@ public class ButtonBell : CustomButton
             if (people.DataComponent.Type == TypePeople.Customer)
             {
                 PotionZone potionZone = GameData<Main>.Boot.PotionZone;
+                
                 if (potionZone.PotionIn != null)
                 {
                     Potion potion = potionZone.PotionIn.GetComponent<Potion>();
+                    FileWriter.Write(people, potion);
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
                         GameData<Main>.Money += potion.Price;
                         GameData<Main>.Reputation += potion.Price * 0.1f;
-                        
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
                         
@@ -30,7 +31,7 @@ public class ButtonBell : CustomButton
                 }
                 
                 GameData<Main>.Reputation -= Main.ReputationDebuff;
-                
+                FileWriter.Write(people, null);
                 PeopleImplementation.ExitAll();
             }
             else if (people.DataComponent.Type == TypePeople.Trader)

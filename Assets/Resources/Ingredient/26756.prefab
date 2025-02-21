@@ -108,6 +108,8 @@ MonoBehaviour:
     Power: 3
   - Type: 4
     Power: 2
+  - Type: 5
+    Power: -1
   - Type: 101
     Power: 2
   - Type: 102

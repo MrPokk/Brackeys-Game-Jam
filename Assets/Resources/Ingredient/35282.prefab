@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 26948
+  ID: 35282
   Name: Distorted Eye
   Description: 
   Price: 1
@@ -108,12 +108,10 @@ MonoBehaviour:
     Power: -2
   - Type: 4
     Power: 5
-  - Type: 5
-    Power: 3
   - Type: 102
     Power: -3
   - Type: 103
-    Power: 4
+    Power: 3
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0

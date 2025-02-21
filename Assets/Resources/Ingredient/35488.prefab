@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 26948
+  ID: 35488
   Name: Crystal of Abyss
   Description: 
   Price: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
   - Type: 3
     Power: -3
   - Type: 5
-    Power: -2
+    Power: 5
   - Type: 101
     Power: -3
   - Type: 103
