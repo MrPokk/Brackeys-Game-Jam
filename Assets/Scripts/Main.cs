@@ -168,12 +168,10 @@ public class Main : MonoBehaviour, IMain
         {
             ToolKit.transform.position = hit.point;
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
-            
+
             if (GameData<Main>.Boot.ToolKit.activeSelf && hit.transform.gameObject == ObjectHit) return;
-            
+
             ObjectHit = hit.transform.gameObject;
-            if (ObjectHit != null)
-                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
             if (raise is Ingredient ingredient)
             {
@@ -184,9 +182,7 @@ public class Main : MonoBehaviour, IMain
                 TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
 
                 List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
-
-                ingredient.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 12;
-
+                
                 foreach (var Element in ingredient.Effects)
                 {
                     if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
@@ -233,6 +229,7 @@ public class Main : MonoBehaviour, IMain
 
 
                 List<EffectData> EffectsInPotion = potion.effects;
+
 
                 foreach (var Element in EffectsInPotion)
                 {
