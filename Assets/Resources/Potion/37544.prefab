@@ -106,6 +106,9 @@ MonoBehaviour:
   Difity: 3
   Level: 1
   Recipe:
+  - Type: 1
+    Min: 1
+    Max: 5
   - Type: 3
     Min: 5
     Max: 8

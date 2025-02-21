@@ -99,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446b96b1351d401ba56d9db20b6a4aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 26948
+  ID: 35738
   Name: Ash Strife
   Description: 
   Price: 1
   Effects:
-  - Type: 3
-    Power: -1
+  - Type: 2
+    Power: 5
   - Type: 4
     Power: -6
   - Type: 5

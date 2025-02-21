@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 28024
-  Name: Transformation Potion
+  Name: Growth
   Price: 40
   effects: []
   IDIngredients: 
@@ -107,14 +107,14 @@ MonoBehaviour:
   Level: 1
   Recipe:
   - Type: 1
-    Min: 2
-    Max: 5
+    Min: 7
+    Max: 10
   - Type: 2
-    Min: 5
-    Max: 9
+    Min: -5
+    Max: -2
   - Type: 101
     Min: 2
     Max: 20
   - Type: 103
-    Min: 0
-    Max: 20
+    Min: -20
+    Max: 0

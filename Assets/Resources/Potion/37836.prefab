@@ -109,6 +109,9 @@ MonoBehaviour:
   - Type: 2
     Min: 2
     Max: 4
+  - Type: 4
+    Min: 1
+    Max: 3
   - Type: 5
     Min: 3
     Max: 6

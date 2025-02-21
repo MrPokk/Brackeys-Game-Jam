@@ -105,13 +105,15 @@ MonoBehaviour:
   Price: 3
   Effects:
   - Type: 1
-    Power: 4
+    Power: 2
   - Type: 2
     Power: -1
+  - Type: 3
+    Power: 1
   - Type: 101
     Power: 1
   - Type: 103
-    Power: -2
+    Power: -3
 --- !u!61 &5283126607293705992
 BoxCollider2D:
   m_ObjectHideFlags: 0

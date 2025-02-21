@@ -19,7 +19,7 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
         ID = GetHashCode();
     }
     public int CompareTo(SamplePotion comparePart) {  
-        return -Priority.CompareTo(comparePart.Priority);
+        return Priority - comparePart.Priority;
     }
 }
 public class AllPotion : CMSEntity
