@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   Name: 
+  Descriptions: It's just potions.
   Price: 0
   effects: []
   IDIngredients: 

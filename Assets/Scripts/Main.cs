@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.U2D;
 using MouseButton = UnityEngine.UIElements.MouseButton;
 using Random = UnityEngine.Random;
 /*
@@ -162,14 +163,17 @@ public class Main : MonoBehaviour, IMain
             return;
 
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
+        
         if (hit.collider != null && InTheHand == null)
         {
             ToolKit.transform.position = hit.point;
             Raise raise = hit.collider.gameObject.GetComponent<Raise>();
-
+            
             if (GameData<Main>.Boot.ToolKit.activeSelf && hit.transform.gameObject == ObjectHit) return;
+            
             ObjectHit = hit.transform.gameObject;
+            if (ObjectHit != null)
+                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
             if (raise is Ingredient ingredient)
             {
@@ -180,6 +184,8 @@ public class Main : MonoBehaviour, IMain
                 TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
 
                 List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+
+                ingredient.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 12;
 
                 foreach (var Element in ingredient.Effects)
                 {
@@ -227,7 +233,6 @@ public class Main : MonoBehaviour, IMain
 
 
                 List<EffectData> EffectsInPotion = potion.effects;
-
 
                 foreach (var Element in EffectsInPotion)
                 {
@@ -391,9 +396,9 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
         List<EffectRange> EffectsInCustomer = new List<EffectRange>();
-        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.TypePoison.Recipe.Any())
-            EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
-        else return;
+        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type == TypePeople.Trader) return;
+
+        EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
 
         var EffectsInCauldronTextAttributes = new List<string>();
         var EffectsInCauldronTextEffect = new List<string>();
@@ -487,12 +492,9 @@ class MyDebug : BaseInteraction, IEnterInUpdate
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
     }
-    
+
     public static SamplePotion CustomCustomerPotion(int IDPotion)
     {
-        return CMS.Get<AllPotion>().Potions.Find(x => {
-            if (x.ID == IDPotion) return true;
-            throw new Exception("Нет зелья");
-        });
+        return CMS.Get<AllPotion>().GetByID(IDPotion);
     }
 }

@@ -1,16 +1,18 @@
 using System.IO;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
 public static class FileWriter
 {
     private const char separator = ';';
-    private static string path = "DebugInfo/";
+    private static string path = "/DebugInfo/";
     private const string fileType = ".dat";
     private static string sesionID = string.Empty;
     public static async void Write(BasePeople people, Potion potion)
     {
         if (sesionID == string.Empty) {
+            path = Directory.GetCurrentDirectory() + path;
             Directory.CreateDirectory(path);
             sesionID = Random.Range(10000, 99999).ToString();
             path += sesionID + fileType;

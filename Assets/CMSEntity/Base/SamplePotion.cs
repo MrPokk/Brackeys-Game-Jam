@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.IO;
 using Engin.Utility;
 using System;
 using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public class SamplePotion : Potion, IComparable<SamplePotion>
 {
@@ -24,8 +24,9 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 }
 public class AllPotion : CMSEntity
 {
-    public List<SamplePotion> Potions;
+    public List<SamplePotion> Potions = new();
     public SamplePotion Bad;
+    public Dictionary<SamplePotion, int> PotionsPull = new();
     public AllPotion()
     {
         LoadAll();
@@ -33,12 +34,12 @@ public class AllPotion : CMSEntity
     }
     public void LoadAll()
     {
-        Potions = new();
-        Bad = Resources.Load<GameObject>($"Potion/Bad").GetComponent<SamplePotion>();
-        string[] fillis = Directory.GetFiles("Assets/Resources/Potion");
-        foreach (string Element in fillis) {
-            if (Path.GetExtension(Element) != ".prefab") continue;
-            Potions.Add(Resources.Load<GameObject>($"Potion/{Path.GetFileNameWithoutExtension(Element)}").GetComponent<SamplePotion>());
+        GameObject[] objects = Resources.LoadAll<GameObject>("Potion");
+        Bad = Resources.Load<GameObject>("Potion/Bad").GetComponent<SamplePotion>();
+        foreach (GameObject obj in objects) {
+            SamplePotion potion = obj.GetComponent<SamplePotion>();
+            Potions.Add(potion);
+            PotionsPull.Add(potion, 6 - (int)potion.Difity);
         }
         Potions.Remove(Bad);
     }
@@ -49,9 +50,39 @@ public class AllPotion : CMSEntity
         if (ID == Bad.ID) return Bad;
         return null;
     }
-    public SamplePotion GetByIDRandom(IEnumerable<int> ID)
+    public SamplePotion GetByIDRandom(IEnumerable<int> IDs)
     {
-        return GetByID(ID.ElementAt(Random.Range(0, ID.Count())));
+        Dictionary<SamplePotion, int> random = new();
+        foreach (int id in IDs) {
+            SamplePotion potion = GetByID(id);
+            random.Add(potion, PotionsPull[potion]);
+        }
+        int Sum = 0;
+        foreach (int weight in random.Values) {
+            Sum += weight;
+        }
+        int RandNum = Random.Range(0, Sum);
+        foreach (var item in random) {
+            RandNum -= item.Value;
+            if (RandNum <= 0) {
+                SamplePotion potion = item.Key;
+                PotionsPull[potion] -= 1;
+                if (PotionsPull[potion] == 0) {
+                    AddWeightAll();
+                }
+                return potion;
+            }
+        }
+        throw new Exception("Не найдено зелье в списках весов");
+    }
+    private void AddWeightAll()
+    {
+        Debug.Log("Веса обновлены");
+        Dictionary<SamplePotion, int> old = new();
+        old.AddRange(PotionsPull);
+        foreach (var item in old) {
+            PotionsPull[item.Key] += item.Value;
+        }
     }
 
     public SamplePotion GetAtEffects(List<EffectData> atEffects, SamplePotion priority = null)

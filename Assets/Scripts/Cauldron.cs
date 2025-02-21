@@ -56,7 +56,7 @@ public class Cauldron : MonoBehaviour
     }
     public bool Near(Vector2 pos)
     {
-        return Vector2.Distance(pos, this.transform.position) < 1;
+        return Vector2.Distance(pos, this.transform.position + Vector3.up) < 1.2;
     }
     public bool Cook()
     {
@@ -77,7 +77,7 @@ public class Cauldron : MonoBehaviour
         // Если сварил говно
         if (sample == AllPotion.Bad) return false;
 
-        Potion potion = Instantiate(Potion, transform.position + Vector3.up , new Quaternion()).GetComponent<Potion>();
+        Potion potion = Instantiate(Potion, transform.position + Vector3.up, new Quaternion()).GetComponent<Potion>();
         potion.Set(sample, effects, _ingredients);
         
         return true;

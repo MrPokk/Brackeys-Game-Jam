@@ -99,11 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 37360
   Name: Appeasement
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
   Priority: 0
-  Difity: 2
+  Difity: 1
   Level: 1
   Recipe:
   - Type: 3
