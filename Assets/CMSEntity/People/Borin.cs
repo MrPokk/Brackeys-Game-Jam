@@ -1,8 +1,8 @@
 using Engin.Utility;
 using UnityEngine;
-public class Mirabella : BasePeople
+public class Borin : BasePeople
 {
-    public Mirabella()
+    public Borin ()
     {
         Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
         SetTextPrefab(ref people);
@@ -18,11 +18,10 @@ public class Mirabella : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Mirabella";
+        DataComponent.Name.text = "Borin";
 
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new[] {27668, 37276, 37640});
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Mirabella>()}";
-
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{37544,27900});
+        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Borin>()}";
         return this;
     }
 

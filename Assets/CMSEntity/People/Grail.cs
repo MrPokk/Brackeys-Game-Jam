@@ -18,7 +18,7 @@ public class Grail : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Grail";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(30444);
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{28988,31260,37360});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grail>()}";
         return this;
     }

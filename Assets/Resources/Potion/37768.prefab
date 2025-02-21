@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 37768
-  Name: Water Breathing
+  Name: Breathing
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 

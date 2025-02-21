@@ -20,7 +20,7 @@ public class Theodore : BasePeople
     {
         DataComponent.Name.text = "Theodore";
 
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(27900);
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{27900,37768});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Theodore>()}";
         return this;
     }

@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 233291668877059585}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1566, y: 1.5853, z: 0}
-  m_LocalScale: {x: 0.7514186, y: 1.230273, z: 1}
+  m_LocalPosition: {x: 2.9531, y: 1.6456, z: 0}
+  m_LocalScale: {x: 0.77450484, y: 1.0645086, z: 0.9157182}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5531983370722505313}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6845326672534276729, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
+  m_Sprite: {fileID: -7169771626436279841, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -3.052781, w: -1.3604858}
+  m_margin: {x: 0, y: 0, z: -2.740672, w: -1.1429547}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -394,8 +394,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

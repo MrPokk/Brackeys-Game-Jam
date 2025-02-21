@@ -19,7 +19,7 @@ public class Seraphina : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Seraphina";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(27900);
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{27900,37544,30444});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Seraphina>()}";
         return this;
     }

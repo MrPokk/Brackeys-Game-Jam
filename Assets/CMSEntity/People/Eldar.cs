@@ -22,7 +22,7 @@ public class Eldar : BasePeople
     {
         DataComponent.Name.text = "Eldar";
 
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(27668);
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new int[]{27668,28024,37276});
 
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Eldar>()}";
         return this;

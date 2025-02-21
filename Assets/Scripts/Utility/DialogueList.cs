@@ -17,16 +17,15 @@ public static class DialogueList
         {
             typeof(Grail), new List<string>()
             {
-                "I Mr.Grail. I need a healing potion.",
-                "Mr.Grail here. I need a potion to heal me.",
-                "Im Mr.Grail, and I require a healing potion"
+             "I need something against the parasites or something that can cure me.",
+             "I think I have parasites, so I need something to cure me, or something to protect against them if it's not too late"
             }
         },
         {
             typeof(Grimbold), new List<string>()
             {
-                "Potion. Strength, urgently",
-                "I don't have enough strength"
+                "I'm working in the mine. Give me something.",
+                "Working the night shift in the mine. Got anything to help me see better?"
             }
         },
         {
@@ -55,6 +54,33 @@ public static class DialogueList
             {
                 "Ah, yes, good day! Or rather, morning… or evening? Never mind! I need… oh, what did I want? Ah, yes! A potion! A potion for… him… what for? Ah, right! For memory! And for concentration!",
                 "I came for… hmm, what was it? Oh, yes! A potion! A potion for… that fellow… what was it supposed to do? Oh, right! For memory! And… and for focusing!"
+            }
+        },
+        {
+            typeof(Anya), new List<string>()
+            {
+                "I need a pain reliever, a potent one. I want something that'll put me down for a good nap, but obviously nothing lethal",
+                "I need a potion for pain. Something that'll knock me on my ass for a few hours, but won't kill me."
+            }
+        },
+        {
+            typeof(Borin), new List<string>()
+            {
+                "I need something' to see better in the dark. The tunnels are getting' deeper, and my eyes ain't what they used to be."
+            }
+        },
+        {
+            typeof(Finch), new List<string>()
+            {
+               "This is a big day for me, I have a performance! But I'm so anxious, I need something…anything… that will calm my nerves",
+                "I have a big performance today... and I... well, do you have anything that could... Calm my nerves?"
+            }
+        },
+        {
+            typeof(Isolde), new List<string>()
+            {
+                "You need fire protection, what do you have",
+                "“I desperately need fire protection! What have you got?"
             }
         },
     };
