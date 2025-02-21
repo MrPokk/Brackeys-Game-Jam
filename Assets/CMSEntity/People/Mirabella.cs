@@ -1,25 +1,28 @@
 using Engin.Utility;
 using UnityEngine;
-public class Dragon : BasePeople
+public class Mirabella : BasePeople
 {
-    public Dragon()
+    Mirabella()
     {
-        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Dragon");
+        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
         SetTextPrefab(ref people);
 
         people.Type = TypePeople.Customer;
-        
+        people.TypePoison = CMS.Get<AllPotion>().Bad;
+
         SetData(ref people);
-        
+
         ModifyDataSet();
         RegisterComponents(people);
     }
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Dragon";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetRandom();
-        DataComponent.Description.text = $"I, Mr. Dragon, want <color=#ed2246>{DataComponent.TypePoison.Name}</color> potions.";
+        DataComponent.Name.text = "Mirabella";
+
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{27668,37276,37640});
+        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Mirabella>()}";
+        
         return this;
     }
 

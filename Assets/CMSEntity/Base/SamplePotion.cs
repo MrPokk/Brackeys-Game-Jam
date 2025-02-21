@@ -49,6 +49,10 @@ public class AllPotion : CMSEntity
         if (ID == Bad.ID) return Bad;
         return null;
     }
+    public SamplePotion GetByIDRandom(IEnumerable<int> ID)
+    {
+        return GetByID(ID.ElementAt(Random.Range(0, ID.Count())));
+    }
 
     public SamplePotion GetAtEffects(List<EffectData> atEffects, SamplePotion priority = null)
     {

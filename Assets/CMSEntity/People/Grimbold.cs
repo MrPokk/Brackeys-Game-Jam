@@ -1,29 +1,30 @@
 using Engin.Utility;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-public class Sidorovich : BasePeople
+public class Grimbold : BasePeople
 {
-    public Sidorovich()
+    Grimbold()
     {
-        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>("People/Dragon");
+        Define<DataPeople>(out DataPeople people).Prefab = Resources.Load<GameObject>($"People/{this.GetType().Name}");
         SetTextPrefab(ref people);
 
-        people.Type = TypePeople.Trader;
+        people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
-        
+
         SetData(ref people);
-        
+
         ModifyDataSet();
         RegisterComponents(people);
     }
+
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Sidorovich";
-        DataComponent.Description.text = $"I, Mr. Sidorovich and i have an item for sale.";
+        DataComponent.Name.text = "Grimbold";
+        
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(30444);
+        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grimbold>()}";
         return this;
     }
+
     public override void RegisterComponents(params IComponent[] components)
     {
         Components.AddRange(components);
