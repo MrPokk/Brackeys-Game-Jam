@@ -80,7 +80,7 @@ public static class DialogueList
             typeof(Isolde), new List<string>()
             {
                 "You need fire protection, what do you have",
-                "“I desperately need fire protection! What have you got?"
+                "I desperately need fire protection! What have you got?"
             }
         },
     };

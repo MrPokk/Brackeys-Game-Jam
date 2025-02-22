@@ -35,6 +35,7 @@ using Random = UnityEngine.Random;
 public class Main : MonoBehaviour, IMain
 {
     public TextManager TextManager;
+    public TutorialManager TutorialManager;
 
     public Interaction Interact = new Interaction();
     public StoreIngredients Store;
@@ -42,6 +43,7 @@ public class Main : MonoBehaviour, IMain
     public Cauldron Cauldron;
     public PotionZone PotionZone;
 
+    
     public GameObject PotionInfoCauldron;
     public GameObject PotionInfoCustomer;
     public GameObject ToolKit;
@@ -113,7 +115,15 @@ public class Main : MonoBehaviour, IMain
         Interact.FindAll<MyDebug>();
 #endif
         Interact.FindAll<PotionInfo>();
-        Interact.FindAll<TutorialInfo>();
+
+
+        var TutorialInfo = Interact.FindAll<TutorialInfo>();
+        foreach (var Element in TutorialInfo)
+        {
+            Element.Update();
+        }
+
+        TutorialManager.gameObject.SetActive(true);
         
         PotionInfoCauldron.SetActive(false);
         PotionInfoCustomer.SetActive(false);
@@ -143,7 +153,7 @@ public class Main : MonoBehaviour, IMain
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
             LeftDown();
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
-           LeftUp();
+            LeftUp();
         HoverMouse();
 
         if (InTheHand != null)
@@ -160,7 +170,8 @@ public class Main : MonoBehaviour, IMain
     private static GameObject ObjectHit;
     private void OffToolKit()
     {
-        if (ObjectHit != null) {
+        if (ObjectHit != null)
+        {
             ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
         }
         ObjectHit = null;
@@ -171,23 +182,25 @@ public class Main : MonoBehaviour, IMain
         if (PauseMenu.Paused) return;
 
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        
+
         if (hit.collider != null && InTheHand == null)
         {
-            if (ToolKit.activeSelf && hit.collider.gameObject == ObjectHit) { 
+            if (ToolKit.activeSelf && hit.collider.gameObject == ObjectHit)
+            {
                 return;
             }
 
-            if (ObjectHit != null) {
+            if (ObjectHit != null)
+            {
                 ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
             }
             GameObject OldObjectHit = ObjectHit;
             ObjectHit = hit.collider.gameObject;
             ToolKit.transform.position = ObjectHit.transform.position;
-
-
+            
             Raise raise = ObjectHit.GetComponent<Raise>();
-            if (raise == null) { 
+            if (raise == null)
+            {
                 OffToolKit();
                 return;
             }
@@ -202,28 +215,35 @@ public class Main : MonoBehaviour, IMain
                 TMP_Text Description = TextManager.Get("ToolKitDescriptionObject");
 
                 Name.SetText(ingredient.Name);
-                if (raise is Catalyst) {
+                if (raise is Catalyst)
+                {
                     Description.SetText(string.Empty);
                     Effect.SetText(ingredient.Description);
                 }
-                else {
+                else
+                {
                     List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
 
-                    foreach (var Element in ingredient.Effects) {
-                        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader) {
+                    foreach (var Element in ingredient.Effects)
+                    {
+                        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
+                        {
                             var EffectCustomer = EffectsInCustomer.FirstOrDefault(x => x.Type == Element.Type);
-                            if (EffectCustomer != null && EffectCustomer.Type == Element.Type) {
+                            if (EffectCustomer != null && EffectCustomer.Type == Element.Type)
+                            {
                                 var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
                                 Color.a = 1f;
                                 var ColorHex = $"#{XColor.ToHexString(Color)}";
                                 EffectsInIngredient.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
                             }
-                            else {
+                            else
+                            {
                                 var ColorBad = $"#373737";
                                 EffectsInIngredient.Add($"<color={ColorBad}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
                             }
                         }
-                        else {
+                        else
+                        {
                             EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
                         }
                     }
@@ -509,7 +529,8 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         {
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
-        else if (Input.GetKeyDown(KeyCode.L)) {
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
             var list = CMS.Get<AllPotion>().PotionsPull;
             FileWriter.Write(list);
         }
@@ -524,19 +545,36 @@ class MyDebug : BaseInteraction, IEnterInUpdate
 
 class TutorialInfo : BaseInteraction, IUpdateTutorialInfo
 {
-    
+
+    private static TMP_Text TutorialText = GameData<Main>.Boot.TextManager.Get("TutorialText");
     public static bool TutorialComplete = false;
-    
+    private int TutorialStateIndex = 0;
+
     public static List<string> TutorialTextList = new List<string>()
     {
-        "Add the ingredient to the caldron",
+        "You can craft potions by adding the necessary ingredients to the cauldron.",
         "These <color=#e7bb2a>panels display </color>information about the <color=#4080FF> client's potions</color> and the <color=#ff40FF>potions in your cauldron.</color>",
-        "Put the potions in the zone and tap on bell",
+        "By clicking on the bell, you will complete the transaction with the <color=#4080FF>client.</color>"
     };
     public void Update()
     {
-        
-        
-        
+        if (TutorialStateIndex >= GameData<Main>.Boot.TutorialManager.TutorialState.Count)
+        {
+            GameData<Main>.Boot.TutorialManager.gameObject.transform.DOScale(0f, Main.AnimationScaleTime).OnComplete(() => GameData<Main>.Boot.TutorialManager.gameObject.SetActive(false));
+            return;
+        }
+
+        if (TutorialComplete) GameData<Main>.Boot.TutorialManager.gameObject.SetActive(false);
+
+        TutorialText.text = TutorialTextList[TutorialStateIndex];
+        GameData<Main>.Boot.TutorialManager.TutorialState[TutorialStateIndex].SetActive(true);
+
+        if (TutorialStateIndex != 0)
+        {
+            GameData<Main>.Boot.TutorialManager.TutorialState[TutorialStateIndex - 1].SetActive(false);
+        }
+
+        TutorialStateIndex++;
+
     }
 }
