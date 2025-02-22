@@ -9,6 +9,8 @@ public class Cauldron : MonoBehaviour
     public EffectsMaster effectsMaster = new EffectsMaster();
     public GameObject Potion;
 
+    public GameObject CraftButton;
+    
     private Animator Animator;
     private AllPotion AllPotion;
 
@@ -38,6 +40,8 @@ public class Cauldron : MonoBehaviour
     {
         Animator.SetBool("IsShake", true);
         PotionInfo.OpenPopup<Cauldron>();
+        
+        CraftButton.gameObject.SetActive(true);
         
         ingredients.Add(ingredient);
         ingredient.GetComponent<SpriteRenderer>().sortingOrder = 0;
@@ -74,6 +78,8 @@ public class Cauldron : MonoBehaviour
         transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
         
         PotionInfo.ClosePopup<Cauldron>();
+        CraftButton.gameObject.SetActive(false);
+        
 
         List<EffectData> effects = effectsMaster.GetAndClear();
         SamplePotion sample = AllPotion.GetAtEffects(effects, PeopleImplementation.Customer.DataComponent.TypePoison);
