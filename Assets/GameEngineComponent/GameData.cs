@@ -42,6 +42,6 @@ public static class GameData<T> where T : IMain
             }
         }
     }
-    private static int _Money = 30;
+    private static int _Money = 100;
 
 }

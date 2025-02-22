@@ -90,10 +90,9 @@ public class Main : MonoBehaviour, IMain
 
     private void NextStep()
     {
-        foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
-        {
-            GameData<Main>.Boot.Store.Add(Element);
-        }
+        //foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
+        foreach (var Element in CMS.Get<AllIngredients>().GetStartPull())
+            Store.Add(Element);
 
         var PeopleUpdate = Interact.FindAll<IEnterInPeople>();
         foreach (var Element in PeopleUpdate)
@@ -166,6 +165,7 @@ public class Main : MonoBehaviour, IMain
         ObjectHit = null;
         ToolKit.SetActive(false);
     }
+    private int OldLayerHit;
     private void HoverMouse()
     {
         if (PauseMenu.Paused) return;
@@ -179,7 +179,7 @@ public class Main : MonoBehaviour, IMain
             }
 
             if (ObjectHit != null) {
-                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = OldLayerHit;
             }
             GameObject OldObjectHit = ObjectHit;
             ObjectHit = hit.collider.gameObject;
@@ -193,7 +193,9 @@ public class Main : MonoBehaviour, IMain
             }
             if (raise is Ingredient ingredient)
             {
-                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 12;
+                SpriteRenderer sp = ObjectHit.GetComponent<SpriteRenderer>();
+                OldLayerHit = sp.sortingOrder;
+                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = OldLayerHit + 10;
 
                 var EffectsInIngredient = new List<string>();
                 TMP_Text Name = TextManager.Get("ToolKitNameObject");

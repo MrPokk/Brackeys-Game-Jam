@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 28988
   Name: Healing Potion
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 
