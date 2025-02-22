@@ -44,3 +44,9 @@ interface IUpdateGameData
     void Update();
 }
 
+
+interface IUpdateTutorialInfo
+{
+    void Update();
+}
+
