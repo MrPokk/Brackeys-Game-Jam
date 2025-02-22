@@ -4,6 +4,7 @@ using System.Linq;
 using Engin.Utility;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class Ingredient : Raise, IComparable<Ingredient>
@@ -45,6 +46,15 @@ public class AllIngredients : CMSEntity
     public Ingredient GetByID(int ID)
     {
         return Ingredients.FirstOrDefault(x => x.ID == ID);
+    }
+
+    public List<Ingredient> GetStartPull()
+    {
+        List<Ingredient> ingredients = new List<Ingredient>();
+        foreach (int id in new []{ 26194, 35738, -70632 }) {
+            ingredients.Add(GetByID(id));
+        }
+        return ingredients;
     }
 
     public override void RegisterComponents(params IComponent[] components)

@@ -119,7 +119,12 @@ public static class PeopleMaster
                 trader.Add(people);
             }
         }
-        pullCustomer.AddRange(customer);
+
+        BasePeople people1 = customer.FirstOrDefault(x => x is Backquit);
+        BasePeople people2 = customer.FirstOrDefault(x => x is Foley);
+        //customer.Remove(people1);
+        //customer.Remove(people2);
+        pullCustomer.AddRange(new[] { people1, people2 });
         pullTrader.AddRange(trader);
     }
 }

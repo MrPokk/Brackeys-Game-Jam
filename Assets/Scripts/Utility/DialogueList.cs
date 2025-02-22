@@ -83,6 +83,21 @@ public static class DialogueList
                 "I desperately need fire protection! What have you got?"
             }
         },
+
+        {
+            typeof(Foley), new List<string>()
+            {
+                "You need fire protection, what do you have",
+                "I desperately need fire protection! What have you got?"
+            }
+        },
+        {
+            typeof(Backquit), new List<string>()
+            {
+                "You need fire protection, what do you have",
+                "I desperately need fire protection! What have you got?"
+            }
+        },
     };
 
     public static string GetRandomDialogue<T>()
