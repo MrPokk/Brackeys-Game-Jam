@@ -102,7 +102,7 @@ MonoBehaviour:
   ID: 26948
   Name: Magic Pollen
   Description: One of the ingredients for the potion
-  Price: 1
+  Price: 10
   Effects:
   - Type: 1
     Power: 1

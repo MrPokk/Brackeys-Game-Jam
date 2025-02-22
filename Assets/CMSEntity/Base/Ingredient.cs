@@ -4,10 +4,9 @@ using System.Linq;
 using Engin.Utility;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 [Serializable]
-public class Ingredient : Raise , IComparable<Ingredient>
+public class Ingredient : Raise, IComparable<Ingredient>
 {
     public int ID;
     public String Name;
@@ -30,9 +29,10 @@ public class Ingredient : Raise , IComparable<Ingredient>
 
 public class AllIngredients : CMSEntity
 {
-    public List<Ingredient> Ingredients = new();
+    public List<Ingredient> Ingredients;
     public AllIngredients()
     {
+        Ingredients = new();
         LoadAll();
     }
     public void LoadAll()

@@ -102,12 +102,14 @@ MonoBehaviour:
   ID: 26404
   Name: Chamomile Flower
   Description: One of the ingredients for the potion
-  Price: 1
+  Price: 20
   Effects:
   - Type: 1
     Power: 3
   - Type: 3
     Power: 2
+  - Type: 4
+    Power: -1
   - Type: 102
     Power: 2
   - Type: 103

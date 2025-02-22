@@ -17,13 +17,13 @@ public class ButtonBell : CustomButton
     }
     public override void Click()
     {
+        if (GameData<Main>.Boot.Shop.isActiveAndEnabled) return;
         BasePeople people = PeopleImplementation.Customer;
 
         Animator.SetBool("IsClick", true);
-        
         SoundManager.PlaySound(SoundType.ClickBell);
-        
-        if (people != null)
+
+        if (people != null && PeopleImplementation.IsServiced)
         {
             if (people.DataComponent.Type == TypePeople.Customer)
             {
@@ -35,8 +35,9 @@ public class ButtonBell : CustomButton
                     FileWriter.Write(people, potion);
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
-                        GameData<Main>.Money += potion.Price;
-                        GameData<Main>.Reputation += potion.Price * 0.1f;
+                        int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 20;
+                        GameData<Main>.Money += a;
+                        GameData<Main>.Reputation += a * 0.4f;
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
                         

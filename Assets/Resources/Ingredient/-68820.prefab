@@ -102,12 +102,8 @@ MonoBehaviour:
   ID: -68820
   Name: Reflection Mirror
   Description: <color=#723882>Events:</color> Inverts all <color=#1715a1>Effects</color>
-  Price: 0
-  Effects:
-  - Type: 101
-    Power: -5
-  - Type: 103
-    Power: 3
+  Price: 10
+  Effects: []
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 1e50dc68831051a4cabf1e9e994cbc46, type: 3}
   - name: DropPotionInSlot
-    volume: 1
+    volume: 0.7
     mixer: {fileID: 8981138506219314603, guid: a742986316852334c80cb03a2b867320, type: 2}
     sounds:
     - {fileID: 8300000, guid: ae40b6710af6f6140992d2af264257bc, type: 3}

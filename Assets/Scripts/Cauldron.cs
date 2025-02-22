@@ -1,9 +1,6 @@
 ﻿using DG.Tweening;
 using SmallHedge.SoundManager;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Cauldron : MonoBehaviour
@@ -16,7 +13,11 @@ public class Cauldron : MonoBehaviour
     private AllPotion AllPotion;
 
     private const float SIZE_INFO = 1.2f;
-    
+    [SerializeField] private Transform CenterOfNeck;
+    private float Spase = 0;
+    private float Offset = 0;
+    public Vector2 SizeOrbit = new Vector2(1, 1);
+
     private void Start()
     {
         AllPotion = CMS.Get<AllPotion>();
@@ -24,22 +25,22 @@ public class Cauldron : MonoBehaviour
     }
     private void Update()
     {
-        if (ingredients.Any())
-        {
-            Animator.SetBool("IsShake", true);
-        }
-        else
-        {
-            Animator.SetBool("IsShake", false);
+        Offset += Time.deltaTime;
+        for (int i = 0; i < ingredients.Count; i++) {
+            float x = Mathf.Sin(Spase * i + Offset) * SizeOrbit.x;
+            float y = Mathf.Cos(Spase * i + Offset) * SizeOrbit.y;
+            float z = y / 10;
+            ingredients[i].transform.position = CenterOfNeck.position + new Vector3(x, y, z);
         }
     }
 
     public void Add(Ingredient ingredient)
     {
-
+        Animator.SetBool("IsShake", true);
         PotionInfo.OpenPopup<Cauldron>();
         
         ingredients.Add(ingredient);
+        ingredient.GetComponent<SpriteRenderer>().sortingOrder = 0;
         ingredient.GetComponent<Collider2D>().enabled = false;
         effectsMaster.AddEffects(ingredient.Effects);
         
@@ -53,13 +54,15 @@ public class Cauldron : MonoBehaviour
             foreach (var Element in InteractionCache<PotionInfo>.AllInteraction)
                 Element.UpdateInfo();
         });
+        Spase = 2 * Mathf.PI / ingredients.Count;
     }
     public bool Near(Vector2 pos)
     {
-        return Vector2.Distance(pos, this.transform.position + Vector3.up) < 1.2;
+        return Vector2.Distance(pos, CenterOfNeck.position) < 1.2;
     }
     public bool Cook()
     {
+        Animator.SetBool("IsShake", false);
         if (ingredients.Count == 0) return false;
         List<int> _ingredients = new List<int>();
         foreach (Ingredient item in ingredients) {

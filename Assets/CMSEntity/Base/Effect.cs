@@ -24,9 +24,10 @@ public class Effect : MonoBehaviour
 
 public class AllEffect : CMSEntity
 {
-    public List<Effect> effects = new();
+    public List<Effect> effects;
     public AllEffect()
     {
+        effects = new();
         LoadAll();
     }
     public void LoadAll()

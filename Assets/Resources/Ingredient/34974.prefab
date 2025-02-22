@@ -102,7 +102,7 @@ MonoBehaviour:
   ID: 34974
   Name: Icy Heart
   Description: One of the ingredients for the potion
-  Price: 1
+  Price: 15
   Effects:
   - Type: 1
     Power: -5

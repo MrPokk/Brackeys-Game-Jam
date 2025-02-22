@@ -104,14 +104,14 @@ MonoBehaviour:
   effects: []
   IDIngredients: 
   Priority: 1
-  Difity: 2
+  Difity: 3
   Level: 1
   Recipe:
   - Type: 3
     Min: 4
     Max: 7
   - Type: 4
-    Min: 2
+    Min: 1
     Max: 5
   - Type: 101
     Min: -1

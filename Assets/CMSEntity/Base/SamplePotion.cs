@@ -24,24 +24,32 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 }
 public class AllPotion : CMSEntity
 {
-    public List<SamplePotion> Potions = new();
+    public List<SamplePotion> Potions;
     public SamplePotion Bad;
-    public Dictionary<SamplePotion, int> PotionsPull = new();
+    public Dictionary<SamplePotion, int> PotionsPull;
     public AllPotion()
     {
+        Potions = new();
+        PotionsPull = new();
         LoadAll();
+        InitPull();
         Potions.Sort();
     }
-    public void LoadAll()
+    private void LoadAll()
     {
         GameObject[] objects = Resources.LoadAll<GameObject>("Potion");
         Bad = Resources.Load<GameObject>("Potion/Bad").GetComponent<SamplePotion>();
         foreach (GameObject obj in objects) {
             SamplePotion potion = obj.GetComponent<SamplePotion>();
             Potions.Add(potion);
-            PotionsPull.Add(potion, 6 - (int)potion.Difity);
         }
         Potions.Remove(Bad);
+    }
+    private void InitPull()
+    {
+        foreach (SamplePotion potion in Potions) {
+            PotionsPull.Add(potion, 6 - (int)potion.Difity);
+        }
     }
     public SamplePotion GetByID(int ID)
     {
@@ -66,8 +74,7 @@ public class AllPotion : CMSEntity
             RandNum -= item.Value;
             if (RandNum <= 0) {
                 SamplePotion potion = item.Key;
-                PotionsPull[potion] -= 1;
-                if (PotionsPull[potion] == 0) {
+                if ((PotionsPull[potion] -= 1) == 0) {
                     AddWeightAll();
                 }
                 return potion;
@@ -77,12 +84,12 @@ public class AllPotion : CMSEntity
     }
     private void AddWeightAll()
     {
-        Debug.Log("Веса обновлены");
         Dictionary<SamplePotion, int> old = new();
         old.AddRange(PotionsPull);
         foreach (var item in old) {
-            PotionsPull[item.Key] += item.Value;
+            PotionsPull[item.Key] += 6 - (int)item.Key.Difity;
         }
+        Debug.Log("Веса обновлены");
     }
 
     public SamplePotion GetAtEffects(List<EffectData> atEffects, SamplePotion priority = null)
