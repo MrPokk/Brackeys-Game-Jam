@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class EffectData
+public class EffectData : IComparable<EffectData>
 {
     public EffectType Type;
     public int Power;
@@ -14,6 +13,11 @@ public class EffectData
     {
         Type = type;
         Power = power;
+    }
+
+    public int CompareTo(EffectData other)
+    {
+        return Type - other.Type;
     }
 }
 [Serializable]
@@ -42,10 +46,14 @@ public class EffectsMaster
         EffectData thisEffect = Effects.FirstOrDefault(x => x.Type == effect.Type);
         if (thisEffect != null) {
             thisEffect.Power += effect.Power;
+            if (thisEffect.Power == 0) {
+                Effects.Remove(thisEffect);
+            }
         }
         else {
             Effects.Add(effect);
         }
+        Effects.Sort();
     }
 
     public List<EffectData> GetAndClear()

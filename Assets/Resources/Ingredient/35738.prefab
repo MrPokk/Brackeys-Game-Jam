@@ -102,7 +102,7 @@ MonoBehaviour:
   ID: 35738
   Name: Ash Strife
   Description: One of the ingredients for the potion
-  Price: 1
+  Price: 15
   Effects:
   - Type: 2
     Power: 5
@@ -113,7 +113,7 @@ MonoBehaviour:
   - Type: 101
     Power: -2
   - Type: 103
-    Power: 3
+    Power: 2
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0

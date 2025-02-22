@@ -37,8 +37,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             Customer.ModifyDataSet();
 
             #if UNITY_EDITOR
-            Customer.DataComponent.TypePoison = MyDebug.CustomCustomerPotion(37836);
-  #endif
+            //Customer.DataComponent.TypePoison = MyDebug.CustomCustomerPotion(37836);
+            #endif
 
             yield return new WaitForSeconds(1f);
             

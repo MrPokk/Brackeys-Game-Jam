@@ -6,6 +6,7 @@ public class PotionZone : MonoBehaviour
 {
     public GameObject PotionIn {get; private set; }
     public bool InZone { get; private set; } = false;
+    private bool EndAnimaton = true;
 
     [SerializeField] private GameObject SpritePotionZone;
     public bool Near(Vector2 pos)
@@ -23,7 +24,10 @@ public class PotionZone : MonoBehaviour
             SoundManager.PlaySound(SoundType.DropPotionInSlot);
             
             Potion.transform.DOMove(this.transform.position,Main.AnimationMoveTime).SetEase(Ease.InOutElastic);
-            SpritePotionZone.transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0);
+            if (EndAnimaton) {
+                EndAnimaton = false;
+                SpritePotionZone.transform.DOPunchScale(new(Main.AnimationScale, Main.AnimationScale, 0), Main.AnimationScaleTime, 0, 0).OnComplete(() => { EndAnimaton = true; });
+            }
         }
     }
 

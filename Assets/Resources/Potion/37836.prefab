@@ -108,14 +108,14 @@ MonoBehaviour:
   Level: 1
   Recipe:
   - Type: 2
-    Min: 2
-    Max: 4
+    Min: -7
+    Max: -3
   - Type: 4
     Min: 1
     Max: 3
   - Type: 5
-    Min: 3
-    Max: 6
+    Min: 5
+    Max: 9
   - Type: 102
     Min: 3
     Max: 20

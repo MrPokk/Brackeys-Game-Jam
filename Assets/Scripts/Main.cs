@@ -7,7 +7,6 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.U2D;
 using MouseButton = UnityEngine.UIElements.MouseButton;
 using Random = UnityEngine.Random;
 /*
@@ -59,7 +58,7 @@ public class Main : MonoBehaviour, IMain
     public const float AnimationMoveTime = 0.3f;
 
 
-    public const float ReputationDebuff = 20f;
+    public const float ReputationDebuff = 10f;
 
     public void Awake()
     {
@@ -110,7 +109,9 @@ public class Main : MonoBehaviour, IMain
 
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
+#if UNITY_EDITOR
         Interact.FindAll<MyDebug>();
+#endif
         Interact.FindAll<PotionInfo>();
 
         PotionInfoCauldron.SetActive(false);
@@ -139,10 +140,9 @@ public class Main : MonoBehaviour, IMain
         }
 
         if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && InTheHand == null)
-            LeftClick();
+            LeftDown();
         else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) && InTheHand != null)
-            RightClick();
-
+           LeftUp();
         HoverMouse();
 
         if (InTheHand != null)
@@ -157,73 +157,88 @@ public class Main : MonoBehaviour, IMain
     }
 
     private static GameObject ObjectHit;
+    private void OffToolKit()
+    {
+        if (ObjectHit != null) {
+            ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        }
+        ObjectHit = null;
+        ToolKit.SetActive(false);
+    }
     private void HoverMouse()
     {
-        if (PauseMenu.Paused)
-            return;
+        if (PauseMenu.Paused) return;
 
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         
         if (hit.collider != null && InTheHand == null)
         {
-            ToolKit.transform.position = hit.point;
-            Raise raise = hit.collider.gameObject.GetComponent<Raise>();
+            if (ToolKit.activeSelf && hit.collider.gameObject == ObjectHit) { 
+                return;
+            }
 
-            if (GameData<Main>.Boot.ToolKit.activeSelf && hit.transform.gameObject == ObjectHit) return;
+            if (ObjectHit != null) {
+                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            GameObject OldObjectHit = ObjectHit;
+            ObjectHit = hit.collider.gameObject;
+            ToolKit.transform.position = ObjectHit.transform.position;
 
-            ObjectHit = hit.transform.gameObject;
 
+            Raise raise = ObjectHit.GetComponent<Raise>();
+            if (raise == null) { 
+                OffToolKit();
+                return;
+            }
             if (raise is Ingredient ingredient)
             {
+                ObjectHit.GetComponent<SpriteRenderer>().sortingOrder = 12;
+
                 var EffectsInIngredient = new List<string>();
-                TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
+                TMP_Text Name = TextManager.Get("ToolKitNameObject");
 
-                TMP_Text Effect = GameData<Main>.Boot.TextManager.Get("ToolKitEffectObject");
-                TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
-
-                List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
-                
-                foreach (var Element in ingredient.Effects)
-                {
-                    if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
-                    {
-                        var EffectCustomer = EffectsInCustomer.FirstOrDefault(range => {
-                            if (range.Type == Element.Type)
-                                return true;
-                            return false;
-                        });
-                        if (EffectCustomer != null && EffectCustomer.Type == Element.Type)
-                        {
-                            var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
-                            Color.a = 1f;
-                            var ColorHex = $"#{XColor.ToHexString(Color)}";
-                            EffectsInIngredient.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
-                        }
-                        else
-                        {
-                            var ColorBad = $"#373737";
-                            EffectsInIngredient.Add($"<color={ColorBad}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
-                        }
-                    }
-                    else
-                    {
-                        EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
-                    }
-                }
+                TMP_Text Effect = TextManager.Get("ToolKitEffectObject");
+                TMP_Text Description = TextManager.Get("ToolKitDescriptionObject");
 
                 Name.SetText(ingredient.Name);
-                Description.SetText(ingredient.Description);
-                Effect.SetText(string.Join("\n", EffectsInIngredient));
+                if (raise is Catalyst) {
+                    Description.SetText(string.Empty);
+                    Effect.SetText(ingredient.Description);
+                }
+                else {
+                    List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
 
-                GameData<Main>.Boot.ToolKit.SetActive(true);
+                    foreach (var Element in ingredient.Effects) {
+                        if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader) {
+                            var EffectCustomer = EffectsInCustomer.FirstOrDefault(x => x.Type == Element.Type);
+                            if (EffectCustomer != null && EffectCustomer.Type == Element.Type) {
+                                var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
+                                Color.a = 1f;
+                                var ColorHex = $"#{XColor.ToHexString(Color)}";
+                                EffectsInIngredient.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
+                            }
+                            else {
+                                var ColorBad = $"#373737";
+                                EffectsInIngredient.Add($"<color={ColorBad}>{Element.Type.ToString().ToUpperInvariant()}</color>: {Element.Power}");
+                            }
+                        }
+                        else {
+                            EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                        }
+                    }
+
+                    Description.SetText(ingredient.Description);
+                    Effect.SetText(string.Join("\n", EffectsInIngredient));
+                }
+                ToolKit.SetActive(true);
             }
             else if (raise is Potion potion)
             {
 
-                TMP_Text Name = GameData<Main>.Boot.TextManager.Get("ToolKitNameObject");
+                TMP_Text Name = TextManager.Get("ToolKitNameObject");
 
-                TMP_Text Effect = GameData<Main>.Boot.TextManager.Get("ToolKitEffectObject");
-                TMP_Text Description = GameData<Main>.Boot.TextManager.Get("ToolKitDescriptionObject");
+                TMP_Text Effect = TextManager.Get("ToolKitEffectObject");
+                TMP_Text Description = TextManager.Get("ToolKitDescriptionObject");
 
                 var EffectsInPotionName = new List<string>();
 
@@ -244,10 +259,10 @@ public class Main : MonoBehaviour, IMain
         }
         else
         {
-            GameData<Main>.Boot.ToolKit.SetActive(false);
+            OffToolKit();
         }
     }
-    private void LeftClick()
+    private void LeftDown()
     {
         RaycastHit2D hit = Physics2D.Raycast(myCam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null)
@@ -284,7 +299,7 @@ public class Main : MonoBehaviour, IMain
         }
     }
 
-    private void RightClick()
+    private void LeftUp()
     {
         if (InTheHand is Ingredient ingredient)
         {
@@ -334,13 +349,17 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 {
     public void Update()
     {
-        GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString());
-        GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString());
+        GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString(".0"));
+        GameData<Main>.Boot.TextManager.Get("Reputation").SetText(GameData<Main>.Reputation.ToString(".0"));
     }
     public static void LoseGame()
-    { }
+    {
+        FileWriter.WriteLoss();
+    }
     public static void WinGame()
-    { }
+    {
+        FileWriter.WriteWin();
+    }
 }
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
@@ -469,6 +488,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));
     }
 }
+#if UNITY_EDITOR
 class MyDebug : BaseInteraction, IEnterInUpdate
 {
     void IEnterInUpdate.Update(float TimeDelta)
@@ -488,6 +508,10 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         {
             GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
         }
+        else if (Input.GetKeyDown(KeyCode.L)) {
+            var list = CMS.Get<AllPotion>().PotionsPull;
+            FileWriter.Write(list);
+        }
     }
 
     public static SamplePotion CustomCustomerPotion(int IDPotion)
@@ -495,3 +519,4 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         return CMS.Get<AllPotion>().GetByID(IDPotion);
     }
 }
+#endif

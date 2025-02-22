@@ -102,7 +102,7 @@ MonoBehaviour:
   ID: 26756
   Name: Moonstone
   Description: One of the ingredients for the potion
-  Price: 1
+  Price: 15
   Effects:
   - Type: 3
     Power: 3

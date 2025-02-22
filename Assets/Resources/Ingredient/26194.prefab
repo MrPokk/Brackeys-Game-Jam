@@ -102,7 +102,7 @@ MonoBehaviour:
   ID: 26194
   Name: Root of Life
   Description: One of the ingredients for the potion
-  Price: 3
+  Price: 20
   Effects:
   - Type: 1
     Power: 2
