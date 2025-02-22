@@ -113,7 +113,8 @@ public class Main : MonoBehaviour, IMain
         Interact.FindAll<MyDebug>();
 #endif
         Interact.FindAll<PotionInfo>();
-
+        Interact.FindAll<TutorialInfo>();
+        
         PotionInfoCauldron.SetActive(false);
         PotionInfoCustomer.SetActive(false);
         ToolKit.SetActive(false);
@@ -520,3 +521,22 @@ class MyDebug : BaseInteraction, IEnterInUpdate
     }
 }
 #endif
+
+class TutorialInfo : BaseInteraction, IUpdateTutorialInfo
+{
+    
+    public static bool TutorialComplete = false;
+    
+    public static List<string> TutorialTextList = new List<string>()
+    {
+        "Add the ingredient to the caldron",
+        "These <color=#e7bb2a>panels display </color>information about the <color=#4080FF> client's potions</color> and the <color=#ff40FF>potions in your cauldron.</color>",
+        "Put the potions in the zone and tap on bell",
+    };
+    public void Update()
+    {
+        
+        
+        
+    }
+}
