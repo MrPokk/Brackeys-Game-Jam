@@ -32,6 +32,8 @@ using MouseButton = UnityEngine.UIElements.MouseButton;
  */
 public class Main : MonoBehaviour, IMain
 {
+    
+    public LoadScene LoadScene;
     public TextManager TextManager;
     public TutorialManager TutorialManager;
 
@@ -60,7 +62,7 @@ public class Main : MonoBehaviour, IMain
     public const float AnimationMoveTime = 0.3f;
 
 
-    public const float ReputationDebuff = 10f;
+    public const float ReputationDebuff = 5f;
 
     public void Awake()
     {
@@ -85,6 +87,7 @@ public class Main : MonoBehaviour, IMain
         }
 
 
+        LoadScene.gameObject.SetActive(true);
         GameData<Main>.IsStartGame = true;
         NextStep();
     }
@@ -140,6 +143,8 @@ public class Main : MonoBehaviour, IMain
         PlusReputation.gameObject.SetActive(false);
 
         myCam = Camera.main;
+
+        StartCoroutine(LoadScene.Load());
     }
 
     public GameObject AddCustomer(BasePeople Customer)
