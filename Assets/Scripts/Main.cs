@@ -92,9 +92,7 @@ public class Main : MonoBehaviour, IMain
     }
 // Позже
     public void RestartGame()
-    {
-   
-    }
+    { }
 
 
     private void NextStep()
@@ -130,7 +128,7 @@ public class Main : MonoBehaviour, IMain
         }
 
         TutorialManager.gameObject.SetActive(true);
-        
+
         PotionInfoCauldron.SetActive(false);
         PotionInfoCustomer.SetActive(false);
         ToolKit.SetActive(false);
@@ -435,12 +433,11 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
         PlusMoney.gameObject.SetActive(true);
         PlusMoney.transform.DOMove(BaseMoney.transform.position, Main.AnimationMoveTime).OnComplete(() => {
             BaseMoney.SetText(value.ToString("0.0"));
-            
+
             PlusMoney.gameObject.SetActive(false);
 
             PlusMoney.transform.position = BasePoseMoney;
         }).SetEase(Ease.InOutElastic);
-
     }
     public void UpdateReputation(float value)
     {
@@ -456,7 +453,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
         PlusReputation.transform.DOMove(BaseReputation.transform.position, Main.AnimationMoveTime).OnComplete(() => {
             BaseReputation.SetText(GameData<Main>.Reputation.ToString("0.0"));
             BaseReputation.text += $" / {GameData<Main>.MAX_REPUTATION}";
-            
+
             PlusReputation.gameObject.SetActive(false);
 
             PlusReputation.transform.position = BasePoseReputation;
@@ -466,7 +463,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
     public static void LoseGame()
     {
         GameData<Main>.Boot.LosePopup.SetActive(true);
-        
+
         FileWriter.WriteLoss();
     }
     public static void WinGame()
@@ -547,17 +544,25 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                         return true;
                     return false;
                 });
+                
+             
+                //Базовые эффекты 
                 if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type < EffectType.ADDITIONAL)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
                     var ColorHex = $"#{XColor.ToHexString(Color)}";
-
+                    
                     string ColorEffectHex;
                     if (ElementCauldron.Power <= EffectCustomer.Max && ElementCauldron.Power >= EffectCustomer.Min)
+                    {
                         ColorEffectHex = "#22f814";
+                        SoundManager.PlaySound(SoundType.CheckingPotion);
+                    }
                     else
+                    {
                         ColorEffectHex = "#de1111";
+                    }
 
                     EffectsInCauldronTextEffect.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
                 }
@@ -566,18 +571,24 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                     var ColorBad = $"#373737";
                     EffectsInCauldronTextEffect.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}</color>");
                 }
-
+                
+                //Дополнительные эффекты 
                 if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type > EffectType.ADDITIONAL)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
                     var ColorHex = $"#{XColor.ToHexString(Color)}";
-
+                    
                     string ColorEffectHex;
-                    if (ElementCauldron.Power < EffectCustomer.Max && ElementCauldron.Power > EffectCustomer.Min)
+                    if (ElementCauldron.Power <= EffectCustomer.Max && ElementCauldron.Power >= EffectCustomer.Min)
+                    {
                         ColorEffectHex = "#22f814";
+                        SoundManager.PlaySound(SoundType.CheckingPotion);
+                    }
                     else
+                    {
                         ColorEffectHex = "#de1111";
+                    }
 
                     EffectsInCauldronTextAttributes.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
                 }
@@ -678,13 +689,16 @@ class TutorialInfo : BaseInteraction, IUpdateTutorialInfo
     {
         "You can craft potions by adding the necessary ingredients to the cauldron.",
         "These <color=#e7bb2a>panels display </color>information about the <color=#4080FF> client's potions</color> and the <color=#ff40FF>potions in your cauldron.</color>",
-        "When you click next <color=#4080FF>client.</color>"
+        "To create a potion, it is necessary to match the <color=#e7bb2a>effects.</color>",
+        "When you click next <color=#4080FF>client.</color>",
+        "You will <color=#22f814>win</color> if the reputation is 100."
     };
     public void Update()
     {
         if (TutorialStateIndex >= GameData<Main>.Boot.TutorialManager.TutorialState.Count)
         {
             GameData<Main>.Boot.TutorialManager.gameObject.transform.DOScale(0f, Main.AnimationScaleTime).OnComplete(() => GameData<Main>.Boot.TutorialManager.gameObject.SetActive(false));
+            TutorialStateIndex = 0;
             return;
         }
 

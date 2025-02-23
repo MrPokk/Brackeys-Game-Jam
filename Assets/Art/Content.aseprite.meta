@@ -689,10 +689,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 388
-      y: 11
-      width: 23
-      height: 31
+      x: 386
+      y: 9
+      width: 27
+      height: 35
     spriteID: dc3d7a2da7d1b8b40acb85370db0cc8b
     spriteBone: []
     spriteOutline: []
@@ -814,6 +814,46 @@ ScriptedImporter:
       width: 11
       height: 8
     spriteID: 5a8d313f536013545b71b912e381986a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Content_34
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 416
+      y: 8
+      width: 27
+      height: 36
+    spriteID: d3a3b3906da7ff648b178f52a6fe42f6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Content_35
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 429
+      y: 62
+      width: 27
+      height: 35
+    spriteID: 0010a171b433caa4a8871f39d59f83c9
     spriteBone: []
     spriteOutline: []
     vertices: []
