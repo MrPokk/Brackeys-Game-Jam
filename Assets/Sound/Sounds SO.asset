@@ -27,9 +27,14 @@ MonoBehaviour:
     volume: 0.7
     mixer: {fileID: 8981138506219314603, guid: a742986316852334c80cb03a2b867320, type: 2}
     sounds:
-    - {fileID: 8300000, guid: ae40b6710af6f6140992d2af264257bc, type: 3}
+    - {fileID: 8300000, guid: 59ef4b8002d08c84ea0d56d2261f9af0, type: 3}
   - name: ClickBell
     volume: 1
     mixer: {fileID: 8981138506219314603, guid: a742986316852334c80cb03a2b867320, type: 2}
     sounds:
     - {fileID: 8300000, guid: e97c6edfbd205d343bb237cc39cb403c, type: 3}
+  - name: CheckingPotion
+    volume: 1
+    mixer: {fileID: 8981138506219314603, guid: a742986316852334c80cb03a2b867320, type: 2}
+    sounds:
+    - {fileID: 8300000, guid: 9a0411fdcdd4ae24ea80f7fd67036b9e, type: 3}

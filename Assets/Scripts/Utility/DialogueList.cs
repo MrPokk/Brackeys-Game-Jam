@@ -31,8 +31,8 @@ public static class DialogueList
         {
             typeof(Isabella), new List<string>()
             {
-                "Greetings, lord of the cauldron! I've heard that you can make potions as well as Merlin himself! I have a business proposal for you, you might need some ingredients, look what I have.",
-                "Hail, potion-brewing extraordinaire! They say you're the modern-day Merlin! I've got a business proposition that's practically magical. Speaking of magic, you might need some ingredients… and lucky you, I brought some!"
+                "I'm a trader, look what I have",
+                "I'm a trader, and I've got goods to sell. Care to take a look?"
             }
         },
         {
@@ -87,15 +87,13 @@ public static class DialogueList
         {
             typeof(Foley), new List<string>()
             {
-                "You need fire protection, what do you have",
-                "I desperately need fire protection! What have you got?"
+                "Give me the potion weak"
             }
         },
         {
             typeof(Backquit), new List<string>()
             {
-                "You need fire protection, what do you have",
-                "I desperately need fire protection! What have you got?"
+                "I want healing potion"
             }
         },
     };

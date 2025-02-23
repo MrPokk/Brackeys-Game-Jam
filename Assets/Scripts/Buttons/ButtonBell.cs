@@ -41,6 +41,8 @@ public class ButtonBell : CustomButton
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
                         
+                        
+                        
                         return;
                     }
                 }

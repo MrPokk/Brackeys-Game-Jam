@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -70632
   Name: The frog's foot
-  Description: <color=#723882>Events:</color> Corrects the <color=#1715a1>worst</color>
-    effect by 5
+  Description: <color=#5612c6>Type:</color> <color=#f6971a>CATALYST</color><br><br><color=#723882>Events:</color>
+    Corrects the <color=#1715a1>worst</color> effect by 5
   Price: 25
   Effects: []
 --- !u!61 &-6004431116956914163

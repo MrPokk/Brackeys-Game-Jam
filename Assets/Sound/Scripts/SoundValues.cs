@@ -8,6 +8,7 @@ namespace SmallHedge.SoundManager
         Gurgle,
         OpenPopup,
         DropPotionInSlot,
-        ClickBell
+        ClickBell,
+        CheckingPotion
     }
 }
