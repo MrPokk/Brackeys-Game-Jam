@@ -65,7 +65,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         }
     }
 
-
+    
+    
     public void UpdateInfo()
     {
         Debug.Log("Update");

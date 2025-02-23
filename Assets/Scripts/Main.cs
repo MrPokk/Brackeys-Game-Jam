@@ -116,6 +116,11 @@ public class Main : MonoBehaviour, IMain
         {
             Element.LoadGameData();
         }
+      var PotionInfo = Interact.FindAll<PotionInfo>();
+      foreach (var Element in PotionInfo)
+      {
+          Element.UpdateInfo();
+      }
 
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
