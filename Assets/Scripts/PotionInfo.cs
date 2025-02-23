@@ -51,7 +51,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
         }
     }
 
-
+    
+    
     public void UpdateInfo()
     {
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
