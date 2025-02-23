@@ -9,15 +9,29 @@ using UnityEngine;
 
 class PotionInfo : BaseInteraction, IUpdatePotionInfo
 {
-    private TMP_Text NameCauldronPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
-    private TMP_Text NameCustomerPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoCustomerPotionName");
+    private TMP_Text NameCauldronPotion;
+    private TMP_Text NameCustomerPotion;
 
-    private TMP_Text DescriptionAttributes = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionAttributes");
-    private TMP_Text DescriptionEffect = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionEffect");
-    private TMP_Text NeedCraftText = GameData<Main>.Boot.TextManager.Get("PotionInfoNeed");
+    private TMP_Text DescriptionAttributes;
+    private TMP_Text DescriptionEffect;
+    private TMP_Text NeedCraftText;
 
-    private static Vector3 SIZE_INFO_CAULDRON = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
-    private static Vector3 SIZE_INFO_CUSTOMER = GameData<Main>.Boot.PotionInfoCustomer.transform.localScale;
+    private static Vector3 SIZE_INFO_CAULDRON;
+    private static Vector3 SIZE_INFO_CUSTOMER;
+
+    public PotionInfo()
+    {
+        NameCauldronPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoName");
+        NameCustomerPotion = GameData<Main>.Boot.TextManager.Get("PotionInfoCustomerPotionName");
+
+        DescriptionAttributes = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionAttributes");
+        DescriptionEffect = GameData<Main>.Boot.TextManager.Get("PotionInfoDescriptionEffect");
+        NeedCraftText = GameData<Main>.Boot.TextManager.Get("PotionInfoNeed");
+
+        SIZE_INFO_CAULDRON = GameData<Main>.Boot.PotionInfoCauldron.transform.localScale;
+        SIZE_INFO_CUSTOMER = GameData<Main>.Boot.PotionInfoCustomer.transform.localScale;
+    }
+
     public static void OpenPopup<T>()
     {
         Type WhoCalled = typeof(T);
@@ -54,6 +68,8 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
     public void UpdateInfo()
     {
+        Debug.Log("Update");
+
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
         List<EffectRange> EffectsInCustomer = new List<EffectRange>();

@@ -106,6 +106,11 @@ public class Main : MonoBehaviour, IMain
             StartCoroutine(Element.Enter());
         }
 
+        var PotionInfo = Interact.FindAll<PotionInfo>();
+        foreach (var Element in PotionInfo) {
+            Element.UpdateInfo();
+        }
+
         var GamaData = Interact.FindAll<GameDataInfo>();
         foreach (var Element in GamaData)
         {
@@ -117,7 +122,6 @@ public class Main : MonoBehaviour, IMain
 #if UNITY_EDITOR
         Interact.FindAll<MyDebug>();
 #endif
-        Interact.FindAll<PotionInfo>();
 
         var TutorialInfo = Interact.FindAll<TutorialInfo>();
         foreach (var Element in TutorialInfo)
@@ -143,7 +147,7 @@ public class Main : MonoBehaviour, IMain
 
         StartCoroutine(LoadScene.Load());
 
-        GameData<Main>.Reputation = 20;
+        GameData<Main>.Reputation = 5;
         GameData<Main>.Money = 100;
     }
 
