@@ -648,7 +648,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +3
+  m_text: -7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e8a60395816f3564991657369e0913dc, type: 2}
   m_sharedMaterial: {fileID: -5686013783214090505, guid: e8a60395816f3564991657369e0913dc, type: 2}
@@ -9438,7 +9438,7 @@ MonoBehaviour:
   m_text: '<color=#EDF52DFF>ENERGY</color>: <color=#22f814>2</color>
 
     <color=#49F077FF>TOXICITY:
-    </color> <color=#de1111>-5</color>
+    </color> <color=#de1111>5</color>
 
     <color=#373737>SAGACITY: 1</color>
 
