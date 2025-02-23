@@ -411,7 +411,6 @@ public class Main : MonoBehaviour, IMain
 
 class GameDataInfo : BaseInteraction, IUpdateGameData
 {
-
     public void LoadGameData()
     {
         GameData<Main>.Boot.TextManager.Get("Money").SetText(GameData<Main>.Money.ToString("0.0"));
@@ -419,14 +418,14 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         GameData<Main>.Boot.TextManager.Get("Reputation").text += $" / {GameData<Main>.MAX_REPUTATION}";
     }
-    public void UpdateMoney(int value)
+    public void UpdateMoney(int value, int delta = 0)
     {
 
         var BaseMoney = GameData<Main>.Boot.TextManager.Get("Money");
 
         var PlusMoney = GameData<Main>.Boot.TextManager.Get("Money Plus");
 
-        PlusMoney.SetText(value.ToString("0.0"));
+        PlusMoney.SetText(delta.ToString("0.0"));
 
         var BasePoseMoney = PlusMoney.transform.position;
 
@@ -439,13 +438,13 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
             PlusMoney.transform.position = BasePoseMoney;
         }).SetEase(Ease.InOutElastic);
     }
-    public void UpdateReputation(float value)
+    public void UpdateReputation(float value, float delta = 0)
     {
         var BaseReputation = GameData<Main>.Boot.TextManager.Get("Reputation");
 
         var PlusReputation = GameData<Main>.Boot.TextManager.Get("Reputation Plus");
 
-        PlusReputation.SetText(value.ToString("0.0"));
+        PlusReputation.SetText(delta.ToString("0.0"));
         var BasePoseReputation = PlusReputation.transform.position;
 
 
