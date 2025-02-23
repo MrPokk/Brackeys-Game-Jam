@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StoreIngredients : MonoBehaviour
 {
-    [SerializeField] protected List<Ingredient> TilesList = new();
+    [SerializeField] public List<Ingredient> TilesList = new();
     public float Spacing;
     public bool AxisSwap;
 

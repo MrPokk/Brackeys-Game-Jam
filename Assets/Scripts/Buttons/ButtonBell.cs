@@ -1,5 +1,7 @@
+using DG.Tweening;
 using SmallHedge.SoundManager;
 using System;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,10 +13,25 @@ public class ButtonBell : CustomButton
     public int MaxGoods;
 
     private Animator Animator;
+    
+    private static bool IsPunchScale = false;
     private void Start()
     {
         Animator = GetComponent<Animator>();
+
     }
+
+    public void Update()
+    {
+        if (!GameData<Main>.Boot.Store.TilesList.Any() && !IsPunchScale && !GameData<Main>.Boot.Cauldron.ingredients.Any())
+        {
+            IsPunchScale = true;
+            transform.DOPunchScale(new(Main.AnimationScale  - 0.3f, Main.AnimationScale - 0.3f, 0), Main.AnimationScaleTime + 0.5f,0,0).OnComplete((() => {
+                IsPunchScale = false;
+            }));
+        }
+    }
+
     public override void Click()
     {
         if (GameData<Main>.Boot.Shop.isActiveAndEnabled) return;
@@ -37,12 +54,10 @@ public class ButtonBell : CustomButton
                     {
                         int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 20;
                         GameData<Main>.Money += a;
-                        GameData<Main>.Reputation += a * 0.4f;
+                        GameData<Main>.Reputation += a * 0.7f;
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
-                        
-                        
-                        
+  
                         return;
                     }
                 }

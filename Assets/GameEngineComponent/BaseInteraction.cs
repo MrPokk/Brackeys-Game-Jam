@@ -42,8 +42,8 @@ interface IUpdatePotionEvent
 interface IUpdateGameData
 {
     void LoadGameData();
-    void UpdateMoney(int value, int delta);
-    void UpdateReputation(float value, float delta);
+    void UpdateMoney(int delta);
+    void UpdateReputation(float delta);
 }
 
 
@@ -51,4 +51,3 @@ interface IUpdateTutorialInfo
 {
     void Update();
 }
-

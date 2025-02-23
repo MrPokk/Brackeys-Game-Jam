@@ -34,6 +34,8 @@ using Random = UnityEngine.Random;
  */
 public class Main : MonoBehaviour, IMain
 {
+    
+    public LoadScene LoadScene;
     public TextManager TextManager;
     public TutorialManager TutorialManager;
 
@@ -62,7 +64,7 @@ public class Main : MonoBehaviour, IMain
     public const float AnimationMoveTime = 0.3f;
 
 
-    public const float ReputationDebuff = 10f;
+    public const float ReputationDebuff = 5f;
 
     public void Awake()
     {
@@ -87,6 +89,7 @@ public class Main : MonoBehaviour, IMain
         }
 
 
+        LoadScene.gameObject.SetActive(true);
         GameData<Main>.IsStartGame = true;
         NextStep();
     }
@@ -142,6 +145,8 @@ public class Main : MonoBehaviour, IMain
         PlusReputation.gameObject.SetActive(false);
 
         myCam = Camera.main;
+
+        StartCoroutine(LoadScene.Load());
     }
 
     public GameObject AddCustomer(BasePeople Customer)
@@ -418,7 +423,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         GameData<Main>.Boot.TextManager.Get("Reputation").text += $" / {GameData<Main>.MAX_REPUTATION}";
     }
-    public void UpdateMoney(int value, int delta = 0)
+    public void UpdateMoney(int delta)
     {
 
         var BaseMoney = GameData<Main>.Boot.TextManager.Get("Money");
@@ -431,14 +436,14 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         PlusMoney.gameObject.SetActive(true);
         PlusMoney.transform.DOMove(BaseMoney.transform.position, Main.AnimationMoveTime).OnComplete(() => {
-            BaseMoney.SetText(value.ToString("0.0"));
+            BaseMoney.SetText((GameData<Main>.Money + delta).ToString("0.0"));
 
             PlusMoney.gameObject.SetActive(false);
 
             PlusMoney.transform.position = BasePoseMoney;
         }).SetEase(Ease.InOutElastic);
     }
-    public void UpdateReputation(float value, float delta = 0)
+    public void UpdateReputation(float delta)
     {
         var BaseReputation = GameData<Main>.Boot.TextManager.Get("Reputation");
 
@@ -450,7 +455,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         PlusReputation.gameObject.SetActive(true);
         PlusReputation.transform.DOMove(BaseReputation.transform.position, Main.AnimationMoveTime).OnComplete(() => {
-            BaseReputation.SetText(GameData<Main>.Reputation.ToString("0.0"));
+            BaseReputation.SetText((GameData<Main>.Reputation + delta).ToString("0.0"));
             BaseReputation.text += $" / {GameData<Main>.MAX_REPUTATION}";
 
             PlusReputation.gameObject.SetActive(false);

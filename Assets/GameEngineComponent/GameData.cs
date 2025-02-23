@@ -15,9 +15,8 @@ public static class GameData<T> where T : IMain
         }
         set {
             if (_Reputation > 0) {
-                float old = Reputation;
                 foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                    Element.UpdateReputation(value, old - value);
+                    Element.UpdateReputation(value);
                 }
                 _Reputation = value;
             }
@@ -36,9 +35,8 @@ public static class GameData<T> where T : IMain
             return _Money;
         }
         set {
-            int old = _Money;
             foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                Element.UpdateMoney(value, value - old);
+                Element.UpdateMoney(value);
             }
             _Money = value;
         }
