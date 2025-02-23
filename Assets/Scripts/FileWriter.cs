@@ -60,23 +60,27 @@ public static class FileWriter
     public static async void WriteWin()
     {
 #if UNITY_EDITOR
+        /*
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
         byte[] input = Encoding.Default.GetBytes("win\n");
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
+        */
         Debug.Log("FileWriter Win");
 #endif
     }
     public static async void WriteLoss()
     {
 #if UNITY_EDITOR
+        /*
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
 
         byte[] input = Encoding.Default.GetBytes($"loss\n");
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
+        */
         Debug.Log("FileWriter Win");
 #endif
     }

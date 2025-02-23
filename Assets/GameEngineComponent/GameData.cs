@@ -15,12 +15,10 @@ public static class GameData<T> where T : IMain
             return _Reputation;
         }
         set {
-            if (_Reputation > 0) {
-                foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                    Element.UpdateReputation(value - _Reputation);
-                }
-                _Reputation = value;
+            foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
+                Element.UpdateReputation(value - _Reputation);
             }
+            _Reputation = value;
             if (_Reputation >= MAX_REPUTATION) {
                 GameDataInfo.WinGame();
             }

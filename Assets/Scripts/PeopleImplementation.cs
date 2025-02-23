@@ -11,6 +11,15 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
     private const int CountViaTrader = 3;
     private int NexstTrader = CountViaTrader;
+
+    public PeopleImplementation()
+    {
+        CustomerInGame = null;
+        Customer = null;
+        IsServiced = false;
+        NexstTrader = CountViaTrader;
+    }
+
     public GameObject CustomerInGame { get; private set; }
     public static BasePeople Customer { get; private set; } = null;
     public static bool IsServiced { get; private set; } = false;
@@ -29,7 +38,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             {
                 Customer = PeopleMaster.GetRandTrader();
                 NexstTrader = CountViaTrader;
-                PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 10) / 20), CountViaTrader);
+                PeopleMaster.GeneratePullOfDifity((Difity)Math.Max(GameData<Main>.Reputation / 20, (int)Difity.VeryEasy), (Difity)Math.Max(Math.Min((GameData<Main>.Reputation + 10) / 20, (int)Difity.VeryHard), 1), CountViaTrader);
             }
             else
             {

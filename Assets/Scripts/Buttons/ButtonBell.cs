@@ -47,7 +47,7 @@ public class ButtonBell : CustomButton
                     FileWriter.Write(people, potion);
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
-                        int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 20;
+                        int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 25;
                         GameData<Main>.Money += a;
                         GameData<Main>.Reputation += a * 0.4f;
                         potionZone.Delete();
