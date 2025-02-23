@@ -1,4 +1,5 @@
 using Engin.Utility;
+using UnityEngine;
 
 public static class GameData<T> where T : IMain
 {
@@ -16,7 +17,7 @@ public static class GameData<T> where T : IMain
         set {
             if (_Reputation > 0) {
                 foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                    Element.UpdateReputation(value);
+                    Element.UpdateReputation(value - _Reputation);
                 }
                 _Reputation = value;
             }
@@ -36,7 +37,7 @@ public static class GameData<T> where T : IMain
         }
         set {
             foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                Element.UpdateMoney(value);
+                Element.UpdateMoney(value - _Money);
             }
             _Money = value;
         }

@@ -49,7 +49,7 @@ public class ButtonBell : CustomButton
                     {
                         int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 20;
                         GameData<Main>.Money += a;
-                        GameData<Main>.Reputation += a * 0.7f;
+                        GameData<Main>.Reputation += a * 0.4f;
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
   

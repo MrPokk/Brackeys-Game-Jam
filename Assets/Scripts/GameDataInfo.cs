@@ -22,8 +22,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         PlusMoney.gameObject.SetActive(true);
         PlusMoney.transform.DOMove(BaseMoney.transform.position, Main.AnimationMoveTime).OnComplete(() => {
-            BaseMoney.SetText((GameData<Main>.Money + delta).ToString());
-
+            BaseMoney.SetText(GameData<Main>.Money.ToString());
             PlusMoney.gameObject.SetActive(false);
 
             PlusMoney.transform.position = BasePoseMoney;
@@ -41,7 +40,7 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         PlusReputation.gameObject.SetActive(true);
         PlusReputation.transform.DOMove(BaseReputation.transform.position, Main.AnimationMoveTime).OnComplete(() => {
-            BaseReputation.SetText((GameData<Main>.Reputation + delta).ToString("0.0"));
+            BaseReputation.SetText(GameData<Main>.Reputation.ToString("0.0"));
             BaseReputation.text += $" / {GameData<Main>.MAX_REPUTATION}";
 
             PlusReputation.gameObject.SetActive(false);
