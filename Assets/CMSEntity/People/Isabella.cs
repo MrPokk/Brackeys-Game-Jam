@@ -12,7 +12,6 @@ public class Isabella : BasePeople
 
         people.Type = TypePeople.Trader;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
-
         SetData(ref people);
 
         ModifyDataSet();

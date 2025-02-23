@@ -14,6 +14,7 @@ public static class FileWriter
     private static string sesionID = string.Empty;
     public static async void Write(BasePeople people, Potion potion)
     {
+#if UNITY_EDITOR
         if (sesionID == string.Empty) {
             pathOrder = Directory.GetCurrentDirectory() + path;
             Directory.CreateDirectory(pathOrder);
@@ -36,9 +37,11 @@ public static class FileWriter
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
         Debug.Log("FileWriter people");
+#endif
     }
     public static async void Write(Dictionary<SamplePotion, int> pull)
     {
+#if UNITY_EDITOR
         string _path = Directory.GetCurrentDirectory() + path;
         Directory.CreateDirectory(_path);
         _path += "PullPotions" + fileType;
@@ -52,18 +55,22 @@ public static class FileWriter
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
         Debug.Log("FileWriter pull potions");
+#endif
     }
     public static async void WriteWin()
     {
+#if UNITY_EDITOR
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
         byte[] input = Encoding.Default.GetBytes("win\n");
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
         Debug.Log("FileWriter Win");
+#endif
     }
     public static async void WriteLoss()
     {
+#if UNITY_EDITOR
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
 
@@ -71,5 +78,6 @@ public static class FileWriter
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
         Debug.Log("FileWriter Win");
+#endif
     }
 }

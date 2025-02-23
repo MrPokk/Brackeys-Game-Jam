@@ -5,11 +5,6 @@ using Random = UnityEngine.Random;
 
 public class ButtonBell : CustomButton
 {
-    [Range(2, 16)]
-    public int MinGoods;
-    [Range(2, 16)]
-    public int MaxGoods;
-
     private Animator Animator;
     private void Start()
     {
@@ -50,10 +45,6 @@ public class ButtonBell : CustomButton
                 GameData<Main>.Reputation -= Main.ReputationDebuff;
                 FileWriter.Write(people, null);
                 PeopleImplementation.ExitAll();
-            }
-            else if (people.DataComponent.Type == TypePeople.Trader && PeopleImplementation.IsServiced)
-            {
-                GameData<Main>.Boot.Shop.Generatre(Random.Range(MinGoods, MaxGoods + 1));
             }
         }
     }

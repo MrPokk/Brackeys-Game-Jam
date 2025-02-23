@@ -9,6 +9,7 @@ public class Seraphina : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
+        people.IDsPotions = new[] { 27900, 37544, 30444 };
 
         SetData(ref people);
 
@@ -19,7 +20,6 @@ public class Seraphina : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Seraphina";
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{27900,37544,30444});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Seraphina>()}";
         return this;
     }

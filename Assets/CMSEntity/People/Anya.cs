@@ -9,6 +9,7 @@ public class Anya : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
+        people.IDsPotions = new[] { 37360, 31352 };
 
         SetData(ref people);
 
@@ -19,8 +20,6 @@ public class Anya : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Anya";
-
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new int[]{37360,31352});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Anya>()}";
         return this;
     }

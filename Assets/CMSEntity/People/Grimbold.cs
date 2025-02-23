@@ -9,7 +9,7 @@ public class Grimbold : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
-
+        people.IDsPotions = new[] { 30444, 31452, 37768, 37544, 28988 };
         SetData(ref people);
 
         ModifyDataSet();
@@ -19,8 +19,6 @@ public class Grimbold : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Grimbold";
-
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new []{30444,31452,37768,37544,28988});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grimbold>()}";
         return this;
     }

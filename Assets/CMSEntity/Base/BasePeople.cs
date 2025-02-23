@@ -21,6 +21,14 @@ public abstract class BasePeople : CMSEntity
         }
     }
     public abstract BasePeople ModifyDataSet();
+    public void SetPotion(SamplePotion potion = null)
+    {
+        DataComponent.TypePoison = potion;
+    }
+    public void SetPotionFirst()
+    {
+        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByID(DataComponent.IDsPotions[0]);
+    }
     public abstract void SetData(ref DataPeople Data);
 }
 public struct DataPeople : IComponent
@@ -30,6 +38,7 @@ public struct DataPeople : IComponent
     public TMP_Text Description;
     public TMP_Text Name;
     public TypePeople Type;
+    public int[] IDsPotions;
 }
 public enum TypePeople
 {

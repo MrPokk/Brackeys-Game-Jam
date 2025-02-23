@@ -9,6 +9,7 @@ public class Mirabella : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
+        people.IDsPotions = new[] { 27668, 37276, 37640 };
 
         SetData(ref people);
 
@@ -19,8 +20,6 @@ public class Mirabella : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Mirabella";
-
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new[] {27668, 37276, 37640});
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Mirabella>()}";
 
         return this;

@@ -11,6 +11,7 @@ public class Eldar : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
+        people.IDsPotions = new[] { 27668, 28024, 37276 };
 
         SetData(ref people);
 
@@ -21,9 +22,6 @@ public class Eldar : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Eldar";
-
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new int[]{27668,28024,37276});
-
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Eldar>()}";
         return this;
     }

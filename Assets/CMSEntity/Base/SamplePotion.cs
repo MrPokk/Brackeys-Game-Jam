@@ -82,6 +82,16 @@ public class AllPotion : CMSEntity
         }
         throw new Exception("Не найдено зелье в списках весов");
     }
+    public List<int> GetIDsOfDifity(Difity difity)
+    {
+        List<int> IDs = new();
+        foreach (SamplePotion potion in Potions) {
+            if (potion.Difity == difity) {
+                IDs.Add(potion.ID);
+            }
+        }
+        return IDs;
+    }
     private void AddWeightAll()
     {
         Dictionary<SamplePotion, int> old = new();
@@ -115,10 +125,6 @@ public class AllPotion : CMSEntity
             if (power < effectRange.Min || power > effectRange.Max) return false;
         }
         return true;
-    }
-    public SamplePotion GetRandom()
-    {
-        return Potions[Random.Range(0, Potions.Count)];
     }
 
     public override void RegisterComponents(params IComponent[] components)

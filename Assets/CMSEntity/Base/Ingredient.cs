@@ -51,7 +51,7 @@ public class AllIngredients : CMSEntity
     public List<Ingredient> GetStartPull()
     {
         List<Ingredient> ingredients = new List<Ingredient>();
-        foreach (int id in new []{ 26194, 35738, -70632 }) {
+        foreach (int id in new []{ 26404, 26404, 26404 }) {
             ingredients.Add(GetByID(id));
         }
         return ingredients;

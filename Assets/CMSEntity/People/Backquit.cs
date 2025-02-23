@@ -9,6 +9,7 @@ public class Backquit : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
+        people.IDsPotions = new[] { 28988 };
 
         SetData(ref people);
 
@@ -19,8 +20,6 @@ public class Backquit : BasePeople
     public override BasePeople ModifyDataSet()
     {
         DataComponent.Name.text = "Backquit";
-
-        DataComponent.TypePoison = CMS.Get<AllPotion>().GetByIDRandom(new int[]{ 28988 });
         DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Backquit>()}";
         return this;
     }
