@@ -69,8 +69,6 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     
     public void UpdateInfo()
     {
-        Debug.Log("Update");
-
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
         List<EffectRange> EffectsInCustomer = new List<EffectRange>();

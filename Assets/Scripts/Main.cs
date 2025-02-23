@@ -116,11 +116,6 @@ public class Main : MonoBehaviour, IMain
         {
             Element.LoadGameData();
         }
-      var PotionInfo = Interact.FindAll<PotionInfo>();
-      foreach (var Element in PotionInfo)
-      {
-          Element.UpdateInfo();
-      }
 
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
@@ -152,8 +147,9 @@ public class Main : MonoBehaviour, IMain
 
         StartCoroutine(LoadScene.Load());
 
-        GameData<Main>.Reputation = 5;
+        GameData<Main>.Reputation = 20;
         GameData<Main>.Money = 100;
+        GameData<Main>.Win = false;
     }
 
     public GameObject AddCustomer(BasePeople Customer)

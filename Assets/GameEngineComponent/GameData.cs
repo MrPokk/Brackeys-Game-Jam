@@ -8,6 +8,7 @@ public static class GameData<T> where T : IMain
 
 
     public const float MAX_REPUTATION = 100;
+    public static bool Win;
 
     public static float Reputation
     {
@@ -19,8 +20,9 @@ public static class GameData<T> where T : IMain
                 Element.UpdateReputation(value - _Reputation);
             }
             _Reputation = value;
-            if (_Reputation >= MAX_REPUTATION) {
+            if (Win == false && _Reputation >= MAX_REPUTATION) {
                 GameDataInfo.WinGame();
+                Win = true;
             }
             else if (_Reputation <= 0) {
                 GameDataInfo.LoseGame();
