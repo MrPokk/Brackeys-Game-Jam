@@ -86,7 +86,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     }
 }
 
-public static class PeopleMaster
+public  class PeopleMaster
 {
     private static List<BasePeople> customer = new();
     private static List<BasePeople> trader = new();

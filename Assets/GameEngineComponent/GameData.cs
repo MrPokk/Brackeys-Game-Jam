@@ -6,7 +6,7 @@ public static class GameData<T> where T : IMain
     public static bool IsStartGame;
 
 
-    private const float MAX_REPUTATION = 100;
+    public const float MAX_REPUTATION = 100;
 
     public static float Reputation
     {
@@ -17,13 +17,13 @@ public static class GameData<T> where T : IMain
             if (_Reputation > 0) {
                 _Reputation = value;
                 foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                    Element.Update();
+                    Element.UpdateReputation(value);
                 }
             }
             if (_Reputation >= MAX_REPUTATION) {
                 GameDataInfo.WinGame();
             }
-            else if (_Reputation < 0) {
+            else if (_Reputation <= 0) {
                 GameDataInfo.LoseGame();
             }
         }
@@ -38,7 +38,7 @@ public static class GameData<T> where T : IMain
             _Money = value;
 
             foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                Element.Update();
+                Element.UpdateMoney(value);
             }
         }
     }

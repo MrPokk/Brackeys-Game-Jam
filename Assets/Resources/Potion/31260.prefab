@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 31260
-  Name: Poisoning
+  Name: Poisoning Potion
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 

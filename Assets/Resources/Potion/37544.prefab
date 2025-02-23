@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 37544
-  Name: Night Vision
+  Name: Night Vision Potion
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 

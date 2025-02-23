@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 31352
-  Name: Infirmity
+  Name: Infirmity Potion
+  Descriptions: 
   Price: 15
   effects: []
   IDIngredients: 

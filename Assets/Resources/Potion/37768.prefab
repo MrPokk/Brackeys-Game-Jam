@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 37768
-  Name: Breathing
+  Name: Breathing Potion
   Descriptions: 
   Price: 15
   effects: []

@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -62688
   Name: Fly agaric
-  Description: <color=#723882>Events:</color> Multiplies by 2 <color=#1715a1>all
-    positive</color> effects
+  Description: <color=#5612c6>Type:</color> <color=#f6971a>CATALYST</color><br><br><color=#723882>Events:</color>
+    Multiplies by 2 <color=#1715a1>all positive</color> effects
   Price: 10
   Effects: []
 --- !u!61 &-6004431116956914163

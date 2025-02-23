@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 26072
-  Name: Bad
+  Name: TRASH
+  Descriptions: 
   Price: 0
   effects: []
   IDIngredients: 

@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 28024
-  Name: Growth
+  Name: Growth Potion
+  Descriptions: 
   Price: 40
   effects: []
   IDIngredients: 
