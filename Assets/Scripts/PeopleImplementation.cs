@@ -38,7 +38,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             {
                 Customer = PeopleMaster.GetRandTrader();
                 NexstTrader = CountViaTrader;
-                PeopleMaster.GeneratePullOfDifity((Difity)Math.Max(GameData<Main>.Reputation / 20, (int)Difity.VeryEasy), (Difity)Math.Max(Math.Min((GameData<Main>.Reputation + 10) / 20, (int)Difity.VeryHard), 1), CountViaTrader);
+                PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 15) / 20), CountViaTrader);
             }
             else
             {
@@ -127,6 +127,8 @@ public  class PeopleMaster
     }
     public static void GeneratePullOfDifity(Difity minDifity, Difity maxDifity, int count)
     {
+        minDifity = (Difity)Math.Min(Math.Max((int)minDifity, (int)Difity.VeryEasy), (int)Difity.VeryHard);
+        maxDifity = (Difity)Math.Min(Math.Max((int)maxDifity, (int)Difity.VeryEasy), (int)Difity.VeryHard);
         pullCustomer.Clear();
         AllPotion allPotion = CMS.Get<AllPotion>();
 
