@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class FileWriter
@@ -12,7 +13,9 @@ public static class FileWriter
 
     private static string pathOrder = "/DebugInfo/";
     private static string sesionID;
-    public static async void Write(BasePeople people, Potion potion)
+
+    private static object Look;
+    public static Task Write(BasePeople people, Potion potion)
     {
 #if UNITY_EDITOR
         if (sesionID == string.Empty) {
@@ -36,9 +39,12 @@ public static class FileWriter
         sb.Append('\n');
 
         byte[] input = Encoding.Default.GetBytes(sb.ToString());
-        await fstream.WriteAsync(input, 0, input.Length);
-        fstream.Close();
+        lock (Look) {
+            fstream.Write(input, 0, input.Length);
+            fstream.Close();
+        } 
         Debug.Log("FileWriter people");
+        return default;
 #endif
     }
     public static async void Write(Dictionary<SamplePotion, int> pull)
@@ -64,23 +70,27 @@ public static class FileWriter
     public static async void WriteWin()
     {
 #if UNITY_EDITOR
+        /*
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
         byte[] input = Encoding.Default.GetBytes("win\n");
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
+        */
         Debug.Log("FileWriter Win");
 #endif
     }
     public static async void WriteLoss()
     {
 #if UNITY_EDITOR
+        /*
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
 
         byte[] input = Encoding.Default.GetBytes($"loss\n");
         await fstream.WriteAsync(input, 0, input.Length);
         fstream.Close();
+        */
         Debug.Log("FileWriter Win");
 #endif
     }

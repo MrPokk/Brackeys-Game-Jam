@@ -20,6 +20,16 @@ public class Cauldron : MonoBehaviour
     private float Offset = 0;
     public Vector2 SizeOrbit = new Vector2(1, 1);
 
+    public Cauldron()
+    {
+        ingredients = new List<Ingredient>();
+        effectsMaster = new EffectsMaster();
+
+        AllPotion = null;
+        Spase = 0;
+        Offset = 0;
+    }
+
     private void Start()
     {
         AllPotion = CMS.Get<AllPotion>();

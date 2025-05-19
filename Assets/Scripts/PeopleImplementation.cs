@@ -11,6 +11,15 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
     private const int CountViaTrader = 3;
     private int NexstTrader = CountViaTrader;
+
+    public PeopleImplementation()
+    {
+        CustomerInGame = null;
+        Customer = null;
+        IsServiced = false;
+        NexstTrader = CountViaTrader;
+    }
+
     public GameObject CustomerInGame { get; private set; }
     public static BasePeople Customer { get; private set; } = null;
     public static bool IsServiced { get; private set; } = false;
@@ -29,7 +38,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             {
                 Customer = PeopleMaster.GetRandTrader();
                 NexstTrader = CountViaTrader;
-                PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 10) / 20), CountViaTrader);
+                PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 15) / 20), CountViaTrader);
             }
             else
             {
@@ -66,7 +75,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
                 Element.UpdateInfo();
 
             if (Customer.DataComponent.Type == TypePeople.Trader) {
-                GameData<Main>.Boot.Shop.Generatre(10);
+                GameData<Main>.Boot.Shop.Generate(10);
             }
             
         }
@@ -118,6 +127,8 @@ public  class PeopleMaster
     }
     public static void GeneratePullOfDifity(Difity minDifity, Difity maxDifity, int count)
     {
+        minDifity = (Difity)Math.Min(Math.Max((int)minDifity, (int)Difity.VeryEasy), (int)Difity.VeryHard);
+        maxDifity = (Difity)Math.Min(Math.Max((int)maxDifity, (int)Difity.VeryEasy), (int)Difity.VeryHard);
         pullCustomer.Clear();
         AllPotion allPotion = CMS.Get<AllPotion>();
 

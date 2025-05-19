@@ -67,12 +67,10 @@ public class Main : MonoBehaviour, IMain
     public void Awake()
     {
         CMS.Init();
-        PeopleMaster.Load();
         GameData<Main>.Boot = this;
     }
     public void StartGame()
     {
-
         Interact.Init();
         var Ready = Interact.FindAll<IEnterInReady>();
         var Start = Interact.FindAll<IEnterInStart>();
@@ -86,7 +84,7 @@ public class Main : MonoBehaviour, IMain
             Element.Start();
         }
 
-
+        PeopleMaster.Load();
         LoadScene.gameObject.SetActive(true);
         GameData<Main>.IsStartGame = true;
         NextStep();
@@ -108,24 +106,22 @@ public class Main : MonoBehaviour, IMain
             StartCoroutine(Element.Enter());
         }
 
+        var PotionInfo = Interact.FindAll<PotionInfo>();
+        foreach (var Element in PotionInfo) {
+            Element.UpdateInfo();
+        }
+
         var GamaData = Interact.FindAll<GameDataInfo>();
         foreach (var Element in GamaData)
         {
             Element.LoadGameData();
         }
-      var PotionInfo = Interact.FindAll<PotionInfo>();
-      foreach (var Element in PotionInfo)
-      {
-          Element.UpdateInfo();
-      }
 
         Interact.FindAll<PeopleImplementation>();
         Interact.FindAll<PotionZone>();
 #if UNITY_EDITOR
         Interact.FindAll<MyDebug>();
 #endif
-        Interact.FindAll<PotionInfo>();
-
 
         var TutorialInfo = Interact.FindAll<TutorialInfo>();
         foreach (var Element in TutorialInfo)
@@ -150,6 +146,10 @@ public class Main : MonoBehaviour, IMain
         myCam = Camera.main;
 
         StartCoroutine(LoadScene.Load());
+
+        GameData<Main>.Reputation = 20;
+        GameData<Main>.Money = 100;
+        GameData<Main>.Win = false;
     }
 
     public GameObject AddCustomer(BasePeople Customer)

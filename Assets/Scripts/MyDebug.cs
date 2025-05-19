@@ -20,7 +20,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
-            GameData<Main>.Boot.Shop.Generatre(Random.Range(3, 7));
+            GameData<Main>.Boot.Shop.Generate(Random.Range(3, 7));
         }
         else if (Input.GetKeyDown(KeyCode.L))
         {

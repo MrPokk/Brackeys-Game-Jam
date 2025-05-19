@@ -8,6 +8,7 @@ public static class GameData<T> where T : IMain
 
 
     public const float MAX_REPUTATION = 100;
+    public static bool Win;
 
     public static float Reputation
     {
@@ -15,14 +16,13 @@ public static class GameData<T> where T : IMain
             return _Reputation;
         }
         set {
-            if (_Reputation > 0) {
-                foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
-                    Element.UpdateReputation(value - _Reputation);
-                }
-                _Reputation = value;
+            foreach (var Element in InteractionCache<GameDataInfo>.AllInteraction) {
+                Element.UpdateReputation(value - _Reputation);
             }
-            if (_Reputation >= MAX_REPUTATION) {
+            _Reputation = value;
+            if (Win == false && _Reputation >= MAX_REPUTATION) {
                 GameDataInfo.WinGame();
+                Win = true;
             }
             else if (_Reputation <= 0) {
                 GameDataInfo.LoseGame();
