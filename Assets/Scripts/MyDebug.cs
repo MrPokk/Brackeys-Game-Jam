@@ -25,7 +25,7 @@ class MyDebug : BaseInteraction, IEnterInUpdate
         else if (Input.GetKeyDown(KeyCode.L))
         {
             var list = CMS.Get<AllPotion>().PotionsPull;
-            FileWriter.Write(list);
+           // FileWriter.Write(list);
         }
     }
 

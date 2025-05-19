@@ -16,15 +16,9 @@ using MouseButton = UnityEngine.UIElements.MouseButton;
  Арт
  TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации +-
- TODO: Поменять шрифт +
- TODO: Постпроцесинг -
-
-
-
-
+ TODO: Поменять шрифт 
 
  TODO: Костер -
-
 
  Баги
  TODO: Можно кинуть предмет за край экрана;
