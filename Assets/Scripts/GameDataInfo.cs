@@ -64,11 +64,11 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
     {
         GameData<Main>.Boot.LosePopup.SetActive(true);
 
-        FileWriter.WriteLoss();
+//        FileWriter.WriteLoss();
     }
     public static void WinGame()
     {
         GameData<Main>.Boot.WinPopup.SetActive(true);
-        FileWriter.WriteWin();
+      //  FileWriter.WriteWin();
     }
 }
