@@ -66,6 +66,6 @@ public class ButtonBell : CustomButton
 
     public void ResetTrigger()
     {
-        Animator.SetBool("IsClick", false);
+        Animator.SetBool("IsClick", false); 
     }
 }

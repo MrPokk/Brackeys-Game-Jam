@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-
 namespace Engin.Utility
 {
  public static class TaskUtility

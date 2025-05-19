@@ -11,7 +11,7 @@ public static class FileWriter
     private const string fileType = ".dat";
 
     private static string pathOrder = "/DebugInfo/";
-    private static string sesionID = string.Empty;
+    private static string sesionID;
     public static async void Write(BasePeople people, Potion potion)
     {
 #if UNITY_EDITOR
@@ -21,8 +21,10 @@ public static class FileWriter
             sesionID = Random.Range(10000, 99999).ToString();
             pathOrder += sesionID + fileType;
         }
+
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
         fstream.Seek(0, SeekOrigin.End);
+
         StringBuilder sb = new StringBuilder(people.DataComponent.TypePoison.ID.ToString(), 64); 
         sb.Append(separator);
         sb.Append(people.DataComponent.Name.text); sb.Append(separator);
@@ -51,8 +53,10 @@ public static class FileWriter
         foreach (var potion in pull) {
             sb.Append($"{potion.Key.ID} {(int)potion.Key.Difity} {6 - (int)potion.Key.Difity} {potion.Value}\n");
         }
+
         byte[] input = Encoding.Default.GetBytes(sb.ToString());
         await fstream.WriteAsync(input, 0, input.Length);
+
         fstream.Close();
         Debug.Log("FileWriter pull potions");
 #endif

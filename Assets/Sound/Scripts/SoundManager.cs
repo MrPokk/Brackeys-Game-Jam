@@ -43,10 +43,6 @@ namespace SmallHedge.SoundManager
             }
         }
 
-        public static void SetVolume(SoundType sound, float volume)
-        {
-            
-        }
     }
 
     [Serializable]

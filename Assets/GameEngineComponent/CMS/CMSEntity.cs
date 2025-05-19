@@ -5,7 +5,7 @@ using Engin.Utility;
 
 public abstract class CMSEntity
 {
-    public List<IComponent> Components { get; set; } = new();
+    public List<IComponent> Components { get; protected set; } = new();
     public virtual ref T Define<T>(out T Component) where T : struct, IComponent
     {
         T RefComponent = new(); 
@@ -13,11 +13,11 @@ public abstract class CMSEntity
         return ref Component;
     }
     public abstract void RegisterComponents(params IComponent[] components);
-    public virtual T Get<T>(out T RefComponent) where T : struct, IComponent
+    public virtual void Get<T>(out T RefComponent) where T : struct, IComponent
     {
         foreach (var Element in Components) {
             if (Element is T Component)
-                return RefComponent = Component;
+                 RefComponent = Component;
         }
 
         throw new Exception("Component not found");

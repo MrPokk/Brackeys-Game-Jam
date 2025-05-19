@@ -17,6 +17,15 @@ public static class CMS
             CMSEntities.Add(Activator.CreateInstance(Element) as CMSEntity);
         }
     }
+    
+    public static void GetComponent<Component>(CMSEntity Entity, out Component RefComponent) where Component: struct, IComponent
+    {
+        foreach (var Element in Entity.Components) {
+            if (Element is Component ComponentEntity)
+                 RefComponent = ComponentEntity;
+        }
+        throw new Exception("Component not found");
+    }
 
     public static T Get<T>() where T : CMSEntity
     {
