@@ -25,7 +25,7 @@ public class ShopIngredients : StoreIngredients
         SetPoseTile();
     }
 
-    public void Generatre(int count)
+    public void Generate(int count)
     {
         transform.parent.gameObject.SetActive(true);
         DeleteAll();
