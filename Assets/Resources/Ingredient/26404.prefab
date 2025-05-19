@@ -100,20 +100,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 26404
-  Name: Chamomile Flower
+  Name: "\u0426\u0432\u0435\u0442\u043E\u043A \u0421\u043E\u043B\u043D\u0446\u0430"
   Description: One of the ingredients for the potion
   Price: 20
   Effects:
-  - Type: 1
+  - Type: 0
     Power: 3
-  - Type: 3
-    Power: 2
-  - Type: 4
+  - Type: 1
     Power: -1
-  - Type: 102
+  - Type: 2
     Power: 2
-  - Type: 103
-    Power: -1
 --- !u!61 &-6004431116956914163
 BoxCollider2D:
   m_ObjectHideFlags: 0

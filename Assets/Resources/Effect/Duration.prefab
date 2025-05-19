@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e9e3b195a700f4286abb6e541e6bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 102
-  NameEffect: Duration
+  ID: 2
+  NameEffect: "\u0412\u0440\u0435\u043C\u044F"
   NegativeName: 
   Color: {r: 0.6363475, g: 0.9433962, b: 0.838746, a: 0}

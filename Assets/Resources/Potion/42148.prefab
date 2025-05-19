@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6265807515243881561}
   - component: {fileID: 4378773657436420819}
   m_Layer: 0
-  m_Name: 27668
+  m_Name: 42148
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -4685416668901662704, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
+  m_Sprite: {fileID: 2150093281539963475, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,22 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6ee72d560dea439ca576332756a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 27668
-  Name: Vigor Potion
+  ID: 42148
+  Name: "\u042D\u043B\u0435\u043A\u0441\u0438\u0440 \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438"
   Descriptions: 
   Price: 20
   effects: []
   IDIngredients: 
   Priority: 0
-  Difity: 2
-  Level: 1
+  Difity: 1
   Recipe:
-  - Type: 1
-    Min: 4
-    Max: 6
-  - Type: 3
-    Min: 1
-    Max: 3
-  - Type: 101
-    Min: -2
+  - Type: 0
+    Min: 3
     Max: 20

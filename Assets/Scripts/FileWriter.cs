@@ -12,17 +12,17 @@ public static class FileWriter
     private const string fileType = ".dat";
 
     private static string pathOrder = "/DebugInfo/";
-    private static string sesionID;
+    private static string sessionID = string.Empty;
 
-    private static object Look;
-    public static Task Write(BasePeople people, Potion potion)
+    private static object Look = new object();
+    public static void Write(BasePeople people, Potion potion)
     {
 #if UNITY_EDITOR
-        if (sesionID == string.Empty) {
+        if (sessionID == string.Empty) {
             pathOrder = Directory.GetCurrentDirectory() + path;
             Directory.CreateDirectory(pathOrder);
-            sesionID = Random.Range(10000, 99999).ToString();
-            pathOrder += sesionID + fileType;
+            sessionID = Random.Range(10000, 99999).ToString();
+            pathOrder += sessionID + fileType;
         }
 
         FileStream fstream = new FileStream(pathOrder, FileMode.OpenOrCreate);
@@ -44,7 +44,6 @@ public static class FileWriter
             fstream.Close();
         } 
         Debug.Log("FileWriter people");
-        return default;
 #endif
     }
     public static async void Write(Dictionary<SamplePotion, int> pull)

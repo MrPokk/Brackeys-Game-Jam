@@ -10,15 +10,10 @@ public class Effect : MonoBehaviour
     public EffectType ID;
     public string Name {
         get {
-            if (ID > EffectType.BASIC && ID < EffectType.ADDITIONAL )
-            {
-                return ID.ToString();
-            }
             return NameEffect;
         }
     }
     [SerializeField] private string NameEffect;
-    public string NegativeName;
     public Color Color = Color.black;
 }
 

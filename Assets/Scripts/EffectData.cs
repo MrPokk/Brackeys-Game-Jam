@@ -69,19 +69,7 @@ public class EffectsMaster
 }
 public enum EffectType
 {
-    BASIC = 0,
     Energy,
-    Chaotic,
-    Sagacity,
     Magic,
-    Primary,
-
-    ADDITIONAL = 100,
-    Stability,
-    Duration,
-    Toxicity,
-
-    TASTES = 200,
-    Sweet,
-    Bitter
+    Duration
 }

@@ -9,7 +9,7 @@ public class Backquit : BasePeople
 
         people.Type = TypePeople.Customer;
         people.TypePoison = CMS.Get<AllPotion>().Bad;
-        people.IDsPotions = new[] { 28988 };
+        people.IDsPotions = new[] { 42148 };
 
         SetData(ref people);
 

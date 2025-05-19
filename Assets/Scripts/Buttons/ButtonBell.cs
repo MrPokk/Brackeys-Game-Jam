@@ -44,7 +44,7 @@ public class ButtonBell : CustomButton
                 if (potionZone.PotionIn != null)
                 {
                     Potion potion = potionZone.PotionIn.GetComponent<Potion>();
-                    FileWriter.Write(people, potion).Start();
+                    FileWriter.Write(people, potion);
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
                         int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 25;

@@ -96,8 +96,8 @@ public class Main : MonoBehaviour, IMain
 
     private void NextStep()
     {
-        //foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
-        foreach (var Element in CMS.Get<AllIngredients>().GetStartPull())
+        //foreach (var Element in CMS.Get<AllIngredients>().GetStartPull())
+        foreach (var Element in CMS.Get<AllIngredients>().Ingredients)
             Store.Add(Element);
 
         var PeopleUpdate = Interact.FindAll<PeopleImplementation>();
@@ -249,25 +249,26 @@ public class Main : MonoBehaviour, IMain
 
                     foreach (var Element in ingredient.Effects)
                     {
+                        var SelectEffect = CMS.Get<AllEffect>().GetAtID(Element.Type);
                         if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
                         {
                             var EffectCustomer = EffectsInCustomer.FirstOrDefault(x => x.Type == Element.Type);
                             if (EffectCustomer != null && EffectCustomer.Type == Element.Type)
                             {
-                                var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
+                                var Color = SelectEffect.Color;
                                 Color.a = 1f;
                                 var ColorHex = $"#{XColor.ToHexString(Color)}";
-                                EffectsInIngredient.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}:</color> {Element.Power}");
+                                EffectsInIngredient.Add($"<color={ColorHex}>{SelectEffect.Name.ToUpperInvariant()}:</color> {Element.Power}");
                             }
                             else
                             {
                                 var ColorBad = $"#373737";
-                                EffectsInIngredient.Add($"<color={ColorBad}>{Element.Type.ToString().ToUpperInvariant()}:</color> {Element.Power}");
+                                EffectsInIngredient.Add($"<color={ColorBad}>{SelectEffect.Name.ToUpperInvariant()}:</color> {Element.Power}");
                             }
                         }
                         else
                         {
-                            EffectsInIngredient.Add($"{Element.Type.ToString().ToUpperInvariant()}: {Element.Power}");
+                            EffectsInIngredient.Add($"{SelectEffect.Name.ToUpperInvariant()}: {Element.Power}");
                         }
                     }
 

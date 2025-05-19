@@ -97,7 +97,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                 
              
                 //Базовые эффекты 
-                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type < EffectType.ADDITIONAL)
+                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
@@ -116,37 +116,6 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
                     EffectsInCauldronTextEffect.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
                 }
-                else if (ElementCauldron.Type < EffectType.ADDITIONAL)
-                {
-                    var ColorBad = $"#373737";
-                    EffectsInCauldronTextEffect.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}</color>");
-                }
-                
-                //Дополнительные эффекты 
-                if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type && ElementCauldron.Type > EffectType.ADDITIONAL)
-                {
-                    var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
-                    Color.a = 1f;
-                    var ColorHex = $"#{XColor.ToHexString(Color)}";
-                    
-                    string ColorEffectHex;
-                    if (ElementCauldron.Power <= EffectCustomer.Max && ElementCauldron.Power >= EffectCustomer.Min)
-                    {
-                        ColorEffectHex = "#22f814";
-                        SoundManager.PlaySound(SoundType.CheckingPotion);
-                    }
-                    else
-                    {
-                        ColorEffectHex = "#de1111";
-                    }
-
-                    EffectsInCauldronTextAttributes.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
-                }
-                else if (ElementCauldron.Type > EffectType.ADDITIONAL)
-                {
-                    var ColorBad = $"#373737";
-                    EffectsInCauldronTextAttributes.Add($"<color={ColorBad}>{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}</color>");
-                }
             }
             else
             {
@@ -154,12 +123,11 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
             }
 
         }
-
         if (PeopleImplementation.Customer != null)
         {
             foreach (var Element in EffectsInCustomer)
             {
-                var Color = (CMS.Get<AllEffect>().GetAtID(Element.Type).Color);
+                var Color = CMS.Get<AllEffect>().GetAtID(Element.Type).Color;
                 Color.a = 1f;
                 var ColorHex = $"#{XColor.ToHexString(Color)}";
                 EffectsInCraftText.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}:</color> {Element.Min} <color=#595959>to</color> {Element.Max}");

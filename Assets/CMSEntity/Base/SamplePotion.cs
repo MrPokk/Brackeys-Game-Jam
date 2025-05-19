@@ -10,7 +10,6 @@ public class SamplePotion : Potion, IComparable<SamplePotion>
 {
     public int Priority;
     public Difity Difity;
-    public int Level;
     public List<EffectRange> Recipe = new();
 
     [ContextMenu("Generate ID")]
