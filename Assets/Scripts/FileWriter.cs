@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class FileWriter
@@ -12,7 +13,9 @@ public static class FileWriter
 
     private static string pathOrder = "/DebugInfo/";
     private static string sesionID = string.Empty;
-    public static async void Write(BasePeople people, Potion potion)
+
+    private static object Look;
+    public static Task Write(BasePeople people, Potion potion)
     {
 #if UNITY_EDITOR
         if (sesionID == string.Empty) {
@@ -34,9 +37,12 @@ public static class FileWriter
         sb.Append('\n');
 
         byte[] input = Encoding.Default.GetBytes(sb.ToString());
-        await fstream.WriteAsync(input, 0, input.Length);
-        fstream.Close();
+        lock (Look) {
+            fstream.Write(input, 0, input.Length);
+            fstream.Close();
+        } 
         Debug.Log("FileWriter people");
+        return default;
 #endif
     }
     public static async void Write(Dictionary<SamplePotion, int> pull)

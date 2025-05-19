@@ -75,7 +75,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
                 Element.UpdateInfo();
 
             if (Customer.DataComponent.Type == TypePeople.Trader) {
-                GameData<Main>.Boot.Shop.Generatre(10);
+                GameData<Main>.Boot.Shop.Generate(10);
             }
             
         }

@@ -107,8 +107,7 @@ public class AllPotion : CMSEntity
         if (priority != null) {
             if (CheckPotions(priority, atEffects)) return priority;
         }
-        foreach (SamplePotion potion in Potions)
-        {
+        foreach (SamplePotion potion in Potions) {
             if (CheckPotions(potion, atEffects)) {
                 return potion;
             }
@@ -126,7 +125,6 @@ public class AllPotion : CMSEntity
         }
         return true;
     }
-
     public override void RegisterComponents(params IComponent[] components)
     {
         throw new System.NotImplementedException();
