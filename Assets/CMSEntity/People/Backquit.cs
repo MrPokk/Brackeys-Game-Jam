@@ -19,8 +19,6 @@ public class Backquit : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Backquit";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Backquit>()}";
         return this;
     }
 

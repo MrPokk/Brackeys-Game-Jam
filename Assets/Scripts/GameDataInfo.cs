@@ -37,13 +37,13 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
             }).SetEase(Ease.InOutElastic);
         }
     }
-    public void UpdateReputation(float delta = 0)
+    public void UpdateReputation(int delta = 0)
     {
         var BaseReputation = GameData<Main>.Boot.TextManager.Get("Reputation");
 
         var PlusReputation = GameData<Main>.Boot.TextManager.Get("Reputation Plus");
 
-        PlusReputation.SetText(delta.ToString("0.0"));
+        PlusReputation.SetText(delta.ToString());
         if (delta > 0) PlusReputation.color = Color.green;
         else PlusReputation.color = Color.red;
         var BasePoseReputation = PlusReputation.transform.position;
@@ -51,8 +51,8 @@ class GameDataInfo : BaseInteraction, IUpdateGameData
 
         PlusReputation.gameObject.SetActive(true);
         PlusReputation.transform.DOMove(BaseReputation.transform.position, Main.AnimationMoveTime * 2).OnComplete(() => {
-            BaseReputation.SetText(GameData<Main>.Reputation.ToString("0.0"));
-            BaseReputation.text += $" / {GameData<Main>.MAX_REPUTATION}";
+            BaseReputation.SetText(GameData<Main>.Reputation.ToString());
+            //BaseReputation.text += $" / {GameData<Main>.MAX_REPUTATION}";
 
             PlusReputation.gameObject.SetActive(false);
 

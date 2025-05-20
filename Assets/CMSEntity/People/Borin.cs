@@ -19,8 +19,6 @@ public class Borin : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Borin";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Borin>()}";
         return this;
     }
 

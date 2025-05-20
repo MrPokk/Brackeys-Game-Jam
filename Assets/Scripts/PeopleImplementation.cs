@@ -51,14 +51,14 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             yield return new WaitForSeconds(1f);
             
             CustomerInGame = GameData<Main>.Boot.AddCustomer(Customer);
-            var Popup = CustomerInGame.transform.Find("Popup").gameObject;
-            Main.TogglePopup(Popup);
+        //    var Popup = CustomerInGame.transform.Find("Popup")?.gameObject;
+          //  Main.TogglePopup(Popup);
 
             yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointEndPeople.position, Main.AnimationMoveTime + 1f).SetEase(Ease.OutCirc).WaitForCompletion();
 
             yield return new WaitForSeconds(.5f);
 
-            Main.TogglePopup(Popup);
+           // Main.TogglePopup(Popup);
 
             if (CustomerInGame != null)
                 CustomerInGame.transform.DOComplete();
@@ -81,8 +81,8 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     public IEnumerator Exit()
     {
         if (CustomerInGame == null) yield break;
-        var Popup = CustomerInGame.transform.Find("Popup");
-        Main.TogglePopup(Popup.gameObject);
+//        var Popup = CustomerInGame.transform.Find("Popup");
+  //      Main.TogglePopup(Popup.gameObject);
         IsServiced = false;
         yield return CustomerInGame.transform.DOMove(GameData<Main>.Boot.PointStartPeople.position, Main.AnimationMoveTime).SetEase(Ease.InCirc).WaitForCompletion();
 
@@ -92,7 +92,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
             Customer = null;
         }
 
-        PotionInfo.ClosePopup<PeopleImplementation>();
+    //    PotionInfo.ClosePopup<PeopleImplementation>();
 
         GameData<Main>.Boot.GetComponent<MonoBehaviour>().StartCoroutine(Enter());
         yield break;

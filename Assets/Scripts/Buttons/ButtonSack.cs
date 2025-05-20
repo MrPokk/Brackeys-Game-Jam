@@ -9,8 +9,11 @@ using UnityEngine;
 public class ButtonSack : CustomButton
 {
     private SpriteRenderer spriteRenderer;
+               public string Name;
+    [TextArea] public string Description;
     public static float MoveSpeed = 2;
     public static bool BuyAnim = false;
+    public static Vector3 Shift = new Vector3 (0, 3, 0);
     public int count = 1;
     public int countCatalist = 1;
     public int price = 10;
@@ -21,6 +24,10 @@ public class ButtonSack : CustomButton
     public void Buy()
     {
         BuyAnim = true;
+        StartCoroutine(GenerateAll());
+    }
+    private int GetRandMin()
+    {
         var Ingredients = CMS.Get<AllIngredients>().Ingredients.Where(x => x is Catalyst == false).ToList();
         Dictionary<int, int> countIngredients = new();
         foreach (var item in Ingredients)
@@ -37,10 +44,6 @@ public class ButtonSack : CustomButton
             }
         }
 
-        StartCoroutine(GenerateAll(countIngredients));
-    }
-    private int GetRandMin(Dictionary<int, int> countIngredients)
-    {
         List<int> min = new();
         int minCount = int.MaxValue;
         foreach (var item in countIngredients)
@@ -61,18 +64,18 @@ public class ButtonSack : CustomButton
 
         return min[Random.Range(0, min.Count)];
     }
-    public IEnumerator GenerateAll(Dictionary<int, int> countIngredients)
+    public IEnumerator GenerateAll()
     {
         Vector3 oldPos = transform.position;
-        transform.DOMove(Vector3.zero, MoveSpeed).SetEase(Ease.InOutElastic);
+        transform.DOMove(GameData<Main>.Boot.Store.gameObject.transform.position + Shift, MoveSpeed).SetEase(Ease.InOutElastic);
         yield return new WaitForSeconds(MoveSpeed);
 
         int oldSortingOrder = spriteRenderer.sortingOrder;
-        spriteRenderer.sortingOrder = -1;
+        spriteRenderer.sortingOrder = 0;
 
         for (int i = 0; i < count; i++)
         {
-            yield return StartCoroutine(Generate(GetRandMin(countIngredients)));
+            yield return Generate(GetRandMin());
         }
         for (int i = 0; i < countCatalist; i++)
         {

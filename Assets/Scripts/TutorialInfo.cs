@@ -11,11 +11,11 @@ class TutorialInfo : BaseInteraction, IUpdateTutorialInfo
 
     public static List<string> TutorialTextList = new List<string>()
     {
-        "You can craft potions by adding the necessary ingredients to the cauldron.",
-        "These <color=#e7bb2a>panels display </color>information about the <color=#4080FF> client's potions</color> and the <color=#ff40FF>potions in your cauldron.</color>",
-        "To create a potion, it is necessary to match the <color=#e7bb2a>effects.</color>",
-        "When you click next <color=#4080FF>client.</color>",
-        "You will <color=#22f814>win</color> if the reputation is 100."
+        "Ваша задача готовить зелья, добавляя необходимые ингредиенты в котел.",
+        "На этих панелях <color=#e7bb2a> отображается </color>информация о <color=#4080FF> зельях клиента</color> и <color=#ff40FF>зельях в вашем котле.</color>",
+        "Чтобы создать зелье, необходимо, чтобы оно соответствовало <color=#e7bb2a>эффектам</color>.",
+        "Когда вы нажмете <color=#e7bb2a>колокольчик</color>, предоставив зелье, придёт следующий <color=#4080FF>клиент</color>.",
+        "Вы выиграете <color=#22f814>, если ваша репутация будет равна 100."
     };
     public void Update()
     {

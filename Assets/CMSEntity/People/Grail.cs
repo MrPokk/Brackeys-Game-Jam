@@ -18,8 +18,6 @@ public class Grail : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Grail";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Grail>()}";
         return this;
     }
 

@@ -21,8 +21,6 @@ public class Eldar : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Eldar";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Eldar>()}";
         return this;
     }
 

@@ -3,6 +3,7 @@ using SmallHedge.SoundManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -71,9 +72,12 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     {
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
-        List<EffectRange> EffectsInCustomer = new List<EffectRange>();
+        var EffectsInCustomer = new List<EffectRange>();
         if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type == TypePeople.Trader) return;
 
+        if (PeopleImplementation.Customer == null)
+            return;
+        
         EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
 
         var EffectsInCauldronTextAttributes = new List<string>();
@@ -85,7 +89,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
         foreach (var ElementCauldron in EffectsInCauldron)
         {
-
+            var SelectEffect = CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type);
             if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type != TypePeople.Trader)
             {
 
@@ -94,15 +98,14 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                         return true;
                     return false;
                 });
-                
-             
+
                 //Базовые эффекты 
                 if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
                     var ColorHex = $"#{XColor.ToHexString(Color)}";
-                    
+
                     string ColorEffectHex;
                     if (ElementCauldron.Power <= EffectCustomer.Max && ElementCauldron.Power >= EffectCustomer.Min)
                     {
@@ -114,12 +117,12 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                         ColorEffectHex = "#de1111";
                     }
 
-                    EffectsInCauldronTextEffect.Add($"<color={ColorHex}>{ElementCauldron.Type.ToString().ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
+                    EffectsInCauldronTextEffect.Add($"<color={ColorHex}>{SelectEffect.Name.ToUpperInvariant()}</color>: <color={ColorEffectHex}>{ElementCauldron.Power}</color>");
                 }
             }
             else
             {
-                EffectsInCauldronTextEffect.Add($"{ElementCauldron.Type.ToString().ToUpperInvariant()}: {ElementCauldron.Power}");
+                EffectsInCauldronTextEffect.Add($"{SelectEffect.Name.ToUpperInvariant()}: {ElementCauldron.Power}");
             }
 
         }
@@ -130,7 +133,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                 var Color = CMS.Get<AllEffect>().GetAtID(Element.Type).Color;
                 Color.a = 1f;
                 var ColorHex = $"#{XColor.ToHexString(Color)}";
-                EffectsInCraftText.Add($"<color={ColorHex}>{Element.Type.ToString().ToUpperInvariant()}:</color> {Element.Min} <color=#595959>to</color> {Element.Max}");
+                EffectsInCraftText.Add($"<color={ColorHex}>{CMS.Get<AllEffect>().GetAtID(Element.Type).Name.ToUpperInvariant()}:</color> {Element.Min} <color=#595959>до</color> {Element.Max}");
             }
         }
 
@@ -156,7 +159,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
         }
 
-        DescriptionAttributes.SetText(string.Join("\n", EffectsInCauldronTextAttributes));
+//        DescriptionAttributes.SetText(string.Join("\n", EffectsInCauldronTextAttributes));
         DescriptionEffect.SetText(string.Join("\n", EffectsInCauldronTextEffect));
 
         NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));

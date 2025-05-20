@@ -10,7 +10,7 @@ public static class GameData<T> where T : IMain
     public const float MAX_REPUTATION = 100;
     public static bool Win;
 
-    public static float Reputation
+    public static int Reputation
     {
         get {
             return _Reputation;
@@ -22,7 +22,7 @@ public static class GameData<T> where T : IMain
             _Reputation = value;
         }
     }
-    private static float _Reputation = 20;
+    private static int _Reputation = 0;
     public static int Money
     {
         get {
@@ -35,6 +35,6 @@ public static class GameData<T> where T : IMain
             _Money = value;
         }
     }
-    private static int _Money = 100;
+    private static int _Money = 20;
 
 }
