@@ -141,7 +141,7 @@ public class Main : MonoBehaviour, IMain
 
         StartCoroutine(LoadScene.Load());
 
-        GameData<Main>.Reputation = 20;
+        GameData<Main>.Reputation = 0;
         GameData<Main>.Money = 100;
         GameData<Main>.Win = false;
     }

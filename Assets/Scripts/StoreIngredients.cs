@@ -64,7 +64,7 @@ public class StoreIngredients : MonoBehaviour
 
             Vector3 Pose = gameObject.transform.position + space;
             Pose += Vector3.forward * (0.01f * i);
-            TilesList[i].transform.DOMove(Pose, Main.AnimationMoveTime).SetEase(Ease.InOutElastic);
+            TilesList[i].transform.DOMove(Pose, Main.AnimationMoveTime * 5).SetEase(Ease.InOutElastic);
 
         }
     }

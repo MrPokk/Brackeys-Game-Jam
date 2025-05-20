@@ -20,13 +20,6 @@ public static class GameData<T> where T : IMain
                 Element.UpdateReputation(value - _Reputation);
             }
             _Reputation = value;
-            if (Win == false && _Reputation >= MAX_REPUTATION) {
-                GameDataInfo.WinGame();
-                Win = true;
-            }
-            else if (_Reputation <= 0) {
-                GameDataInfo.LoseGame();
-            }
         }
     }
     private static float _Reputation = 20;
