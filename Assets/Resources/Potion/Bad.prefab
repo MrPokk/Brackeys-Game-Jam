@@ -97,13 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f6ee72d560dea439ca576332756a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 26072
-  Name: TRASH
+  ID: 0
+  Name: "\u041F\u043B\u043E\u0445\u043E\u0435"
   Descriptions: 
   Price: 0
   effects: []
   IDIngredients: 
   Priority: 100
   Difity: 0
-  Level: 0
   Recipe: []

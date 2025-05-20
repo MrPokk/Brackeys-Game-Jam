@@ -34,14 +34,7 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         if (Customer == null && !IsServiced)
         {
-            if (NexstPull == 0)
-            {
-                NexstPull = CountViaTrader;
-                PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 15) / 20), CountViaTrader);
-            }
             Customer = PeopleMaster.GetRandCustomer();
-            NexstPull--;
-
             Customer.ModifyDataSet();
 
             #if UNITY_EDITOR
@@ -106,7 +99,22 @@ public  class PeopleMaster
 
     private static List<BasePeople> pullCustomer = new();
     private static List<BasePeople> pullTrader = new();
-    public static BasePeople GetRandCustomer() => GetNexst(pullCustomer, customer);
+
+    //public static BasePeople GetRandCustomer() => GetNexst(pullCustomer, customer);
+    public static List<SamplePotion> pullPotions = new();
+    public static BasePeople GetRandCustomer()
+    {
+        if (pullPotions.Count == 0)
+        {
+            pullPotions.AddRange(CMS.Get<AllPotion>().Potions);
+        }
+        
+        BasePeople people = new Backquit();
+        SamplePotion potion = pullPotions[Random.Range(0, pullPotions.Count)];
+        pullPotions.Remove(potion);
+        people.SetPotion(potion);
+        return people;
+    }
     public static BasePeople GetRandTrader() => GetNexst(pullTrader, trader);
     public static BasePeople GetNexst(List<BasePeople> peoples, List<BasePeople> parent)
     {
