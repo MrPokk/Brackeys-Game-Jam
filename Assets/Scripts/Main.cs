@@ -58,9 +58,13 @@ public class Main : MonoBehaviour, IMain
 
     public const float ReputationDebuff = 5f;
 
-    public void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void CMSINIT()
     {
-        CMS.Init();
+        CMS.Init(); 
+    }
+    private void Awake()
+    {
         GameData<Main>.Boot = this;
     }
     public void StartGame()
