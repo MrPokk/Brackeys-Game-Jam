@@ -30,7 +30,7 @@ public class Cauldron : MonoBehaviour
         Offset = 0;
     }
 
-    private void Start()
+    private void Awake()
     {
         AllPotion = CMS.Get<AllPotion>();
         Animator = GetComponent<Animator>();
