@@ -239,7 +239,7 @@ public class Main : MonoBehaviour, IMain
                 }
                 else
                 {
-                    List<EffectRange> EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
+                    var EffectsInCustomer = PeopleImplementation.Customer.DataComponent.TypePoison.Recipe;
 
                     foreach (var Element in ingredient.Effects)
                     {
