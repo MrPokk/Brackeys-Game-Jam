@@ -45,7 +45,7 @@ public class Main : MonoBehaviour, IMain
     public GameObject LosePopup;
     public GameObject ToolKit;
 
-    private Camera myCam;
+    public Camera myCam { get; private set; }
     private Raise InTheHand;
 
     public Transform PointStartPeople;
