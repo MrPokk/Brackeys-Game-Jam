@@ -43,7 +43,7 @@ interface IUpdateGameData
 {
     void LoadGameData();
     void UpdateMoney(int delta);
-    void UpdateReputation(float delta);
+    void UpdateReputation(int delta);
 }
 
 

@@ -11,7 +11,7 @@ public class Ingredient : Raise, IComparable<Ingredient>
 {
     public int ID;
     public String Name;
-    public String Description;
+    [TextArea] public String Description;
     public int Price;
     public List<EffectData> Effects = new();
 

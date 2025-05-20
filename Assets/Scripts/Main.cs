@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using MouseButton = UnityEngine.UIElements.MouseButton;
 /*
@@ -141,8 +142,8 @@ public class Main : MonoBehaviour, IMain
 
         StartCoroutine(LoadScene.Load());
 
-        GameData<Main>.Reputation = 20;
-        GameData<Main>.Money = 100;
+        GameData<Main>.Reputation = 0;
+        GameData<Main>.Money = 20;
         GameData<Main>.Win = false;
     }
 
@@ -216,6 +217,15 @@ public class Main : MonoBehaviour, IMain
             Raise raise = ObjectHit.GetComponent<Raise>();
             if (raise == null)
             {
+                ButtonSack button = ObjectHit.GetComponent<ButtonSack>();
+                if (button != null)
+                {
+                    TextManager.Get("ToolKitNameObject").SetText(button.Name);
+                    TextManager.Get("ToolKitEffectObject").SetText(button.Description);
+                    TextManager.Get("ToolKitDescriptionObject").SetText($"Цена {button.price}");
+                    ToolKit.SetActive(true);
+                    return;
+                }
                 OffToolKit();
                 return;
             }
@@ -384,6 +394,16 @@ public class Main : MonoBehaviour, IMain
             PotionZone.Add(potion.gameObject);
         }
 
+        Vector3 pos = myCam.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = InTheHand.transform.position.z;
+        if (!GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(Camera.main), new Bounds(pos, Vector3.zero)))
+        {
+            Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)) * 0.9f;
+            Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)) * 0.9f;
+            pos.x = Mathf.Clamp(pos.x, min.x, max.x);
+            pos.y = Mathf.Clamp(pos.y, min.y, max.y);
+            InTheHand.transform.DOMove(pos, AnimationMoveTime).SetEase(Ease.InOutElastic);
+        }
         InTheHand = null;
     }
 

@@ -44,22 +44,16 @@ public class ButtonBell : CustomButton
                 if (potionZone.PotionIn != null)
                 {
                     Potion potion = potionZone.PotionIn.GetComponent<Potion>();
-              //      FileWriter.Write(people, potion);
+
                     if (potion.ID == people.DataComponent.TypePoison.ID)
                     {
-                        int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 25;
+                        int a = (int)PeopleImplementation.Customer.DataComponent.TypePoison.Difity * 10;
                         GameData<Main>.Money += a;
-                        GameData<Main>.Reputation += a * 0.4f;
+                        GameData<Main>.Reputation += 1;
                         potionZone.Delete();
                         PeopleImplementation.ExitAll();
-  
-                        return;
                     }
                 }
-                
-                GameData<Main>.Reputation -= Main.ReputationDebuff;
-             //   FileWriter.Write(people, null);
-                PeopleImplementation.ExitAll();
             }
         }
     }
