@@ -19,9 +19,6 @@ public class Mirabella : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Mirabella";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Mirabella>()}";
-
         return this;
     }
 

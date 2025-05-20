@@ -71,9 +71,12 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
     {
         var EffectsInCauldron = GameData<Main>.Boot.Cauldron.effectsMaster.Get();
 
-        List<EffectRange> EffectsInCustomer = new List<EffectRange>();
+        var EffectsInCustomer = new List<EffectRange>();
         if (PeopleImplementation.Customer != null && PeopleImplementation.Customer.DataComponent.Type == TypePeople.Trader) return;
 
+        if (PeopleImplementation.Customer == null)
+            return;
+        
         EffectsInCustomer.AddRange(PeopleImplementation.Customer.DataComponent.TypePoison.Recipe);
 
         var EffectsInCauldronTextAttributes = new List<string>();
@@ -94,15 +97,15 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
                         return true;
                     return false;
                 });
-                
-             
+
+
                 //Базовые эффекты 
                 if (EffectCustomer != null && EffectCustomer.Type == ElementCauldron.Type)
                 {
                     var Color = (CMS.Get<AllEffect>().GetAtID(ElementCauldron.Type).Color);
                     Color.a = 1f;
                     var ColorHex = $"#{XColor.ToHexString(Color)}";
-                    
+
                     string ColorEffectHex;
                     if (ElementCauldron.Power <= EffectCustomer.Max && ElementCauldron.Power >= EffectCustomer.Min)
                     {
@@ -156,7 +159,7 @@ class PotionInfo : BaseInteraction, IUpdatePotionInfo
 
         }
 
-        DescriptionAttributes.SetText(string.Join("\n", EffectsInCauldronTextAttributes));
+//        DescriptionAttributes.SetText(string.Join("\n", EffectsInCauldronTextAttributes));
         DescriptionEffect.SetText(string.Join("\n", EffectsInCauldronTextEffect));
 
         NeedCraftText.SetText(string.Join("\n", EffectsInCraftText));

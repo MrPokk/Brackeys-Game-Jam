@@ -18,8 +18,6 @@ public class Isolde : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Isolde";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Isolde>()}";
         return this;
     }
 

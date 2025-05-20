@@ -19,8 +19,7 @@ public class Seraphina : BasePeople
 
     public override BasePeople ModifyDataSet()
     {
-        DataComponent.Name.text = "Seraphina";
-        DataComponent.Description.text = $"{DialogueList.GetRandomDialogue<Seraphina>()}";
+     
         return this;
     }
 

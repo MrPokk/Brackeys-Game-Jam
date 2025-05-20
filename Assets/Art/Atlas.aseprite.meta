@@ -150,7 +150,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 64
+      y: 286
       width: 114
       height: 53
     spriteID: a91ac1bce681ef44087d01aaff1cc3d1
@@ -170,7 +170,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 133
-      y: 61
+      y: 283
       width: 30
       height: 9
     spriteID: e10b36558fec9374897842d5bb06a89f
@@ -190,7 +190,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 130
-      y: 32
+      y: 254
       width: 36
       height: 24
     spriteID: 5b2a00507d3ce434ca30684692f74f1d
@@ -209,11 +209,131 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
+      x: 189
+      y: 211
+      width: 76
+      height: 69
+    spriteID: 80fc0444903d973488bd6453c389e8a9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
       x: 18
-      y: 4
+      y: 226
       width: 152
       height: 23
-    spriteID: 80fc0444903d973488bd6453c389e8a9
+    spriteID: 86f492a6142eb1742aafc9ebbe3d87dc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 111
+      width: 174
+      height: 98
+    spriteID: 965dc2ec623bc1f49989cde3bfb0f795
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_6
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 6
+      y: 53
+      width: 91
+      height: 43
+    spriteID: cdb0d804ea4e8904492dff899ea14d30
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 109
+      y: 14
+      width: 150
+      height: 81
+    spriteID: 4a1e8902958b1d94fa18cb182a3f8bd5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 6
+      y: 4
+      width: 91
+      height: 43
+    spriteID: d60da675594685a44a5825551eb70e41
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_9
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 163
+      width: 101
+      height: 39
+    spriteID: ce7758579060c64438c06e544784f216
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -235,9 +355,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 63
-        y: 386
-        width: 166
-        height: 113
+        y: 164
+        width: 287
+        height: 335
       spriteId: 468d57e2559c8c4428d1c4cab9ab23b0
     linkedCells: []
     parentIndex: -1
