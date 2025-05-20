@@ -1659,8 +1659,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.247475, y: -0.0068793744}
-  m_SizeDelta: {x: 2.1737, y: 0.3194}
+  m_AnchoredPosition: {x: -10.328799, y: -0.081}
+  m_SizeDelta: {x: 2.0973, y: 0.3194}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &247128106
 MonoBehaviour:
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.10997683, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.008047402, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -2833,7 +2833,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.022547722, y: 0.69928193, z: 0.398333, w: 0.09605324}
+  m_margin: {x: 0.05623144, y: -0.0024585745, z: 0.043828428, w: 0.006087005}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -2900,8 +2900,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.84, y: -0.39000002}
-  m_SizeDelta: {x: 2.4941, y: 1.6113}
+  m_AnchoredPosition: {x: -10.2928, y: -0.7997}
+  m_SizeDelta: {x: 2.0833, y: 0.8584}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &509138977
 GameObject:
@@ -11518,7 +11518,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.20403922, y: 0.0077985525, z: 0.30330503, w: 0.015408322}
+  m_margin: {x: 0.063363194, y: 0.0077985525, z: 0.11198503, w: 0.015408322}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -11585,8 +11585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.2, y: 0.424}
-  m_SizeDelta: {x: 2.6113, y: 0.3322}
+  m_AnchoredPosition: {x: -10.3364, y: 0.424}
+  m_SizeDelta: {x: 2.1949, y: 0.3322}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1790642017
 GameObject:
@@ -11622,8 +11622,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -27.990005, y: 0.000010014}
-  m_SizeDelta: {x: 43.57, y: 43.571}
+  m_AnchoredPosition: {x: -33.270004, y: 0.00001001358}
+  m_SizeDelta: {x: 54.13, y: 43.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790642019
 MonoBehaviour:
@@ -11645,7 +11645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3328555184790628559, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
+  m_Sprite: {fileID: -3415180193573675002, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12204,7 +12204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3415180193573675002, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
+  m_Sprite: {fileID: 3328555184790628559, guid: 2726a5d53da6a6f4eb90c1ec6264993a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12257,7 +12257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48.469986, y: -1.7084732}
+  m_AnchoredPosition: {x: -48.469986, y: -2.2}
   m_SizeDelta: {x: 120.01999, y: 31.650002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1974786557
@@ -12280,7 +12280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reputation
+  m_text: Reputation DP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e37dfdb012791ef4781998b0cec48b5c, type: 2}
   m_sharedMaterial: {fileID: -7143583118942541289, guid: e37dfdb012791ef4781998b0cec48b5c, type: 2}
@@ -12307,7 +12307,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.65
+  m_fontSize: 28.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
