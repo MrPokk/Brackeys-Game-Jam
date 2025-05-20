@@ -50,12 +50,12 @@ public class Main : MonoBehaviour, IMain
 
     public const float ReputationDebuff = 5f;
 
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void CmsInit()
     {
         CMS.Init(); 
     }
+
     public void Awake()
     {
         GameData<Main>.Boot = this;

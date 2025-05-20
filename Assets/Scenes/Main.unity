@@ -3651,7 +3651,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba56680b107d4a54bf7b8fc3b9b0551e, type: 3}
   m_Name: 
@@ -4522,11 +4522,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afcf1e81e79ae642b2f2788be680cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  count: 1
+  Name: "\u041C\u0435\u0448\u043E\u043A"
+  Description: "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 2 \u0438\u043D\u0433\u0440\u0438\u0434\u0438\u0435\u043D\u0442\u0430
+    \u0438 1 \u043E\u0441\u043E\u0431\u0435\u043D\u043D\u044B\u0439"
+  count: 2
   countCatalist: 1
-  price: 10
+  price: 20
 --- !u!61 &630467370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6761,10 +6762,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afcf1e81e79ae642b2f2788be680cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  count: 1
-  countCatalist: 1
+  Name: "\u041C\u0435\u0448\u043E\u0447\u0435\u043A"
+  Description: "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 2 \u0438\u043D\u0433\u0440\u0438\u0434\u0438\u0435\u043D\u0442\u0430"
+  count: 2
+  countCatalist: 0
   price: 10
 --- !u!61 &1020562581
 BoxCollider2D:
@@ -12113,11 +12114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afcf1e81e79ae642b2f2788be680cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
-  count: 1
-  countCatalist: 1
-  price: 10
+  Name: "\u041A\u043E\u0440\u043E\u043B\u0435\u0432\u0441\u043A\u0438\u0439 \u041C\u0435\u0448\u043E\u043A"
+  Description: "\u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 2 \u0438\u043D\u0433\u0440\u0438\u0434\u0438\u0435\u043D\u0442\u0430
+    \u0438 2 \u043E\u0441\u043E\u0431\u0435\u043D\u043D\u044B\u0445"
+  count: 2
+  countCatalist: 2
+  price: 30
 --- !u!61 &1970708831
 BoxCollider2D:
   m_ObjectHideFlags: 0
