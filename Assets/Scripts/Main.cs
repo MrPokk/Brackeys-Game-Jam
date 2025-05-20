@@ -9,19 +9,11 @@ using UnityEngine;
 using MouseButton = UnityEngine.UIElements.MouseButton;
 /*
 
- Код
-
- на завтра
-
  Арт
- TODO: Перерисовать бэкграунд +-
  TODO: Добавить анимации +-
- TODO: Поменять шрифт 
 
  TODO: Костер -
 
- Баги
- TODO: Можно кинуть предмет за край экрана;
 
  */
 public class Main : MonoBehaviour, IMain
@@ -58,9 +50,14 @@ public class Main : MonoBehaviour, IMain
 
     public const float ReputationDebuff = 5f;
 
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void CmsInit()
+    {
+        CMS.Init(); 
+    }
     public void Awake()
     {
-        CMS.Init();
         GameData<Main>.Boot = this;
     }
     public void StartGame()

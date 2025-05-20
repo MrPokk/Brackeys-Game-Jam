@@ -741,7 +741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.787, y: 1.699}
+  m_AnchoredPosition: {x: 3.78, y: 1.217}
   m_SizeDelta: {x: 0.2959, y: 0.2959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &139735643
@@ -5597,7 +5597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &838743897
 Transform:
   m_ObjectHideFlags: 0
@@ -8568,6 +8568,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1370249276}
     m_Modifications:
     - target: {fileID: 475299919737117241, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4680713121728812314, guid: 09c43fca34fc95046ba0c9cfff7abf82, type: 3}
+    - target: {fileID: 475299919737117241, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
       propertyPath: m_SortingOrder
       value: 29
       objectReference: {fileID: 0}
@@ -8623,6 +8627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u0421auldronTutorial"
       objectReference: {fileID: 0}
+    - target: {fileID: 6453130655370452095, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5870177479072335257, guid: 09c43fca34fc95046ba0c9cfff7abf82, type: 3}
     - target: {fileID: 6453130655370452095, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
       propertyPath: m_SortingOrder
       value: 31
@@ -10732,6 +10740,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1131653942}
     m_Modifications:
     - target: {fileID: 475299919737117241, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4680713121728812314, guid: 09c43fca34fc95046ba0c9cfff7abf82, type: 3}
+    - target: {fileID: 475299919737117241, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
       propertyPath: m_SortingOrder
       value: 29
       objectReference: {fileID: 0}
@@ -10787,6 +10799,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u0421auldronTutorial"
       objectReference: {fileID: 0}
+    - target: {fileID: 6453130655370452095, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5870177479072335257, guid: 09c43fca34fc95046ba0c9cfff7abf82, type: 3}
     - target: {fileID: 6453130655370452095, guid: e30c9a686e8463848a7dd3f51851e273, type: 3}
       propertyPath: m_SortingOrder
       value: 31
