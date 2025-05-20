@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638833378838403370
+  platformSettingsDirtyTick: 638833564565126509
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -230,9 +230,9 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 18
-      y: 226
+      y: 227
       width: 152
-      height: 23
+      height: 24
     spriteID: 86f492a6142eb1742aafc9ebbe3d87dc
     spriteBone: []
     spriteOutline: []
@@ -250,7 +250,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 111
+      y: 104
       width: 174
       height: 98
     spriteID: 965dc2ec623bc1f49989cde3bfb0f795
@@ -342,6 +342,106 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: Atlas_10
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 18
+      y: 205
+      width: 64
+      height: 19
+    spriteID: c11ce333217844a4e8c4d0f83ca2ac82
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 288
+      width: 27
+      height: 32
+    spriteID: b71d66ca58911ea41a2769139eaf0803
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 225
+      y: 287
+      width: 27
+      height: 22
+    spriteID: e92db59aa7adde843af2ccfe389c53b2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_14
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 269
+      y: 288
+      width: 17
+      height: 21
+    spriteID: d2d4e9f4a6320f64392d3dbc3674dbeb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Atlas_15
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 20
+      y: 251
+      width: 23
+      height: 32
+    spriteID: 6f525a1d5eeccfe4dacd30320c2b06ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: 476950351
@@ -398,7 +498,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
-  generatePhysicsShape: 0
+  generatePhysicsShape: 1
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 512, y: 512}
