@@ -10,14 +10,14 @@ using Random = UnityEngine.Random;
 public class PeopleImplementation : BaseInteraction, IEnterInPeople
 {
     private const int CountViaTrader = 3;
-    private int NexstTrader = CountViaTrader;
+    private int NexstPull = CountViaTrader;
 
     public PeopleImplementation()
     {
         CustomerInGame = null;
         Customer = null;
         IsServiced = false;
-        NexstTrader = CountViaTrader;
+        NexstPull = CountViaTrader;
     }
 
     public GameObject CustomerInGame { get; private set; }
@@ -34,17 +34,14 @@ public class PeopleImplementation : BaseInteraction, IEnterInPeople
     {
         if (Customer == null && !IsServiced)
         {
-            if (NexstTrader == 0)
+            if (NexstPull == 0)
             {
-                Customer = PeopleMaster.GetRandTrader();
-                NexstTrader = CountViaTrader;
+                NexstPull = CountViaTrader;
                 PeopleMaster.GeneratePullOfDifity((Difity)(GameData<Main>.Reputation / 20), (Difity)((GameData<Main>.Reputation + 15) / 20), CountViaTrader);
             }
-            else
-            {
-                Customer = PeopleMaster.GetRandCustomer();
-                NexstTrader--;
-            }
+            Customer = PeopleMaster.GetRandCustomer();
+            NexstPull--;
+
             Customer.ModifyDataSet();
 
             #if UNITY_EDITOR
