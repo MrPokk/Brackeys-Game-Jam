@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using MouseButton = UnityEngine.UIElements.MouseButton;
 /*
@@ -78,7 +77,7 @@ public class Main : MonoBehaviour, IMain
         {
             Element.Start();
         }
-
+        myCam = Camera.main;
         PeopleMaster.Load();
         LoadScene.gameObject.SetActive(true);
         GameData<Main>.IsStartGame = true;
@@ -137,8 +136,6 @@ public class Main : MonoBehaviour, IMain
 
         PlusMoney.gameObject.SetActive(false);
         PlusReputation.gameObject.SetActive(false);
-
-        myCam = Camera.main;
 
         StartCoroutine(LoadScene.Load());
 
